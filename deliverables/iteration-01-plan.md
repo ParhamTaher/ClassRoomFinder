@@ -12,7 +12,7 @@ Our first two meetings served several purposes. These included group formation, 
 #### Roles & Responsibilities
 
 Team Leader / Scrum Master: Jaleel Grant
-Backend: Ishawant Sodhi, Angela Ziur, Jaleel Grant
+Backend: Ishawant Sodhi, Angela Ruiz, Jaleel Grant
 Full Stack: Shray Sharma, Parham Taher
 Database: Nicky Hunter
 Frontend and Visuals: Bence Linder
