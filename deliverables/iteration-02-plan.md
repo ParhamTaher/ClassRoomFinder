@@ -13,7 +13,7 @@
 
 Team Leader / Scrum Master: Jaleel Grant
 	* Ensures that deadlines are met are responsibilities fulfilled. Reminds group of meetings, expectations etc.
-Backend: Ishawant Sodhi, Angela Ziur, Jaleel Grant
+Backend: Ishawant Sodhi, Angela Ruiz, Jaleel Grant
 	* For this period, they will be concerned with the basic routing of the backend. This will include providing skeleton methods, connections to APIs, dummy inserts as well as beginning with the use of JDBC to connect the database.
 Full Stack: Shray Sharma, Parham Taher
 	* Assists with all sections, completing prescribed tasks and ensuring that all areas of the project are nearing being completed as expected.  
