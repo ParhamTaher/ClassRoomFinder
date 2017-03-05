@@ -38,7 +38,7 @@ our application.
 #### Decisions that turned out well
 
  * Everyone seems content with their role. Those who enjoy working with backend technologies are 
- assigned to the backend, and those that enjoy frontend work are assigned to the frontend.
+ assigned to the backend, and those that enjoy frontend work are assigned to the frontend. We came up with a temporary name for our app. We will call it DiscoverUofT. This name can be expanded to other universities for example, DiscoverYorkU, DiscoverRyU, etc. This name makes sense since our app allows the user to find lecture-slots, drop-in times, schedules, and empty classrooms/fields, hence using the word discover.
 
 
 #### Decisions that did not turn out as well as we hoped
