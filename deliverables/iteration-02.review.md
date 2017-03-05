@@ -34,12 +34,12 @@ campus. The results of our questionnaire definitely indicated a need for
 our application.
 
 
-#### Decisions that turned out well
 
-List process-related (i.e. team organization) decisions that, in retrospect, turned out to be successful.
+#### Decisions that turned out well
 
  * Everyone seems content with their role. Those who enjoy working with backend technologies are 
  assigned to the backend, and those that enjoy frontend work are assigned to the frontend.
+
 
 #### Decisions that did not turn out as well as we hoped
 
@@ -49,7 +49,6 @@ List process-related (i.e. team organization) decisions that, in retrospect, tur
  * All of the members of the group have been busier than anticipated. The individual 
  assignments for this course seem to be taking much more time to complete than previously
  thought. This has impacted group member contributions to the course project.
-
 
 
 #### Planned changes
@@ -78,6 +77,7 @@ List process-related (i.e. team organization) decisions that, in retrospect, tur
  not completed. The group member was not present to complete the task.
  * Not all group members are attending meetings.
  * Group members were not able to meet in person on Sundays.
+
 
 ## Meeting Highlights
 
