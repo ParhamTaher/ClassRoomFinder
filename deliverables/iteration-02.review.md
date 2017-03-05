@@ -63,6 +63,7 @@ our application.
  * For the booking system, instead of implementing a log in system that requires a username and
  password, we are going to implement a system that writes a message upon a user click that indicates
  a room is occupied. This would make the booking system faster and much easier to use.
+ * Bence will provide the voice over for the video.
 
 
 ## Product - Review
