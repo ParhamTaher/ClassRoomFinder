@@ -11,16 +11,25 @@
 
 #### Roles & Responsibilities
 
-Team Leader / Scrum Master: Jaleel Grant
-	* Ensures that deadlines are met are responsibilities fulfilled. Reminds group of meetings, expectations etc.
-Backend: Ishawant Sodhi, Angela Ruiz, Jaleel Grant
-	* For this period, they will be concerned with the basic routing of the backend. This will include providing skeleton methods, connections to APIs, dummy inserts as well as beginning with the use of JDBC to connect the database.
-Full Stack: Shray Sharma, Parham Taher
-	* Assists with all sections, completing prescribed tasks and ensuring that all areas of the project are nearing being completed as expected.  
-Database: Jaleel Grant
-	* For this stage, providing the database for our group includes coming up with Entity Relationship Diagrams followed by creation fo the schema by the prescribed date. 
-Frontend and Visuals: Bence Linder, Shray Sharma
-	* Creation and maintenance of the final front end mockups and video demo presentation for submission three days before the due date to handle any unexpected errors.
+**Team Leader / Scrum Master:** Jaleel Grant 
+
+* Ensures that deadlines are met are responsibilities fulfilled. Reminds group of meetings, expectations etc.
+
+**Backend:** Ishawant Sodhi, Angela Ruiz, Jaleel Grant
+
+* For this period, they will be concerned with the basic routing of the backend. This will include providing skeleton methods, connections to APIs, dummy inserts as well as beginning with the use of JDBC to connect the database.
+
+**Full Stack:** Shray Sharma, Parham Taher
+
+* Assists with all sections, completing prescribed tasks and ensuring that all areas of the project are nearing being completed as expected.  
+
+**Database:** Jaleel Grant
+
+* For this stage, providing the database for our group includes coming up with Entity Relationship Diagrams followed by creation fo the schema by the prescribed date. 
+
+**Frontend and Visuals:** Bence Linder, Shray Sharma
+
+* Creation and maintenance of the final front end mockups and video demo presentation for submission three days before the due date to handle any unexpected errors.
 
 These are given primarily as a guideline for the future of the project. However, group members may work on/be required to work on several aspects of the overall product as needed.
 
@@ -46,15 +55,13 @@ These are given primarily as a guideline for the future of the project. However,
 
 #### Git / GitHub workflow
 
-Describe your Git / GitHub workflow.     
-Essentially, we want to understand how your team members share a codebase and avoid conflicts.
+We're using a pretty simple (and common) GitHub workflow. We chose this workflow because it's a very simple process but still effective. As a result, it's easy for team members to learn the process and hard for us to make mistakes resulting in less conflicts, rollbacks, etc.
 
- * Be concise, yet precise.      
-For example, "we use pull-requests" is not a precise statement since it leaves too many open questions - Pull-requests from where to where? Who reviews the pull-requests? Who is responsible for merging them? etc.
- * If applicable, specify any naming conventions or standards you decide to adopt.
- * Don't forget to **explain why** you chose this workflow.
-
-
+* The master branch is always stable, everything in it must be tested and working, it should always be safe to branch off of or deploy.
+* When working on something new, team members must create a descriptively named branch off of master (e.g. search-buildings-page).
+* Commit to this branch on your local machine but still push your work to the same branch in the team repo. This makes sure our work is always backed up and, since we don't have to worry about master being affected, it won't cause confusion with another member's code.
+* If in need of feedback or help, open a pull request highlighting the issue and other members can offer tips/guidance. If you think you're finished and are ready to merge, open a pull request (or use the one above if applicable) and state that you think you're finished.
+* After at least one other member has reviewed the pull request and signed off on it, you can merge the branch into master. Signing off can be anything from "Looks good." or a "+1" as long as it's clear that the reviewer has approved it.
 
 ## Product
 
