@@ -1,30 +1,31 @@
 DROP TABLE IF EXISTS buildings CASCADE;
-DROP TABLE IF EXISTS bookings CASCADE;
 DROP TABLE IF EXISTS classrooms CASCADE;
+DROP TABLE IF EXISTS bookings CASCADE;
 
 
-CREATE TABLE building 
+CREATE TABLE buildings 
 (
-    building_id PRIMARY KEY,
+    building_id SERIAL PRIMARY KEY,
     name TEXT NOT NULL UNIQUE,
-    address VARCHAR(50),
-    number_of_classrooms integer,
+    address VARCHAR(50) NOT NULL,
+    number_of_classrooms integer NOT NULL,
     closing_time TIMESTAMP
 );
 
 CREATE TABLE classrooms
 (
-    room_id PRIMARY KEY,
-    code VARCHAR(10),
-    occupancy integer,
+    room_id SERIAL PRIMARY KEY,
+    code VARCHAR(10) NOT NULL,
+    occupancy integer NOT NULL
 );
 
 CREATE TABLE bookings
 (
-    classroom_id FOREIGN KEY,
-    building_id FOREIGN KEY,
-    name VARCHAR(30),
+	booking_id SERIAL PRIMARY KEY,
+    classroom_id int NOT NULL REFERENCES classrooms (room_id),
+    building_id int NOT NULL REFERENCES buildings (building_id),
+    name VARCHAR(30) NOT NULL,
     message VARCHAR(50),
-    duration integer,
-    date DATE,
+    duration integer NOT NULL,
+    booking_date DATE NOT NULL
 );
