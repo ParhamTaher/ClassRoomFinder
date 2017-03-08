@@ -1,7 +1,7 @@
 var express = require('express');
 var Promise = require('bluebird');
 var logger = require('tracer').console();
-
+var queryService = require('./db/query-service');
 
 var postService = (function() {
   return {
@@ -9,7 +9,7 @@ var postService = (function() {
       Inserts a new post into the posts table
     */
     insertPost: function(payload) {
-		// Must connect to a database    
+		return queryService.insert('buildings', 'string with column headers', []); 
 	},
   };
 }();
