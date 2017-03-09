@@ -1,0 +1,23 @@
+Progress Report 
+=========================================================================
+
+- Nicki left the group so DB responsibilities transfered to Jaleel
+- Ishwant, Jaleel & Angela - backend
+- Parham, Bence & Shray - front-end
+
+
+
+
+
+
+         Task						|			Status
+------------------------------------|-------------------------------------------
+complete ERDs						|			done
+draft sample DB						|			done
+front-end files						| 			in-progress
+mock-ups							|			completed
+GitHub Workflow						|			completed 
+routes and server establishment		|			completed
+video								|			will be completed by submission
+minutes of meeting and tidying		|			will be completed by submission 
+
