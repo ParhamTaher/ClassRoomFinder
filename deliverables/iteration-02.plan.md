@@ -54,8 +54,8 @@ These are given primarily as a guideline for the future of the project. However,
 	* Green Section - may complete whenever free time is available or may be indefinitely postponed. 
 * Overall, scrum master will coordinate and ensure that tasks are being completed by the deadlines for submission.
 * Tasks are assigned to group members for completion at every Sunday meeting and reviewed at Thursday meetings. 
-* [Progress Reports](artifacts/progress_reports.txt) produced and published displaying tasks and what stage they were at with respect to completion.
-* [Draft to-do lists](artifacts/draft to-do-list [march 9]) createdd rougly by Jaleel at meetings and discussions and transferred to [professional artifacts](artifacts/to-do-list [march 9]) at later times.
+* [Progress Reports](artifacts/progress_report.txt) produced and published displaying tasks and what stage they were at with respect to completion.
+* [Draft to-do lists](artifacts/draft to-do-list [march 2].png) createdd rougly by Jaleel at meetings and discussions and transferred to [professional artifacts](artifacts/to-do-list [march 9]) at later times.
 
 
 #### Git / GitHub workflow
@@ -86,6 +86,6 @@ We're using a pretty simple (and common) GitHub workflow. We chose this workflow
 To present the project idea the following items will be produced:
 
 * [Demo video](video) - a video showcasing the features, interface and user interactiosn of the project. This will allow viewers to get a feel for the completed project and generate excitement for compeltion. 
-* [Final front-end mockups](artifacts/Desktop\ Mockups/DesktopMockups.png) - along with the video these mockups will provide a more hands-on presentation of the projection to be shown as slides as well as distributed hard copies during the presentatiion period.
+* [Final front-end mockups](artifacts/Desktop Mockup/DesktopMockup.png) - along with the video these mockups will provide a more hands-on presentation of the projection to be shown as slides as well as distributed hard copies during the presentatiion period.
 * [Schema](backend/db.sql) - organization of relations and field in them
 * [Entity Relationship Diagrams](artifacts/ERD.pdf) - displaying these diagrams ensures that persons can be aware of the final user and how the information will be stored and processed in order to present a clean final product to their screens. 
