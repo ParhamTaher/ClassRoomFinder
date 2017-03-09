@@ -3,7 +3,7 @@
 ## Iteration 02
 
  * Start date: Thursday 16 February 2017
- * End date: Thursday 2 March 2017
+ * End date: Thursday 9 March 2017
 
 ## Process
 
@@ -41,17 +41,22 @@ These are given primarily as a guideline for the future of the project. However,
  * Wednesday 22nd February meeting of Ishwant and Jaleel in Bahen to begin to work on connections for the backend. 
  * Online meeting Sunday 26th February. Preparations for the upcoming week are to be discussed along with the progress report of all ongoing assignments by each group member. 
  * In-person meeting Thursday 2nd March. In this meeting progress reports will be given, front end mockups looked at and discussed for changes and prepartions for submisison for the next phase outlined. Here we will do our review meeting and begin the next phase of the project.
+ * In-person Wednesday 8th March meetings of backend and frontend groups to finalize their respective contribution. These took place in Bahen.
+ * In-person meeting Thursday 9th March. In this meeting we discussed progress reports and submission as well as plans and adjustments for the future. 
 
 
 #### Artifacts
 
-* Members will maintain personal to-do lists and schedules of upcoming deadlines. This will be synchronized with a group to-do list which is easily available in the Facebook group chat or on Discord, updated frequently.
+* Members will maintain personal to-do lists and schedules of upcoming deadlines. This will be synchronized with a [group to-do list](artifacts/to-do-list [march 9]) which is easily available in the Facebook group chat or on Discord, updated frequently.
 * The group task board will comprise of 3 sections:
 	* Red Section - requires immediate attention/completion.
 	* Yellow Section - requires completion throughout the week.
 	* Green Section - may complete whenever free time is available or may be indefinitely postponed. 
 * Overall, scrum master will coordinate and ensure that tasks are being completed by the deadlines for submission.
 * Tasks are assigned to group members for completion at every Sunday meeting and reviewed at Thursday meetings. 
+* [Progress Reports](artifacts/progress_reports.txt) produced and published displaying tasks and what stage they were at with respect to completion.
+* [Draft to-do lists](artifacts/draft to-do-list [march 9]) createdd rougly by Jaleel at meetings and discussions and transferred to [professional artifacts](artifacts/to-do-list [march 9]) at later times.
+
 
 #### Git / GitHub workflow
 
@@ -80,6 +85,7 @@ We're using a pretty simple (and common) GitHub workflow. We chose this workflow
 
 To present the project idea the following items will be produced:
 
-* Demo video - a video showcasing the features, interface and user interactiosn of the project. This will allow viewers to get a feel for the completed project and generate excitement for compeltion. 
-* Final front-end mockups - along with the video these mockups will provide a more hands-on presentation of the projection to be shown as slides as well as distributed hard copies during the presentatiion period.
-* Entity Relationship Diagrams - displaying these diagrams ensures that persons can be aware of the final user and how the information will be stored and processed in order to present a clean final product to their screens. 
+* [Demo video](video) - a video showcasing the features, interface and user interactiosn of the project. This will allow viewers to get a feel for the completed project and generate excitement for compeltion. 
+* [Final front-end mockups](artifacts/Desktop Mockups/DesktopMockups.png) - along with the video these mockups will provide a more hands-on presentation of the projection to be shown as slides as well as distributed hard copies during the presentatiion period.
+* [Schema](backend/db.sql) - organization of relations and field in them
+* [Entity Relationship Diagrams](artifacts/ERD.pdf) - displaying these diagrams ensures that persons can be aware of the final user and how the information will be stored and processed in order to present a clean final product to their screens. 
