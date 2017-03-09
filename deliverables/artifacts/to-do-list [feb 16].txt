@@ -1,0 +1,42 @@
+
+
+
+To Do:
+=========================================================
+-	Professional Mockups ==> Bence, Parham & Angela
+
+-	Questionnaire ==> ...
+
+-	Assign tasks to group
+
+-	Databse ==> Nicky & ...
+		-beginning with ER diagram 
+		-schema comes after
+		-we will be using SQL
+
+-	Basic routing of backend ==> Ishwant, Jaleel & Shray
+		-skeleton methods
+		-connections
+		-dummy inserts
+		-using JDBC
+
+
+
+Prog. Language
+=========================================================
+-	Node JS
+-	May link java and javascript for the backend OR just Node JS
+
+
+
+Deadlines
+==========================================================
+-	Sunday February 19
+		-Questionnaire
+-	Tuesday February 21
+		-Questionnaire results
+-	Sunday February 26
+		-ER diagrams 
+		-Front end mockups
+-	Week after reading week
+		-Backend (basic routing, api connection)
