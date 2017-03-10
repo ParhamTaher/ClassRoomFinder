@@ -3,7 +3,7 @@
 
 ## Iteration 02 - Review & Retrospect
 
- * When: Thursday March 2 2017
+ * When: Thursday March 9 2017
  * Where: BA2195
 
 ## Process - Reflection
@@ -66,8 +66,7 @@ our application.
 
 #### Goals and/or tasks that were met/completed:
 
- * The questionnaire was completed. 
- Link: https://docs.google.com/forms/d/1YfwOuJoAavPKs1ViHwh4KxzeTWRXFWZJYdI62TvnkkI/edit?usp=sharing
+ * The [questionnaire](https://docs.google.com/forms/d/1YfwOuJoAavPKs1ViHwh4KxzeTWRXFWZJYdI62TvnkkI/edit?usp=sharing) was completed. 
  * The front end design was finalized.
  * Backend functionality and routes implemented [here](backend/).
  * Database structured and sample data added and [ERDs](artifacts/ERD.pdf) created.
