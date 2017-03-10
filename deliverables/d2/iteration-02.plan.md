@@ -33,10 +33,14 @@
 
 These are given primarily as a guideline for the future of the project. However, group members may work on/be required to work on several aspects of the overall product as needed.
 
+These roles and responsibilities were chosen keeping in mind what the group members were comfortable with, in the scope of the project. We also adjusted and refocused roles based on challenges being faced and strong personal qualities/traits present in each member.
+
+
+
 #### Events
 
  * In-person meeting Thursday 16th February in BA2195 where we outlined to-do lists as well as the tasks each member should complete or be completing during the reading week break.
- * Online meeting on Sunday 19th February. This meeting is to discuss the to-do list and expectations of each member for the reading week.
+ * Online meeting on Sunday 19th February. This meeting is to discuss the to-do list and expectations of each member for the reading week.
  * Online meeting on Tuesday 21st February. This meeting's purpose included discussion of tasks to be completed by this date as well as the synchronization of tasks and subgroups.
  * Wednesday 22nd February meeting of Ishwant and Jaleel in Bahen to begin to work on connections for the backend. 
  * Online meeting Sunday 26th February. Preparations for the upcoming week are to be discussed along with the progress report of all ongoing assignments by each group member. 
