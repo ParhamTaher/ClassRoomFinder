@@ -68,6 +68,8 @@ We're using a pretty simple (and common) GitHub workflow. We chose this workflow
 * If in need of feedback or help, open a pull request highlighting the issue and other members can offer tips/guidance. If you think you're finished and are ready to merge, open a pull request (or use the one above if applicable) and state that you think you're finished.
 * After at least one other member has reviewed the pull request and signed off on it, you can merge the branch into master. Signing off can be anything from "Looks good." or a "+1" as long as it's clear that the reviewer has approved it.
 
+Github has really streamlined our development process, especially since we have 6 total group members, it is hard to manage without it. Its very useful as we can easily see other peoples progress and see what they have been working on. The master branch will always have a working copy, so every group member has access to the main project and can pull changes to their local machine and start working right away. The master branch will always be kept clean as each group member works on their own separate branch and only merge what is working. Another benefit we have noticed is if for example a group member is stuck on a particular part of the project, he or she can open a pull request to receive help.
+
 ## Product
 
 #### Goals and tasks
