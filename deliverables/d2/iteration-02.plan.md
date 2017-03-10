@@ -90,7 +90,7 @@ We're using a pretty simple (and common) GitHub workflow. We chose this workflow
 To present the project idea the following items will be produced:
 
 * [Demo video](video) - a video showcasing the features, interface and user interactions of the project. This will allow viewers to get a feel for the completed project and generate excitement for completion. 
-* [Final front-end mockups](artifacts/Desktop Mockups/DesktopMockups.png) - along with the video these mockups will provide a more hands-on presentation of the projection to be shown as slides as well as distributed hard copies during the presentation period.
+* [Final front-end mockups](artifacts/Desktop Mockup/DesktopMockup.png) - along with the video these mockups will provide a more hands-on presentation of the projection to be shown as slides as well as distributed hard copies during the presentation period.
 * [Schema](backend/db.sql) - organization of relations and field in them
 * [Entity Relationship Diagrams](artifacts/ERD.pdf) - displaying these diagrams ensures that persons can be aware of the final user and how the information will be stored and processed in order to present a clean final product to their screens. 
 
