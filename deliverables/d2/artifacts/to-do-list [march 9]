@@ -1,14 +1,3 @@
-Meeting Minutes
-
-- Despite the fact that many group members had been busier than we anticipated, we managed to create the backend just in time
-- We have a running server connected to a database 
-- We are hosting the server on Heroku
-- We still need to create the UI, which shouldn't take long
-- We settled on FluidUI, which has a free version
-- The ERD diagrams that had been assigned to our group member that dropped the course have been reassigned to Jaleel, who finished them
-- We have been using Facebook messenger to communicate. The group members prefer this 
-to meeting in person.
-
 To-do List 
 
 - add github workflow (how useful it was, how it helped us[parllel programming])
