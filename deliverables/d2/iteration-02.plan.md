@@ -41,12 +41,12 @@ These roles and responsibilities were chosen keeping in mind what the group memb
 
  * In-person meeting Thursday 16th February in BA2195 where we outlined to-do lists as well as the tasks each member should complete or be completing during the reading week break.
  * Online meeting on Sunday 19th February. This meeting is to discuss the to-do list and expectations of each member for the reading week.
- * Online meeting on Tuesday 21st February. This meeting's purpose included discussion of tasks to be completed by this date as well as the synchronization of tasks and subgroups.
- * Wednesday 22nd February meeting of Ishwant and Jaleel in Bahen to begin to work on connections for the backend. 
- * Online meeting Sunday 26th February. Preparations for the upcoming week are to be discussed along with the progress report of all ongoing assignments by each group member. 
- * In-person meeting Thursday 2nd March. In this meeting progress reports will be given, front end mockups looked at and discussed for changes and preparations for submission for the next phase outlined. Here we will do our review meeting and begin the next phase of the project.
- * In-person Wednesday 8th March meetings of backend and frontend groups to finalize their respective contribution. These took place in Bahen.
- * In-person meeting Thursday 9th March. In this meeting we discussed progress reports and submission as well as plans and adjustments for the future. 
+ * Online meeting on Tuesday 21st February. This meeting's purpose included discussion of tasks to be completed by this date as well as the synchronization of tasks and subgroups.
+ * Wednesday 22nd February meeting of Ishwant and Jaleel in Bahen to begin to work on connections for the backend. 
+ * Online meeting Sunday 26th February. Preparations for the upcoming week are to be discussed along with the progress report of all ongoing assignments by each group member. 
+ * In-person meeting Thursday 2nd March. In this meeting progress reports will be given, front end mockups looked at and discussed for changes and preparations for submission for the next phase outlined. Here we will do our review meeting and begin the next phase of the project.
+ * In-person Wednesday 8th March meetings of backend and frontend groups to finalize their respective contribution. These took place in Bahen.
+ * In-person meeting Thursday 9th March. In this meeting we discussed progress reports and submission as well as plans and adjustments for the future. 
 
 
 #### Artifacts
