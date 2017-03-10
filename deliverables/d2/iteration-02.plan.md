@@ -59,7 +59,7 @@ These roles and responsibilities were chosen keeping in mind what the group memb
 * Overall, scrum master will coordinate and ensure that tasks are being completed by the deadlines for submission.
 * Tasks are assigned to group members for completion at every Sunday meeting and reviewed at Thursday meetings. 
 * [Progress Reports](artifacts/progress_report.txt) produced and published displaying tasks and what stage they were at with respect to completion.
-* [Draft to-do lists](artifacts/draft to-do-list [march 9]) created roughly by Jaleel at meetings and discussions and transferred to [professional artifacts](artifacts/to-do-list [march 9]) at later times.
+* [Draft to-do lists](artifacts/draft to-do-list [march 2]) created roughly by Jaleel at meetings and discussions and transferred to [professional artifacts](artifacts/to-do-list [march 9]) at later times.
 
 
 #### Git / GitHub workflow
