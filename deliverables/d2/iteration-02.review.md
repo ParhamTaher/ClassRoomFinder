@@ -69,7 +69,7 @@ our application.
  * The [questionnaire](https://docs.google.com/forms/d/1YfwOuJoAavPKs1ViHwh4KxzeTWRXFWZJYdI62TvnkkI/edit?usp=sharing) was completed. 
  * The front end design was finalized.
  * Backend functionality and routes implemented [here](backend/).
- * Database structured and [sample data added](artifacts/added.png) and [ERDs](artifacts/ERD.pdf) created.
+ * Database structured and [sample data added](artifacts/Screen Shot 2017-03-10 at 2.17.32 PM.png) and [ERDs](artifacts/ERD.pdf) created.
  * The required [Demo video](https://www.youtube.com/watch?v=dCPwDSkWu0s) was created.
 
 
