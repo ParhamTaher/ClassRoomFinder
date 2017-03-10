@@ -40,7 +40,7 @@ our application.
  * Everyone seems content with their role. Those who enjoy working with backend technologies are 
  assigned to the backend, and those that enjoy frontend work are assigned to the frontend. 
  * We came up with a temporary name for our web-app. We will call it DiscoverUofT. This name can be expanded to other universities, if needed. For example, DiscoverYorkU, DiscoverRyU, etc. This name makes sense since our app allows the user to find lecture-slots, drop-in times, schedules, and empty classrooms/fields, hence using the word discover.
- * We began to start keeping [minutes](artifacts/minutes) of every meeting. This ensure that group members could easily be reminded of what was discussed in meetings as well as those who were unable to attend could be notified of developments. 
+ * We began to start keeping [minutes](artifacts/minutes) of every meeting. This ensures that group members could easily be reminded of what was discussed in meetings as well as those who were unable to attend could be notified of developments. 
 
 
 #### Decisions that did not turn out as well as we hoped
