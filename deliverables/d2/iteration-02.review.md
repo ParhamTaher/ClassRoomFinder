@@ -77,7 +77,7 @@ our application.
 #### Goals and/or tasks that were planned but not met/completed:
 
  * Not all group members are attending meetings.
- * Intended to complete the entire front-end by the end of the current iteration but settled for the required functionality shown in the [mockups](Desktop Mockup). We will complete the entire front-end by the next iteration instead.
+ * Intended to complete the entire front-end by the end of the current iteration but settled for the required functionality shown in the [mockups](artifacts/Desktop Mockup). We will complete the entire front-end by the next iteration instead.
 
 
 ## Meeting Highlights
