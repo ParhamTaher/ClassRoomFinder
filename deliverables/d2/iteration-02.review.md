@@ -71,6 +71,7 @@ our application.
  * The front end design was finalized.
  * Backend functionality and routes implemented [here](backend/).
  * Database structured and sample data added and [ERDs](artifacts/ERD.pdf) created.
+ * The required [Demo video](https://www.youtube.com/watch?v=dCPwDSkWu0s) was created.
 
 
 #### Goals and/or tasks that were planned but not met/completed:
