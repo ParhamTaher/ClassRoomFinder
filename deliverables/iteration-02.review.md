@@ -38,25 +38,21 @@ our application.
 #### Decisions that turned out well
 
  * Everyone seems content with their role. Those who enjoy working with backend technologies are 
- assigned to the backend, and those that enjoy frontend work are assigned to the frontend. We came up with a temporary name for our app. We will call it DiscoverUofT. This name can be expanded to other universities for example, DiscoverYorkU, DiscoverRyU, etc. This name makes sense since our app allows the user to find lecture-slots, drop-in times, schedules, and empty classrooms/fields, hence using the word discover.
+ assigned to the backend, and those that enjoy frontend work are assigned to the frontend. 
+ * We came up with a temporary name for our web-app. We will call it DiscoverUofT. This name can be expanded to other universities, if needed. For example, DiscoverYorkU, DiscoverRyU, etc. This name makes sense since our app allows the user to find lecture-slots, drop-in times, schedules, and empty classrooms/fields, hence using the word discover.
+ * We began to start keeping [minutes](artifacts/minutes) of every meeting. This ensure that group memebers could easily be reminded of what was discussed in meetings as well as those who were unable to atatend could be notified of developments. 
 
 
 #### Decisions that did not turn out as well as we hoped
 
- * One of our group members dropped the course. We had assigned database work to
- this person, which meant that we had to re-organize our group member roles 
- and functions to accommodate the loss of this group member.
- * All of the members of the group have been busier than anticipated. The individual 
- assignments for this course seem to be taking much more time to complete than previously
- thought. This has impacted group member contributions to the course project.
+ * One of our group members dropped the course. We had assigned database work to this person, which meant that we had to re-organize our group member roles and functions to accommodate the loss of this group member. This created a minor setback in the completion of tasks for other group members.
+ * All of the members of the group have been busier than anticipated. The individual assignments for this course seem to be taking much more time to complete than previously thought. This has impacted group member contributions to the course project. Additionally, other courses with midterms and group projects have slashed the allocation of time available for this project. 
 
 
 #### Planned changes
- * Group members were not able to meet on Sundays. Instead, our group meets for one hour
- a week on Thursdays in tutorial.
- * The database work that had been assigned to our group member that dropped the course
- has been reassigned to Bence.
- * We have not been programming as much as we had hoped for in the last iteration plan.
+ * Group members were not able to meet on Sunday. Instead, our group met for one hour on Thursday in tutorial and discussed more material than planned, gouing over the original tutorial period. 
+ * The database work that had been assigned to our group member that dropped the course has been reassigned to Jaleel.
+ * We have not been programming as much as we had hoped for in the last iteration plan. We are changing this for the current iteration. 
  * We learned that only basic functionality is required for the March 10 deadline. Hence, 
  we will only implement basic functionality by that date. 
  * The website front end is going to have three tabs entitled: "Home", "Near Me", "Open Near Me"
@@ -73,20 +69,20 @@ our application.
  * The questionnaire was completed. 
  Link: https://docs.google.com/forms/d/1YfwOuJoAavPKs1ViHwh4KxzeTWRXFWZJYdI62TvnkkI/edit?usp=sharing
  * The front end design was finalized.
+ * Backend functionality and routes implemented [here](backend/).
+ * Database structured and sample data added [screenshot](artifacts/added.png) and [ERD](artifacts/ERD.pdf).
 
 
 #### Goals and/or tasks that were planned but not met/completed:
 
- * The database work that had been assigned to the group member that dropped the course was
- not completed. The group member was not present to complete the task.
  * Not all group members are attending meetings.
- * Group members were not able to meet in person on Sundays.
+ * Intended to complete the entire front-end by the end of the current iteration but settled for the required fucntionality shown in the [mockups](desktop mockups/img). We will compelete the entire front-end by the next iteration instead.
 
 
 ## Meeting Highlights
 
 Going into the next iteration, our main insights are:
 
- * We are going to have group meetings online once per week in addition to the group meetings on Thursdays
- to discuss code progress. Hopefully holding the meeting online will be more accessible to the group members.
- * More group member engagement in coding. 
+ * We are going to have group meetings online three times per week in addition to the group meetings on Thursdays to discuss code progress and project completion. Hopefully holding the meeting online will be more accessible to the group members.
+ * More group member engagement in coding.
+ * Optimize GitHub workflow and make sure commits and being shared for those working in groups.
