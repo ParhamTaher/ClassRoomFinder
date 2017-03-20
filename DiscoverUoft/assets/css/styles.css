@@ -1,0 +1,28 @@
+.sidenav {
+  background-color: #f1f1f1;
+  height: 100%;
+}
+
+
+#tabMenu {
+    display: flex;
+    justify-content: center;
+    text-align:center;
+    border-style: solid;
+    border-width: 2px;
+}
+
+.nav-tabs, .nav-pills {
+    text-align:center;
+    border-style: solid;
+    border-width: 2px;
+}
+
+#nearby-btn {
+  width:100%;
+}
+#title {
+  text-align: center;
+  border-style: solid;
+  border-width: 2px;
+}
