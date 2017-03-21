@@ -33,6 +33,19 @@ var queryService = (function() {
           return result.rows;
         });
     },
+    selectTwoConds: function(table, conds, cond_values) {
+      logger.log(cond_values)
+      var text = 'SELECT * FROM ' + table + ' WHERE ' + conds[0] + '= $1' + ' AND ' + conds[1] + '= $2';
+      var values = cond_values;
+      logger.log(text);
+      logger.log(values);
+      return dbService.query(text, values)
+        .then(function(result) {
+          logger.log("Number of rows found: ", result.rowCount);
+          logger.log('Query result: ', result.rows);
+          return result.rows;
+        });
+    },
     /* ================ INSERT ================ */
 
     /*

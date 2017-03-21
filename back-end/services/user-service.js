@@ -46,7 +46,7 @@ var userService = (function() {
       */
 
       logger.log(payLoad);
-      return queryService.insert('favourites', 'user_id,building_id', [payLoad.userId, payLoad.buildingId])
+      return queryService.insert('favourites', 'user_id,building_id', [payLoad.userId, payLoad.buildingId], 'fav_id')
       .then(function(result){
         logger.log(result);
         return result;
@@ -76,15 +76,26 @@ var userService = (function() {
       */
 
       logger.log(payLoad);
-      /*return queryService.delete('favourites', 'user_id', payLoad.userId, 'building_id', payLoad.building_id)
+      return this.getRoomId(payLoad)
       .then(function(result){
-        logger.log(result);
-        return result;
+        logger.log(result)
+        return queryService.insert('bookings', 'classroom_id,building_id,message,tags,start_time,end_time,booking_date', [result, payLoad.buildingId, payLoad.comment, payLoad.tag, payLoad.start_time, payLoad.end_time, payLoad.date], 'booking_id')
       })
       .then(undefined, function(err){
         throw new MyError(err.message, __line, 'user-service.js');
-      })*/
+      })
     },
+    getRoomId: function(payLoad){
+      /*
+      returns room id from room code and building id
+      */
+      logger.log(payLoad)
+      return queryService.selectTwoConds('classrooms', ['code', 'building_id'], [payLoad.room, payLoad.buildingId])
+      .then(function(result){
+        logger.log(result);
+        return result[0].room_id
+      })
+    }
   };
 })();
 

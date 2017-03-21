@@ -62,7 +62,7 @@ router.post('/api/v1/user/add_favourite_building', function(req, res) {
 	return userService.addFavouriteBuilding(payLoad)
 	.then(function(result){
     logger.log(result);
-		res.status(200).json({status: "Success", result})
+		res.status(200).json({status: "Success", "fav_id": result.rows[0].fav_id})
 	})
   .catch(function(err){
 		res.status(500).json({status: "Failure", response: err});
@@ -105,7 +105,7 @@ router.post('/api/v1/user/create_booking', function(req, res) {
   var payLoad = {
   	"userId": parseInt(req.headers.user_id),
   	"buildingId": req.body.building_id,
-  	"classroomId": req.body.room_id,
+  	"room": req.body.room,
   	"date": req.body.date,
   	"start_time": req.body.start_time,
   	"end_time": req.body.end_time,
@@ -115,13 +115,13 @@ router.post('/api/v1/user/create_booking', function(req, res) {
   }
   logger.log(payLoad);
 	return userService.createBooking(payLoad)
-	// .then(function(result){
- //    logger.log(result);
-	// 	res.status(200).json({status: "Success", result})
-	// })
- //  .catch(function(err){
-	// 	res.status(500).json({status: "Failure", response: err});
-	// })
+	.then(function(result){
+		logger.log(result.rows[0])
+		res.status(200).json({status: "Success", "booking_id": result.rows[0].booking_id})
+	})
+  .catch(function(err){
+		res.status(500).json({status: "Failure", response: err});
+	})
 });
 
 module.exports = router;
