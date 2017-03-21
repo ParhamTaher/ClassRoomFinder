@@ -1,28 +1,26 @@
-.sidenav {
-  background-color: #f1f1f1;
-  height: 100%;
-}
-
-
-#tabMenu {
-    display: flex;
-    justify-content: center;
-    text-align:center;
-    border-style: solid;
-    border-width: 2px;
-}
-
-.nav-tabs, .nav-pills {
-    text-align:center;
-    border-style: solid;
-    border-width: 2px;
-}
-
-#nearby-btn {
-  width:100%;
-}
 #title {
   text-align: center;
-  border-style: solid;
-  border-width: 2px;
+  color: 	#002F65;
+}
+
+.sideNav {
+  background-color: #f1f1f1;
+  height: 100%;
+  list-style-type: none;
+  margin: 0;
+  padding: 5px;
+  width: 100%;
+  display: inline-block;
+}
+.sideNav div {
+  background-color: #a7b3c6;
+  color: 	#002F65;
+  margin:5px;
+  height:40px;
+  text-align: center;
+  cursor: pointer;
+  cursor: hand;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
