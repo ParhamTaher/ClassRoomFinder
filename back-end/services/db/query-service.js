@@ -10,9 +10,12 @@ var queryService = (function() {
   return {
 
     /* ================ SELECT ================ */
-    select: function(table, cond, cond_value) {
+    select: function(table, cond, cond_value, order_by) {
       var text = 'SELECT * FROM ' + table + ' WHERE ' + cond + '= $1';
       var values = [cond_value];
+      if (order_by){
+        text = text + ' ORDER_BY + ' + order_by;
+      }
       logger.log(text);
       logger.log(values);
       return dbService.query(text, values)
@@ -21,7 +24,15 @@ var queryService = (function() {
           return result.rows;
         });
     },
-
+    selectAll: function(table, orderBy) {
+      var text = 'SELECT * FROM ' + table + ' ORDER BY ' + orderBy;
+      logger.log(text);
+      return dbService.query(text)
+        .then(function(result) {
+          logger.log(result.rowCount);
+          return result.rows;
+        });
+    },
     /* ================ INSERT ================ */
 
     /*
