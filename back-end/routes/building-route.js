@@ -67,4 +67,26 @@ router.post('/api/v1/building/create_building', function(req, res) {
 		res.status(500).json({status: "Failure", response: err});
 	})
 });
+
+router.post('/api/v1/building/add_room', function(req, res) {
+	/*
+		Returns a room id if added else 0
+
+		Input (headers): None
+		Input (body): building_id, code, occupancy, is_lab
+		Input (query): None
+		Output: rooo id on success
+	*/
+
+	var payLoad = req.body;
+  logger.log(payLoad);
+	return buildingService.createRoom(payLoad)
+	.then(function(result){
+    logger.log(result);
+		res.status(200).json({status: "Success", response: result});
+	})
+	.then(undefined, function(err){
+		res.status(500).json({status: "Failure", response: err});
+	})
+});
 module.exports = router;

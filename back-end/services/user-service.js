@@ -42,7 +42,7 @@ var userService = (function() {
     },
     addFavouriteBuilding: function(payLoad) {
       /*
-      Takes a user_id and returns a list of favourite buildings
+      Takes a userId and buildingId and returns a list of favourite buildings
       */
 
       logger.log(payLoad);
@@ -54,6 +54,36 @@ var userService = (function() {
       .then(undefined, function(err){
         throw new MyError(err.message, __line, 'user-service.js');
       })
+    },
+    deleteFavouriteBuilding: function(payLoad) {
+      /*
+      Takes a userId and buildingId and deletes from favourites
+      */
+
+      logger.log(payLoad);
+      return queryService.delete('favourites', 'user_id', payLoad.userId, 'building_id', payLoad.building_id)
+      .then(function(result){
+        logger.log(result);
+        return result;
+      })
+      .then(undefined, function(err){
+        throw new MyError(err.message, __line, 'user-service.js');
+      })
+    },
+    createBooking: function(payLoad) {
+      /*
+      Takes tons of information and creates a booking
+      */
+
+      logger.log(payLoad);
+      /*return queryService.delete('favourites', 'user_id', payLoad.userId, 'building_id', payLoad.building_id)
+      .then(function(result){
+        logger.log(result);
+        return result;
+      })
+      .then(undefined, function(err){
+        throw new MyError(err.message, __line, 'user-service.js');
+      })*/
     },
   };
 })();
