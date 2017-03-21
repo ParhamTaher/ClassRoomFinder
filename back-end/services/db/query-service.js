@@ -42,6 +42,24 @@ var queryService = (function() {
           console.log(result);
           return result;
         });
+    },
+
+    /* ================ DELETE ================ */
+
+    delete: function(table, cond, cond_value, cond2, cond2_value) {
+      var text = 'DELETE FROM ' + table + ' WHERE ' + cond + '= $1';
+      var values = [cond_value];
+      if (cond2 && cond2_value) {
+        text = text + ' AND ' + cond2 + '= $2';
+        values.push(cond2_value);
+      }
+      logger.log(text);
+      logger.log(values);
+      return dbService.query(text, values)
+        .then(function(result) {
+          logger.log(result);
+          return result;
+        });
     }
   };
 })();
