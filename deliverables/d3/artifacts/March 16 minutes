@@ -1,0 +1,34 @@
+March 16 minutes
+
+- Parham, Angela, Jaleel and Ishwant attended.
+- we need to decide how much each group is going to contribute programming-wise
+- We have to do the html front-end
+- none of our group members are keen on working on front-end
+- we need html/css and then we have to connect them to backend
+- Parham thinks he can make a React template
+- if we can set the toolbar at the top the rest should be easy
+- Sunday night -> have a Facebook video chat
+	- Everyone needs to be on the call
+	- Parham says the template will be ready by then
+	- Hopefully we can come up with a basic routing
+	- Monday will start on front-end and back-end will continue
+- figure out how to send http requests
+- we showed the TA our video and he liked it
+- We plan to meet on Monday March 20 between 2:00 PM - 9:00 PM to have a programming sprint. 
+- Angela can only meet from 2:00 PM - 6:00 PM
+- Let's go over some of the routes
+	- search buildings will need the map plugin
+	- front page will need the map plugin
+	- Parham doesn't know how to get the Google API
+	- Ishwant will figure this out
+	- Need favourite buildings, building information need to be added to a database
+	- We can spoof some of the data
+	- Parham has to figure out how his code will work with the backend
+- Ishwant can do the backend in about two days
+- get nearby buildings will be a post request, will send user ID
+	- have geolocation set as the header in the post request
+	- We should have users, having favourites would make it unecessarily complicated. 
+	- get all buildings - GET request
+- Get building info - will be a post request
+- input will be building id, output will be everything from that database
+- Computer Labs - are there a finite number of these on campus? Is the number small enough to hardcode this number?
