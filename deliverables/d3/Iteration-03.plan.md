@@ -11,18 +11,6 @@
 
 #### Changes from previous iteration
 
-//**********************************
-List the most significant changes you made to your process (if any).
-
- * At most 3 items
- * Start with the most significant change
- * For each change, explain why you are making it and what you are hoping to achieve from it
- * Ideally, for each change, you will define a clear success metric (i.e. something you can measure at the end of the iteration to determine whether the change you made was successful)
-
- > *Note:* If you are not making any changes to your process, it means that you are happy with all of the decisions you made in the previous iterations.
- > In this case, list what you consider to be the most significant process decisions your team made. For each decision, explain why you consider it successful, and what success metric you are using (or could use) to assert that the decision is successful.
-//**********************************
-
 * Creation of documentation
 In our last iteration, we neglected the creation of documentation. We forgot 
 to assign someone to oversee the upkeep of the Iteration-03.plan.md and 
@@ -31,7 +19,10 @@ Thus, we had to change Angela's role from soley backend role to a
 backend/documentation role, and move some of her backend duties to Ishwant.
 We had to move some of her backend duties to Ishwant because we realized
 documentation is significant time commitment and also that documentation
-is worth a considerable portion of our mark. 
+is worth a considerable portion of our mark. Also, the other group
+members will add to the plan and review documents as they see fit. 
+
+We will use our mark on the plan and review documents as a success metric.
 
 
 #### Roles & responsibilities
@@ -39,6 +30,14 @@ is worth a considerable portion of our mark.
 **Team Leader / Scrum Master:** Jaleel Grant 
 
 * Ensures that deadlines are met are responsibilities fulfilled. Reminds group of meetings, expectations etc.
+
+**Documentation:** Angela Ruiz
+
+* Oversees creation and editing of Iteration-03.plan.md and 
+Iteration-03.review.md documents. Other members are encouraged to add
+to the documents but Angela will oversee the entire document creation
+process.
+
 
 **Backend:** Ishawant Sodhi, Angela Ruiz, Jaleel Grant
 
