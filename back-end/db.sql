@@ -4,10 +4,14 @@ DROP TABLE IF EXISTS bookings CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS comments CASCADE;
 DROP TABLE IF EXISTS favourites CASCADE;
+DROP TABLE IF EXISTS building_schedule CASCADE;
 
 DROP TYPE IF EXISTS comment_type CASCADE;
+DROP TYPE IF EXISTS day CASCADE;
 
 CREATE TYPE comment_type AS ENUM ('High', 'Medium', 'Low');
+CREATE TYPE day AS ENUM ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday');
+
 
 CREATE TABLE buildings 
 (
@@ -20,6 +24,16 @@ CREATE TABLE buildings
     lon real NOT NULL
 );
 
+CREATE TABLE building_schedule
+(
+    schedule_id SERIAL PRIMARY KEY,
+    building_id INT NOT NULL REFERENCES buildings (building_id),
+    day day NOT NULL,
+    open_time TIME NOT NULL,
+    closing_time TIME NOT NULL,
+    UNIQUE (building_id, day)
+
+);
 CREATE TABLE classrooms
 (
     room_id SERIAL PRIMARY KEY,
