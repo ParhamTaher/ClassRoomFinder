@@ -61,7 +61,7 @@ router.post('/api/v1/building/create_building', function(req, res) {
 	return buildingService.createBuilding(payLoad)
 	.then(function(result){
     logger.log(result);
-		res.status(200).json({status: "Success", response: result});
+		res.status(200).json({status: "Success", "building_id": result.rows[0].building_id});
 	})
 	.then(undefined, function(err){
 		res.status(500).json({status: "Failure", response: err});
@@ -83,7 +83,7 @@ router.post('/api/v1/building/add_room', function(req, res) {
 	return buildingService.createRoom(payLoad)
 	.then(function(result){
     logger.log(result);
-		res.status(200).json({status: "Success", response: result});
+		res.status(200).json({status: "Success", "room_id": result.rows[0].room_id});
 	})
 	.then(undefined, function(err){
 		res.status(500).json({status: "Failure", response: err});

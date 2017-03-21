@@ -35,6 +35,7 @@ var buildingService = (function() {
     			var time = payLoad.schedule[thisDay].split('-');
 						queryService.insert('building_schedule', 'building_id,day,open_time,closing_time', [result.rows[0].building_id, thisDay, time[0], time[1]])
     		}
+        return result;
     	})
     	.then(undefined, function(err){
     		logger.log("Throwing an error");

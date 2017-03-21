@@ -124,4 +124,27 @@ router.post('/api/v1/user/create_booking', function(req, res) {
 	})
 });
 
+router.post('/api/v1/user/delete_booking', function(req, res) {
+	/*
+		Takes a user_id (header) and booking_id (body) and removes it from db
+		Input (headers): user_id 
+		Input (body):  booking_id
+		Input (query): None
+	*/
+	
+  var payLoad = {
+  	"userId": parseInt(req.headers.user_id),
+  	"bookingId": req.body.booking_id
+  }
+  logger.log(payLoad);
+	return userService.deleteBooking(payLoad)
+	.then(function(result){
+		logger.log(result)
+		res.status(200).json({status: "Success", "booking_id": result})
+	})
+  .catch(function(err){
+		res.status(500).json({status: "Failure", response: err});
+	})
+});
+
 module.exports = router;

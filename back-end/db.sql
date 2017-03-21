@@ -5,6 +5,7 @@ DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS comments CASCADE;
 DROP TABLE IF EXISTS favourites CASCADE;
 DROP TABLE IF EXISTS building_schedule CASCADE;
+DROP TABLE IF EXISTS bookings CASCADE;
 
 DROP TYPE IF EXISTS comment_type CASCADE;
 DROP TYPE IF EXISTS day CASCADE;
@@ -59,6 +60,7 @@ CREATE TABLE favourites
 CREATE TABLE bookings
 (
 	booking_id SERIAL PRIMARY KEY,
+    user_id int NOT NULL REFERENCES users (user_id),
     classroom_id int NOT NULL REFERENCES classrooms (room_id),
     building_id int NOT NULL REFERENCES buildings (building_id),
     message VARCHAR(50) NOT NULL,

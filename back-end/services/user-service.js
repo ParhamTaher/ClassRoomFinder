@@ -21,9 +21,6 @@ var userService = (function() {
           return queryService.insert('users', 'cookie', [payLoad.cookie], 'user_id')    
         }
       })
-      .then(undefined, function(err){
-        throw new MyError(err.message, __line, 'user-service.js');
-      })
     },
     getFavouriteBuildings: function(payLoad) {
       /*
@@ -79,8 +76,19 @@ var userService = (function() {
       return this.getRoomId(payLoad)
       .then(function(result){
         logger.log(result)
-        return queryService.insert('bookings', 'classroom_id,building_id,message,tags,start_time,end_time,booking_date', [result, payLoad.buildingId, payLoad.comment, payLoad.tag, payLoad.start_time, payLoad.end_time, payLoad.date], 'booking_id')
+        return queryService.insert('bookings', 'classroom_id,user_id,building_id,message,tags,start_time,end_time,booking_date', [result, payLoad.userId,payLoad.buildingId, payLoad.comment, payLoad.tag, payLoad.start_time, payLoad.end_time, payLoad.date], 'booking_id')
       })
+      .then(undefined, function(err){
+        throw new MyError(err.message, __line, 'user-service.js');
+      })
+    },
+    deleteBooking: function(payLoad) {
+      /*
+      Takes tons of information and creates a booking
+      */
+
+      logger.log(payLoad);
+      return queryService.delete('bookings', 'user_id', payLoad.userId, 'booking_id', payLoad.bookingId)
       .then(undefined, function(err){
         throw new MyError(err.message, __line, 'user-service.js');
       })
