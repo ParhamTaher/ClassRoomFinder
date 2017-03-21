@@ -40,4 +40,21 @@ router.get('/api/v1/user/get_favourite_buildings', function(req, res) {
 	})
 });
 
+router.post('/api/v1/user/add_favourite_building', function(req, res) {
+
+  var payLoad = {
+  	"userId": req.headers.user_id,
+  	"buildingId": req.body.building_id
+  }
+  logger.log(payLoad);
+	return userService.addFavouriteBuilding(payLoad)
+	.then(function(result){
+    logger.log(result);
+		res.status(200).json({status: "Success", result})
+	})
+  .catch(function(err){
+		res.status(500).json({status: "Failure", response: err});
+	})
+});
+
 module.exports = router;

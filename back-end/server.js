@@ -28,7 +28,7 @@ app.use(function(req, res, next) {
 // Route definitions
 app.get('/api/v1/user/get_user_id', userRoutes);
 app.get('/api/v1/user/get_favourite_buildings', userRoutes);
-app.post('/api/v1/user/add_favourite_buildings', userRoutes);
+app.post('/api/v1/user/add_favourite_building', userRoutes);
 app.post('/api/v1/user/delete_favourite_buildings', userRoutes);
 app.post('/api/v1/user/book_event', userRoutes);
 app.post('/api/v1/user/delete_event', userRoutes);

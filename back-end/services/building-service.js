@@ -5,15 +5,15 @@ var queryService = require('./db/query-service');
 
 var buildingService = (function() {
   return {
-    getNearbyBuildings: function(payload) {
+    getNearbyBuildings: function(payLoad) {
     	/*
       Returns all nearby buildings within this proximity
     	*/
 
     	// DO NOT IMPLEMENT THIS METHOD
-    	logger.log(payload);
+    	logger.log(payLoad);
     },
-    getAllBuildings: function(payload) {
+    getAllBuildings: function(payLoad) {
     	/*
       Returns all buildings
     	*/
@@ -23,16 +23,16 @@ var buildingService = (function() {
         throw new MyError(err.message, __line, 'building-service.js');
       })
     },
-    createBuilding: function(payload) {
+    createBuilding: function(payLoad) {
     	/*
       Creates a building and a schedule
     	*/
-    	logger.log(payload);
-    	return queryService.insert('buildings', 'name,address,num_rooms,lat,lon',[payload.name, payload.address, payload.num_rooms, payload.lat, payload.lon], 'building_id')
+    	logger.log(payLoad);
+    	return queryService.insert('buildings', 'name,address,num_rooms,lat,lon',[payLoad.name, payLoad.address, payLoad.num_rooms, payLoad.lat, payLoad.lon], 'building_id')
     	.then(function(result){
     		logger.log(result);
-    		for (var thisDay in payload.schedule){
-    			var time = payload.schedule[thisDay].split('-');
+    		for (var thisDay in payLoad.schedule){
+    			var time = payLoad.schedule[thisDay].split('-');
 						queryService.insert('building_schedule', 'building_id,day,open_time,closing_time', [result.rows[0].building_id, thisDay, time[0], time[1]])
     		}
     	})
