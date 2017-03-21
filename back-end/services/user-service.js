@@ -6,7 +6,8 @@ var queryService = require('./db/query-service');
 var userService = (function() {
   return {
     /*
-      Inserts a new post into the posts table
+      Takes a cookie in the Json payload and returns the user_id if it exists
+      Or returns a newly created one
     */
     getId: function(payload) {
     	logger.log(payload);

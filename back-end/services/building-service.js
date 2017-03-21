@@ -8,7 +8,7 @@ var buildingService = (function() {
     /*
       Inserts a new post into the posts table
     */
-    getId: function(payload) {
+    getNearbyBuildings: function(payload) {
     	logger.log(payload);
     },
   };

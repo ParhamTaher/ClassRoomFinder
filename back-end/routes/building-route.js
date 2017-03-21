@@ -4,11 +4,11 @@ var Promise = require('bluebird');
 var logger = require('tracer').console();
 var userService  = require('../services/building-service.js');
 
-router.get('/api/v1/building/get_nearby_id', function(req, res) {
+router.get('/api/v1/building/get_nearby_buildings', function(req, res) {
 
   var payLoad = req.query;
   
-	return userService.getId(payLoad)
+	return buildingService.getNearbyBuildings(payLoad)
 	.then(function(result){
     logger.log(result);
 		res.status(200).json({status: "Success", response: result});

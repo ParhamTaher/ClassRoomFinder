@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS classrooms CASCADE;
 DROP TABLE IF EXISTS bookings CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS comments CASCADE;
+DROP TABLE IF EXISTS favourites CASCADE;
 
 DROP TYPE IF EXISTS comment_type CASCADE;
 
@@ -34,14 +35,23 @@ CREATE TABLE users
     cookie TEXT NOT NULL UNIQUE
 );
 
+CREATE TABLE favourites
+(
+    fav_id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL REFERENCES users (user_id),
+    building_id INT NOT NULL REFERENCES buildings (building_id),
+    UNIQUE (user_id, building_id)
+);
+
 CREATE TABLE bookings
 (
 	booking_id SERIAL PRIMARY KEY,
     classroom_id int NOT NULL REFERENCES classrooms (room_id),
     building_id int NOT NULL REFERENCES buildings (building_id),
-    name VARCHAR(30) NOT NULL,
-    message VARCHAR(50),
-    duration integer NOT NULL,
+    message VARCHAR(50) NOT NULL,
+    tags VARCHAR(50) NOT NULL,
+    start_time TIME NOT NULL,
+    end_time TIME NOT NULL,
     booking_date DATE NOT NULL
 );
 
