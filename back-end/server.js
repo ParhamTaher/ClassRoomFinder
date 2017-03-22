@@ -62,12 +62,24 @@ app.get('/api/v1/building/get_building_info', function (req, res) {
 
 
 //get room info
+/*
+- get_room_info()
+GET
+Input (headers): None
+Input (body): N/A
+Input (query): building_id, room_id
+Output: {Bookings: [], Comments: []}
+*/
 
 app.get('/api/v1/building/get_room_info', function (req, res) {
-	var building_id = req.params.building_id;
-	var room_id = req.params.room_id;
+	var building_id = req.query.building_id;
+	var room_id = req.query.room_id;
 
-	res.send(room_id);
+	var bookings = queryService.select('bookings', 'classroom_id = ' + room_id + ' AND ' + 'building_id', building_id);
+	var comments = queryService.select('comments', 'building_id', building_id);
+
+
+	//res.send(comments);
 
 	//res.send(req.params);
 
