@@ -28,10 +28,10 @@ app.use(function(req, res, next) {
 // Route definitions
 app.get('/api/v1/user/get_user_id', userRoutes);
 app.get('/api/v1/user/get_favourite_buildings', userRoutes);
-app.post('/api/v1/user/add_favourite_buildings', userRoutes);
-app.post('/api/v1/user/delete_favourite_buildings', userRoutes);
-app.post('/api/v1/user/book_event', buildingRoutes);
-app.post('/api/v1/user/delete_event', buildingRoutes);
+app.post('/api/v1/user/add_favourite_building', userRoutes);
+app.post('/api/v1/user/delete_favourite_building', userRoutes);
+app.post('/api/v1/user/create_booking', userRoutes);
+app.post('/api/v1/user/delete_booking', userRoutes);
 
 app.get('/api/v1/building/get_nearby_buildings', buildingRoutes);
 app.get('/api/v1/building/get_all_buildings', buildingRoutes);
@@ -39,7 +39,11 @@ app.get('/api/v1/building/get_building_info', buildingRoutes);
 app.get('/api/v1/building/get_building_comments', buildingRoutes);
 app.get('/api/v1/building/get_building_labs', buildingRoutes);
 app.get('/api/v1/building/get_room_info', buildingRoutes);
+app.get('/api/v1/building/get_building_hours', buildingRoutes);
+app.get('/api/v1/building/get_room_schedule', buildingRoutes);
 app.get('/api/v1/building/get_building_schedule', buildingRoutes);
+app.post('/api/v1/building/create_building', buildingRoutes);
+app.post('/api/v1/building/add_room', buildingRoutes);
 
 app.listen(app.get('port'), function() {
   console.log('running on port', app.get('port'))
