@@ -2,47 +2,49 @@
 <html lang="en">
 <head>
  <title>Home Page</title>
- <link rel="stylesheet" href="assets/css/styles.css">
  <meta charset="utf-8">
  <meta name="viewport" content="width=device-width, initial-scale=1">
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ <link rel="stylesheet" href="assets/css/styles.css">
  <link rel="stylesheet" href="assets/css/home_styles.css">
+ <script type="text/javascript" src="assets/js/Nearby.js"></script>
 </head>
 <body>
 
-  <div class="container">
+  <div class="container-fluid">
     <div class="row content">
       <h1 id="title">DiscoverUofT</h1>
     </div>
-    <div class="row content">
-        <ul id="tabMenu" class="nav nav-pills">
-          <li class="active">
-            <a id="nearby-btn" href="./Nearby" data-toggle="tab">Nearby</a>
-          </li>
-          <li>
-            <a id="favourites-btn" href="./Favourites" data-toggle="tab">Favourites</a>
-          </li>
-          <li>
-            <a id="allBuildings-btn" href="./AllBuildings" data-toggle="tab">All Buildings</a>
-          </li>
-        </ul>
-    </div>
+
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand">Classroom Finder</a>
+          </div>
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="./Nearby">Nearby</a></li>
+            <li><a href="./Favourites">Favourites</a></li>
+            <li><a href="./AllBuildings">All Buildings</a></li>
+          </ul>
+        </div>
+      </nav>
+
     <div class="row content">
       <div class="col-sm-3 sidenav">
         <h4>Building List</h4>
-        <ul id="sideNav" lang=""class="nav nav-pills nav-stacked">
-          <li class="active"><a href="#section1">Building1</a></li>
-          <li><a href="#section2">Building2</a></li>
-          <li><a href="#section3">Building3</a></li>
-          <li><a href="#section3">Building4</a></li>
-        </ul><br>
+        <div class="sideNav">
+          <div>Building1</div>
+          <div>Building2</div>
+        </div>
+        <br>
       </div>
 
-      <div class="col-sm-9">
+      <div id="building_rooms" class="col-sm-9">
         Map
       </div>
+
     </div>
   </div>
 
