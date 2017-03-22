@@ -140,7 +140,7 @@ router.post('/api/v1/user/delete_booking', function(req, res) {
 	return userService.deleteBooking(payLoad)
 	.then(function(result){
 		logger.log(result)
-		res.status(200).json({status: "Success", "booking_id": result})
+		res.status(200).json({status: "Success"})
 	})
   .catch(function(err){
 		res.status(500).json({status: "Failure", response: err});

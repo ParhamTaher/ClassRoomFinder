@@ -39,6 +39,8 @@ app.get('/api/v1/building/get_building_info', buildingRoutes);
 app.get('/api/v1/building/get_building_comments', buildingRoutes);
 app.get('/api/v1/building/get_building_labs', buildingRoutes);
 app.get('/api/v1/building/get_room_info', buildingRoutes);
+app.get('/api/v1/building/get_building_hours', buildingRoutes);
+app.get('/api/v1/building/get_room_schedule', buildingRoutes);
 app.get('/api/v1/building/get_building_schedule', buildingRoutes);
 app.post('/api/v1/building/create_building', buildingRoutes);
 app.post('/api/v1/building/add_room', buildingRoutes);
