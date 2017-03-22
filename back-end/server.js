@@ -43,28 +43,18 @@ Output: available_classrooms, available_labs, img, latest_activity, latest_comme
 app.get('/api/v1/building/get_building_info', function (req, res) {
 	var building_id = req.query.building_id;
 
-	//res.send("test " + building_id);
-	//res.send(req.params);
 
-	//args: table, cond, cond_value
-	//var text = 'SELECT * FROM ' + table + ' WHERE ' + cond + '= $1';
 
 	var available_classrooms = queryService.select('classrooms', 'building_id', building_id);
-
 	
 	var available_labs = queryService.select('classrooms', 'is_lab = \'t\' AND building_id', building_id);
 
-	//img - skip for now
-
-	//latest_activity
-	//SELECT usr, event_dt FROM mytable ORDER BY event_dt DESC LIMIT 1
 	var latest_activity = queryService.select_complex('end_time', 'bookings', 'building_id');
 
-	//latest_comment
 	var latest_comment = queryService.select('comments', 'importance=\'High\' AND building_id', building_id);
 
 
-	//res.send("available_classrooms: " + available_classrooms + " available_labs: " + available_labs);
+	//res.send
 
 
 
