@@ -77,8 +77,8 @@ CREATE TABLE schedules
     classroom_id int NOT NULL REFERENCES classrooms (room_id),
     building_id int NOT NULL REFERENCES buildings (building_id),
     activity VARCHAR(20) NOT NULL,
-    start_time TIME NOT NULL,
-    end_time TIME NOT NULL
+    start_time TIMESTAMP NOT NULL,
+    end_time TIMESTAMP NOT NULL
 );
 
 CREATE TABLE comments

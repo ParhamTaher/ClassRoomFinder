@@ -15,7 +15,7 @@ var buildingService = (function() {
     },
     getAllBuildings: function(payLoad) {
     	/*
-      Returns all buildings
+            Returns all buildings
     	*/
     	return queryService.selectAll('buildings', 'name')
     	.then(undefined, function(err){
@@ -25,7 +25,7 @@ var buildingService = (function() {
     },
     createBuilding: function(payLoad) {
     	/*
-      Creates a building and a schedule
+            Creates a building and a schedule
     	*/
     	logger.log(payLoad);
     	return queryService.insert('buildings', 'name,address,num_rooms,lat,lon',[payLoad.name, payLoad.address, payLoad.num_rooms, payLoad.lat, payLoad.lon], 'building_id')
@@ -44,7 +44,7 @@ var buildingService = (function() {
     },
     createRoom: function(payLoad) {
         /*
-        Creates a room
+            Creates a room
         */
         logger.log(payLoad);
         return queryService.insert('classrooms', 'building_id,code,occupancy,is_lab',[payLoad.buildingId, payLoad.code, payLoad.occupancy, payLoad.isLab], 'room_id')
@@ -53,6 +53,18 @@ var buildingService = (function() {
         throw new MyError(err.message, __line, 'building-service.js');
       })
     },
+    getRoomSchedule: function(payLoad){
+        /*
+            Returns the schedule associated with this room on this date
+        */
+        logger.log(payLoad)
+        var thisDay = payLoad.date + ' 00:00'
+        var nextDay = payLoad.date + ' 23:59';
+
+        logger.log(thisDay)
+        logger.log(nextDay)
+        return queryService.selectDate('schedules', ['start_time', 'end_time'], [thisDay, nextDay])
+    }
   };
 })();
 
