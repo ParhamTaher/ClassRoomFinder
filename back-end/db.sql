@@ -18,7 +18,8 @@ CREATE TABLE buildings
     building_id SERIAL PRIMARY KEY,
     name TEXT NOT NULL UNIQUE,
     address VARCHAR(50) NOT NULL,
-    num_rooms integer NOT NULL,
+    number_of_classrooms integer NOT NULL,
+    closing_time TIMESTAMP,
     lat real NOT NULL,
     lon real NOT NULL
 );
@@ -74,5 +75,5 @@ CREATE TABLE comments
     building_id int NOT NULL REFERENCES buildings (building_id),
     title VARCHAR(20) NOT NULL,
     message TEXT NOT NULL,
-    importance comment_type
+    type comment_type
 )

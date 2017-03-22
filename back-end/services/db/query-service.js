@@ -10,12 +10,9 @@ var queryService = (function() {
   return {
 
     /* ================ SELECT ================ */
-    select: function(table, cond, cond_value, order_by) {
+    select: function(table, cond, cond_value) {
       var text = 'SELECT * FROM ' + table + ' WHERE ' + cond + '= $1';
       var values = [cond_value];
-      if (order_by){
-        text = text + ' ORDER_BY + ' + order_by;
-      }
       logger.log(text);
       logger.log(values);
       return dbService.query(text, values)
@@ -24,15 +21,20 @@ var queryService = (function() {
           return result.rows;
         });
     },
-    selectAll: function(table, orderBy) {
-      var text = 'SELECT * FROM ' + table + ' ORDER BY ' + orderBy;
+
+    /* ================ SELECT COMPLEX================ */
+    select_complex: function(col, table, cond_value) {
+      var text = 'SELECT * FROM ' + table + ' ORDER BY ' + col + ' DESC LIMIT 1';
+      var values = [cond_value];
       logger.log(text);
-      return dbService.query(text)
+      logger.log(values);
+      return dbService.query(text, values)
         .then(function(result) {
           logger.log(result.rowCount);
           return result.rows;
         });
     },
+
     /* ================ INSERT ================ */
 
     /*
