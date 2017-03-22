@@ -55,39 +55,57 @@ process.
 
 * Creation and maintenance of the final front end mockups and video demo presentation for submission three days before the due date to handle any unexpected errors.
 
-These are given primarily as a guideline for the future of the project. However, group members may work on/be required to work on several aspects of the overall product as needed.
-
-These roles and responsibilities were chosen keeping in mind what the group members were comfortable with, in the scope of the project. We also adjusted and refocused roles based on challenges being faced and strong personal qualities/traits present in each member.
+The roles have stayed the same except for the addition of a 
+documentation role.
 
 
 #### Events
 
-Describe meetings (and other events) you are planning to have:
+Tutorial Meetings
 
- * When and where? In-person or online?
- * What's the **purpose** of each meeting?
- * Other events could be coding sessions, code reviews, quick weekly sync' meeting online, etc.
+ * In-person, Thursday March 16, 2017 and Thursday March 23, 2017
+ * The purpose of the tutorial meetings is to make major decisions
+ and discuss the progress of the applications
+
+Coding Meetings
+ * We held an in-person coding sprint on Monday March 20, 2017 from 2:00 PM to 9:00 PM
+ * Jaleel, Ishwant, Parham and Bence attended the coding sprint.
+ * The purpose of this meeting was to make coding decisions and 
+ implement them as quickly as possible.
+ * It was decided that a map plugin and access to the Google API
+ is needed.
+ * It also decided that need building information added to a 
+ database.
+ * It was decided what will be sent through GET and POST requests.
+
+ * We held another coding meeting on Tuesday March 20 at 2:30 PM.
+ * Jaleel, Ishwant and Angela attended this meeting
+ * Ishwant delegated some backend tasks to Angela
+
+Online Video Chats
+ * We held Facebook video chat at 10:00 PM on March 21, 2017
+ * Angela, Jaleel, Ishwant and Parham attended the video chat
+ * Backend tasks were finalized, Angela was expected to finish
+ the documentation by end of March 21, 2017
+
 
 #### Artifacts
 
-List/describe the artifacts you will produce in order to organize your team.       
-
- * Artifacts can be to-do lists, task boards, schedule(s), etc.
- * We want to understand:
-   * How do you keep track of what needs to get done?
-   * How do you prioritize tasks?
-   * How do tasks get assigned to team members?
+* Meeting minutes are kept for every meeting.
+We review the meeting minutes from the previous meeting before
+each new meeting to reorient ourselves with what needs to be done.
 
 #### Git / GitHub workflow
 
-Describe your Git / GitHub workflow.     
-Essentially, we want to understand how your team members share a codebase and avoid conflicts.
-
- * Be concise, yet precise.      
-For example, "we use pull-requests" is not a precise statement since it leaves too many open questions - Pull-requests from where to where? Who reviews the pull-requests? Who is responsible for merging them? etc.
- * If applicable, specify any naming conventions or standards you decide to adopt.
- * Don't forget to **explain why** you chose this workflow.
-
+* Each of our team members has their own branch forked from the
+master repo.
+* Pull requests are made between the prvivate repo of each member
+and Ishwant's codebase.
+* Ishwant oversees the pull requests.
+* Ishwant reviews each pull request before he accepts it.
+* By delegating the pull requests to Ishwant, we have successfully
+avoided conflicts.
+* Changes to documentation are committed directly to the master repo.
 
 
 ## Product
