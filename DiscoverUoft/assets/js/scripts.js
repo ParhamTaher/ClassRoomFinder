@@ -1,5 +1,6 @@
 
 // On click of a sidenav button, load building room info
+/*
 function getBuildingInfo() {
   $.get('/getBuildingInfo', function(data){
 		if (data) {
@@ -10,10 +11,27 @@ function getBuildingInfo() {
 		}
 	});
 }
+*/
 
 
 
-$('.tabMenuBtn').click(function(){
-  console.log("helooo");
-  $(this).addClass("tabMenuBtnActive");
+/*
+$(function() {
+$(".navbarbtn").click(function() {
+  // remove classes from all
+  $(".navbarbtn").removeClass("active");
+  // add class to the one we clicked
+  $(this).addClass("active");
+  // stop the page from jumping to the top
+  return false;
+});
+});
+*/
+
+$( document ).ready(function() {
+  $(".sidenavbtn").click(function(){
+      alert($(this).attr("name"));
+      //$("#building_rooms").html("<div>" + $(this).attr("name") + " info</div>");
+
+  });
 });
