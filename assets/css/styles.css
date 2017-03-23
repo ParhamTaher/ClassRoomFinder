@@ -1,0 +1,77 @@
+#title {
+  text-align: center;
+  color: 	#002F65;
+}
+
+.sideNav {
+  background-color: #f1f1f1;
+  height: 100%;
+  list-style-type: none;
+  margin: 0;
+  padding: 5px;
+  width: 100%;
+  display: inline-block;
+}
+.sideNav div {
+  background-color: #a7b3c6;
+  color: 	#002F65;
+  margin:5px;
+  height:40px;
+  text-align: center;
+  cursor: pointer;
+  cursor: hand;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buildingName {
+  background-color: #002F65;
+  color: 	white;
+  height:40px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.availableHeader {
+  background-color: #44e263;
+  color: 	#002F65;
+  height:40px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.availableSoonHeader {
+  background-color: #e8e54e;
+  color: 	#002F65;
+  height:40px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.notAvailableHeader {
+  background-color: #e55c54;
+  color: 	#002F65;
+  height:40px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.roomBtn {
+  background-color: #e6ecff;
+  color: 	#002F65;
+  height:40px;
+  text-align: left;
+  cursor: pointer;
+  cursor: hand;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  padding:5px;
+}
