@@ -31,6 +31,7 @@ $(".navbarbtn").click(function() {
 $( document ).ready(function() {
   $(".sidenavbtn").click(function(){
       alert($(this).attr("name"));
-      $("#building_rooms").html("<div>" + $(this).attr("name") + " info</div>");
+      //$("#building_rooms").html("<div>" + $(this).attr("name") + " info</div>");
+
   });
 });
