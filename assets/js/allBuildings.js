@@ -82,7 +82,7 @@ $(document).ready(function() {
                     	+ '<h4 class="card-heading list-group-item-heading">' + name + '</h4>' 
                     	+ '<p class="list-group-item-text">' + address + '</p></div>'
                     	+ '<div class="card-icon col-sm-3">' 
-                    	+ '<i class="fa fa-angle-right fa-3x pull-right" aria-hidden="true"></i></div></div></a>'
+                    	+ '<i class="fa fa-angle-down fa-3x pull-right" aria-hidden="true"></i></div></div></a>'
                     
                     // create marker for this building and push to list
                     markers.push([buildings[i].name, buildings[i].lat, buildings[i].lon]);
