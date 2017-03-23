@@ -60,7 +60,7 @@ var queryService = (function() {
 
     selectJoin: function(table1, table2, cond_values) {
       logger.log(cond_values);
-      var text = 'SELECT * FROM ' + table1 + ',' + table2 + ',' + ' WHERE classroom_id=' + cond_values[0] + ' AND building_id=' + cond_values[1];
+      var text = 'SELECT * FROM ' + table1 + ',' + table2 + ' WHERE classroom_id=' + cond_values[0] + ' AND building_id=' + cond_values[1];
       var values = cond_values;
       logger.log(text);
       logger.log(values);
