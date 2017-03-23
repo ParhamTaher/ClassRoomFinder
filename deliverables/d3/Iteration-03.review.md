@@ -18,12 +18,6 @@ Overall, this iteration was much smoother than the last.
 
 List process-related (i.e. team organization) decisions that, in retrospect, turned out to be successful.
 
-
- * 2 - 4 decisions.
- * Ordered from most to least important.
- * Explain why (i.e. give a supporting argument) you consider a decision to be successful.
- * Feel free to refer/link to process artifact(s).
----
  * We got the frontend and backend running running in time.
  * We have the basic structure for all the HTTP requests.
  * We managed to finish everything on time. 
@@ -31,17 +25,10 @@ List process-related (i.e. team organization) decisions that, in retrospect, tur
  This is a vast improvement from the last iteration.
  * Everyone seems to gotten used to the GitHub workflow.
  * The decision to put Ishwant in control of the pull requests was sucessful in avoiding conflicts.
- * 
 
 
 #### Decisions that did not turn out as well as we hoped
 
-List process-related (i.e. team organization) decisions that, in retrospect, were not as successful as you thought they would be.
-
- * 2 - 4 decisions.
- * Ordered from most to least important.
- * Feel free to refer/link to process artifact(s).
-----
  * We are having trouble connecting the frontend to the backend.
  * We divided the work into two parts, frontend and backend. We are finding that this wasn't a good design decision.
  Dividing the work in this manner made connecting the front end to the back end overtly complex.
@@ -59,9 +46,6 @@ List process-related (i.e. team organization) decisions that, in retrospect, wer
 
 List any process-related changes you are planning to make (if there are any)
 
- * Ordered from most to least important.
- * Explain why you are making a change.
----
  * We have decided to add a login.
  * Instead of using cookies we're going to use a login system, this will 
  make keeping track of favourites much easier
