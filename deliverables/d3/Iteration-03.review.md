@@ -59,15 +59,28 @@ List any process-related changes you are planning to make (if there are any)
 
 #### Goals and/or tasks that were met/completed:
 
- * From most to least important.
- * Refer/link to artifact(s) that show that a goal/task was met/completed.
- * If a goal/task was not part of the original iteration plan, please mention it.
+ * Goal: Finish the frontend HTML/CSS
+ 	- This was completed by Parham
+ 	- [link to artifact to show it was completed]
+ 	- Parham has planned to create a React template
+
+ * Goal: Popluate the database
+ 	- This was accomplished by Angela
 
 #### Goals and/or tasks that were planned but not met/completed:
 
- * From most to least important.
- * For each goal/task, explain why it was not met/completed.      
-   e.g. Did you change your mind, or did you just not get to it yet?
+ * Goal: Google Maps integration
+ 	- This was not completed
+ 	- Our developers found learning the Google Maps API more difficult than expected
+ 	- Our developers wanted to learn the Google Maps API, however were not
+ 	able to given time constraints
+ 	- We had to look into other map alternatives
+ 	- This goal wasn't completed due to time constraints
+
+ * Goal: Finish the frontend HTML/CSS
+ 	- This was completed, however the usage of a React template was abandoned
+ 	- Parham found the React template way too difficult to learn
+ 	- More user-friendly alternatives were used instead
 
 ## Meeting Highlights
 
@@ -78,3 +91,16 @@ Going into the next iteration, our main insights are:
  * High-level concepts that should guide your work for the next iteration.
  * These concepts should help you decide on where to focus your efforts.
  * Can be related to product and/or process.
+-----
+ * Integration of Google Maps/Other map technology
+ 	- Despite the fact that the Google Maps API was difficult to learn, our 
+ 	developers are eager to learn this technology. Our group will continue 
+ 	to attempt to integrate the Google Maps API into our application. If
+ 	our group members still cannot integrate the Google Maps API
+ 	successfully, we still stick to our alternatives.
+
+ * Prepare for the Demo
+ 	- Many of our group members are not accustomed to presentations
+ 	- We are going to have a group meeting where we practice our demo
+ 	- We will create scripts for each group member to ensure the 
+ 	presentation goes smoothly

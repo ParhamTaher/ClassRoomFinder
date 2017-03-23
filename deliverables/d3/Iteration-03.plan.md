@@ -117,15 +117,19 @@ avoided conflicts.
 
 #### Goals and tasks
 
- * Describe your goals for this iteration and the tasks that you will have to complete in order to achieve these goals.
- * Order the items from most to least important.
- * Feel free (but not obligated) to specify some/all tasks as user stories.
+ * Goal: Google Maps integration
+ 	- We will have to understand the Google Maps API to understand how to integrate this with our application
+ 	- Hopefully this will be easy for our developers
+ * Finish the frontend HTML/CSS
+ 	- Parham has planned to create a React template
+ * Popluate the database
+ 	- This will be a joint group effort
 
 #### Artifacts
 
 List/describe the artifacts you will produce in order to present your project idea.
 
- * Artifacts can be text, code, images, videos, interactive mock-ups and/or any other useful artifact you can think of.
- * Make sure to explain the purpose of each artifact (i.e. Why is it on your to-do list? Why is it useful for your team?)
- * Be concise, yet precise.         
-   For example: "Build the website" is not precise at all, but "Build a static home page and upload it somewhere, so that it is publicly accessible" is much clearer.
+ * We will produce meeting minutes for each meeting
+ 	- These will be reviewed before starting each new meeting to remind the group members of the current project state and 
+ 	current project issues
+ 	- 
