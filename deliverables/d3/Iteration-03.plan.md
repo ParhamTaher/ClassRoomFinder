@@ -88,6 +88,11 @@ Online Video Chats
  * Backend tasks were finalized, Angela was expected to finish
  the documentation by end of March 21, 2017
 
+Facebook Messenger Group Chat
+ * We speak to each other regularly through Facebook Messenger
+ * The purpose of this is to discuss progress and scheduled
+ Coding Meetings and Online Video Chats.
+
 
 #### Artifacts
 

@@ -1,0 +1,16 @@
+March 23 Meeting Minutes
+
+- We receieved feedback from our TA about deliverable 2
+- Shray will do favourite buildings, Parham can use this code 
+- Shray is also working on the front-end
+- There is some confusion about the structure of the code
+- Parham is unfamiliar with the way in which Ishwant connected to the database
+- Unfortunately, Ishwant isn't here.
+- Let's make the naming scheme so it includes the building name, this would make it easier
+- We can do building_id for this
+- We are having trouble with the Google Maps API
+- We're probably going to have to scrap it
+- React was too hard to learn but we scrapped that too.
+- Parham using fading techniques on the frontend.
+- We need to add more information to the database, right now there is only max 1-2 rows in the database.
+- 

@@ -1,4 +1,4 @@
-# YOUR PRODUCT/TEAM NAME
+# TEAM AWESOME
 
  > _Note:_ This document is meant to be written during (or shortly after) your review meeting, which should happen fairly close to the due date.      
  >      
@@ -7,38 +7,52 @@
 
 ## Iteration XX - Review & Retrospect
 
- * When: FILL IN THE DATE WHEN YOU ACTUALLY HAD YOUR REVIEW MEETING
- * Where: PHYSICAL LOCATION AND/OR ONLINE
+ * When: Thursday March 23, 2017 from 1:00 PM to 2:00 PM
+ * Where: BA2195
 
 ## Process - Reflection
 
-(Optional) Short introduction
+Overall, this iteration was much smoother than the last. 
 
 #### Decisions that turned out well
 
 List process-related (i.e. team organization) decisions that, in retrospect, turned out to be successful.
 
+ * We got the frontend and backend running running in time.
+ * We have the basic structure for all the HTTP requests.
+ * We managed to finish everything on time. 
+ * We haven't had any hiccups in terms of time management for this iteration. 
+ This is a vast improvement from the last iteration.
+ * Everyone seems to gotten used to the GitHub workflow.
+ * The decision to put Ishwant in control of the pull requests was sucessful in avoiding conflicts.
 
- * 2 - 4 decisions.
- * Ordered from most to least important.
- * Explain why (i.e. give a supporting argument) you consider a decision to be successful.
- * Feel free to refer/link to process artifact(s).
 
 #### Decisions that did not turn out as well as we hoped
 
-List process-related (i.e. team organization) decisions that, in retrospect, were not as successful as you thought they would be.
-
- * 2 - 4 decisions.
- * Ordered from most to least important.
- * Feel free to refer/link to process artifact(s).
+ * We are having trouble connecting the frontend to the backend.
+ * We divided the work into two parts, frontend and backend. We are finding that this wasn't a good design decision.
+ Dividing the work in this manner made connecting the front end to the back end overtly complex.
+ * This resulted in unnecessary troubleshooting.
+ * Ishwant created asynchronous calls to the database. Parham and Angela are unfamiliar with this method of 
+ database connectivity.
+ * We are having a lot of trouble using Google Maps API
+ * We are deciding to scrap it.
+ * React was too hard to learn, we wanted to learn it for the project but we did not have time to learn it.
+ It was not developer friendly.
+ * 
 
 
 #### Planned changes
 
 List any process-related changes you are planning to make (if there are any)
 
- * Ordered from most to least important.
- * Explain why you are making a change.
+ * We have decided to add a login.
+ * Instead of using cookies we're going to use a login system, this will 
+ make keeping track of favourites much easier
+ * Unfortunately, we are going to limit the features of the Google Maps API.
+ Right now, it's not a high priority. It is not needed to meet the requirements of the 
+ next deliverable.
+
 
 
 ## Product - Review
