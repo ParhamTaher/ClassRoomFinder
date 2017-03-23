@@ -58,9 +58,10 @@ var queryService = (function() {
         });
     },
 
-    selectJoin: function(table1, table2, table3, cond, cond_value) {
-      var text = 'SELECT * FROM ' + table1 + ',' + table2 + ',' + table3 + ' WHERE ' + cond + '=' + cond_value;
-      var values = [cond_value];
+    selectJoin: function(table1, table2, cond_values) {
+      logger.log(cond_values);
+      var text = 'SELECT * FROM ' + table1 + ',' + table2 + ',' + ' WHERE classroom_id=' + cond_values[0] + ' AND building_id=' + cond_values[1];
+      var values = cond_values;
       logger.log(text);
       logger.log(values);
       return dbService.query(text, values)

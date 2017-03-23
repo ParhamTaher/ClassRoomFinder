@@ -29,8 +29,18 @@ var buildingService = (function() {
       Return available_classrooms, available_labs, img (skip), latest_activity, latest_comment
       */
 
+      /*
       var building_id = payLoad.building_id;
 
+      //messages
+      select COUNT(room_id), end_time, message
+
+      FROM classrooms, bookings, comments
+
+      WHERE is_lab = \'t\' AND building_id =' building_id
+      ORDER BY end_time
+      DESC LIMIT 1
+      */
 
       var available_labs = queryService.select_col('COUNT(room_id)', 'classrooms', 'is_lab = \'t\' AND building_id', building_id);
       var latest_activity = queryService.select_complex('end_time', 'bookings', 'building_id');
@@ -55,12 +65,14 @@ var buildingService = (function() {
       var building_id = payLoad.building_id;
       var room_id = payLoad.room_id;
 
+      var cond_values = [room_id, building_id];
+
+      /*
       var bookings = queryService.select('bookings', 'classroom_id = ' + room_id + ' AND ' + 'building_id', building_id);
       var comments = queryService.select_col('message', 'comments', 'building_id', building_id);
+      */
 
-      var result = bookings + " " + comments;
-
-      return result
+      return queryService.selectJoin('bookings', 'comments', cond_values)
       .then(undefined, function(err){
         logger.log("Throwing an error");
         throw new MyError(err.message, __line, 'building-service.js');
