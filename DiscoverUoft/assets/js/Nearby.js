@@ -15,7 +15,7 @@ function buildBuildingList(building_list) {
 	// For reach building in buildBuildingList
 		// Create clickable button for the building in sideNav
 		//Use this
-		$('.sideNav').append("<div>hello</div>");
+		//$('.sideNav').append("<div>hello</div>");
 
 		//Add on click event for each button
 
