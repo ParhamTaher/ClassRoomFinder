@@ -11,6 +11,14 @@ var buildingService = (function() {
     getNearbyBuildings: function(payload) {
     	logger.log(payload);
     },
+
+    getBuildingInfo: function(payload) {
+    	logger.log(payload);
+    },
+
+    getRoomInfo: function(payload) {
+    	logger.log(payload);
+    },
   };
 })();
 
