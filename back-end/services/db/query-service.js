@@ -35,6 +35,19 @@ var queryService = (function() {
         });
     },
 
+    /* ================ SELECT COL================ */
+    select_col: function(col, table, cond, cond_value) {
+      var text = 'SELECT ' + col + ' FROM ' + table + ' WHERE ' + cond + '= $1';
+      var values = [cond_value];
+      logger.log(text);
+      logger.log(values);
+      return dbService.query(text, values)
+        .then(function(result) {
+          logger.log(result.rowCount);
+          return result.rows;
+        });
+    },
+
     /* ================ INSERT ================ */
 
     /*

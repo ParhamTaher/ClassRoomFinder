@@ -76,7 +76,7 @@ app.get('/api/v1/building/get_room_info', function (req, res) {
 	var room_id = req.query.room_id;
 
 	var bookings = queryService.select('bookings', 'classroom_id = ' + room_id + ' AND ' + 'building_id', building_id);
-	var comments = queryService.select('comments', 'building_id', building_id);
+	var comments = queryService.select_col('message', 'comments', 'building_id', building_id);
 
 
 	//res.send(comments);
