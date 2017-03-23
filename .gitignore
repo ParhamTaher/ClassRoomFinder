@@ -2,3 +2,4 @@
 *.mp4
 *.veg
 *.veg.bak
+.DS_Store
