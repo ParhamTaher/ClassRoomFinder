@@ -34,4 +34,6 @@ $( document ).ready(function() {
   $("#nearbybtn_id").addClass("active");
 	$("#favouritesbtn_id").removeClass("active");
 	$("#allbuildingsbtn_id").removeClass("active");
+
+
 });

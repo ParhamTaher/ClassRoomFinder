@@ -8,17 +8,20 @@
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
  <link rel="stylesheet" href="assets/css/login_styles.css">
+ <script type="text/javascript" src="assets/js/Login.js"></script>
 </head>
 <body>
 
 <div class="container">
  <h1>Login Screen</h1>
- <form action="/action_page.php">
-   Username: <input type="text" name="fname"><br>
-   Password: <input type="text" name="lname"><br>
-   <input type="submit" value="Submit">
-</form>
-</div>
+  <div class="form_input">
+      <input type="text" name="username" placeholder="username">
+      <input type="password" name="password" placeholder="password" >
+  </div>
+  <div class="login_submit">
+      <button id="login-btn">Login</button>
+  </div>
+  </div>
 
 </body>
 </html>
