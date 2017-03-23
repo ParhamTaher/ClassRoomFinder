@@ -1,26 +1,30 @@
-function getAllBuildings() {
-		$.get('/api/v1/building/get_all_buildings', function(r){
-			var data = JSON.parse(r);
-		if (data.success && data.msg) {
-      buildBuildingList(JSON.parse(data.msg));
-		} else {
-      console.log('Error getting building list')
-		}
-	});
-}
+// jQuery Document
+var map, marker;
 
-function buildBuildingList(building_list) {
-  //console.log(building_list.name);
-  $('.sideNav').append("<div class=\"sidenavbtn\" name=\"Building3\">building3</div>");
-  $('.sideNav').append("<div class=\"sidenavbtn\">building4</div>");
-
-}
-
-$( document ).ready(function() {
-  $("#nearbybtn_id").removeClass("active");
-	$("#favouritesbtn_id").removeClass("active");
-
-  // add class to the one we clicked
-  $("#allbuildingsbtn_id").addClass("active");
-  buildBuildingList(2);
+$(document).ready(function() {
+    initMap();
 });
+
+function initMap() {
+    var uluru = { lat: 43.660411, lng: -79.396959 };
+    map = new google.maps.Map(document.getElementById('map'),, {
+        zoom: 4,
+        center: uluru
+    });
+    marker = new google.maps.Marker({
+        position: uluru,
+        map: map
+    });
+}
+
+/* Ajax call to get buildings */
+function getbuildings() {
+    $.ajax({
+        url: '/api/v1/building/get_all_buildings',
+        method: "GET",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function(data) {
+        }
+    });
+}
