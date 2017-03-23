@@ -11,8 +11,31 @@ body {
 }
 
 h1,
-h2 {
+h2,
+.card-heading {
     font-weight: bold;
+}
+
+.card-distance {
+    font-size: 3rem;
+}
+
+.main {
+    padding-top: 80px;
+}
+
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: 10px 15px /* adjust here */
+    margin-bottom: -1px;
+    border: 1px solid #ddd;
+    line-height: 1em /* set to text height */
+}
+
+.main {
+    width: 66%;
+    height: auto;
 }
 
 /* .container {
@@ -59,6 +82,12 @@ ul.nav-pills > li > a {
     background-color: #2196F3;
 }
 
+#map {
+    height: 500px;
+    width: 400px
+    background-color: grey;
+}
+
 .jumbotron {
     background-color: #002a5c;
     padding: 10px 0;
@@ -83,7 +112,7 @@ hr {
     bottom: 0;
     width: 100%;
     /* Set the fixed height of the footer here */
-    height: 60px;
+    height: 70px;
     background-color: #002a5c;
 }
 
