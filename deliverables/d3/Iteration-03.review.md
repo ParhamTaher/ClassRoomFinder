@@ -41,7 +41,7 @@ become fully accustomed to the work flow, deliverables and deadlines and everyon
  * Goal: Google Maps integration
 	- Basic functionality of this feature was completed. Although we only have basic functionality completed, we're happy to get it finally working.
 
- * Goal: Finish basic front-end functionality [front-end](../../../../assets/) HTML/CSS
+ * Goal: Finish basic front-end functionality [front-end](../../../../tree/master/assets) HTML/CSS
  	- This was completed by Parham, Shray and Bence
 
  * Goal: Populate the database
