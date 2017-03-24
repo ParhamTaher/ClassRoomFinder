@@ -1,5 +1,5 @@
-var logger = require('tracer').console(); 
-var http = require('http'); 
+var logger = require('tracer').console();
+var http = require('http');
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
@@ -8,6 +8,7 @@ var path = require('path');
 
 var userRoutes = require('./routes/user-route');
 var buildingRoutes = require('./routes/building-route');
+var adminRoutes = require('./routes/admin-route');
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -22,7 +23,7 @@ app.use(bodyParser.json());
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, user_token");
-  next(); 
+  next();
 });
 
 // Route definitions
@@ -42,8 +43,10 @@ app.get('/api/v1/building/get_room_info', buildingRoutes);
 app.get('/api/v1/building/get_building_hours', buildingRoutes);
 app.get('/api/v1/building/get_room_schedule', buildingRoutes);
 app.get('/api/v1/building/get_building_schedule', buildingRoutes);
-app.post('/api/v1/building/create_building', buildingRoutes);
-app.post('/api/v1/building/add_room', buildingRoutes);
+
+app.post('/api/v1/admin/create_building', adminRoutes);
+app.post('/api/v1/admin/add_room', adminRoutes);
+app.post('/api/v1/admin/add_room_schedule', adminRoutes);
 
 app.listen(app.get('port'), function() {
   console.log('running on port', app.get('port'))
