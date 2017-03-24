@@ -125,8 +125,45 @@
             </div>
           </div>
       </div>
-        <div id="map-canvas" class="col-md-7">
+
+      <div id="room_info" class="col-md-7 hidden">
+        <div id="room_info_title">Today's Bookings</div>
+        <div>
+          <div>Official Bookings</div>
+          <ul>
+            <li>CSC148 Tutorial 2:00pm - 3:00PM</li>
+            <li>CSC207 Tutorial 5:00pm - 6:00PM</li>
+          </ul>
         </div>
+        <div>
+          <div>User Bookings</div>
+          <ul>
+            <li>CSC301 study session 6:00pm - 7:00PM</li>
+          </ul>
+        </div>
+        <div id="commentBtn">
+          Comments
+        </div>
+      </div>
+
+      <div id="comments_section" class="col-md-7 hidden">
+        <div id="comments">
+          Recent Comments
+          <div class="comment">
+            Free cookies at BA3195!
+          </div>
+          <div class="comment">
+            Closed during reading week!
+          </div>
+        </div>
+
+        <div>
+          <input id="commentText" type="text" name="commentText">
+          <input id="submitComment"type="submit" value="Submit Comment">
+        </div>
+      </div>
+
+        <div id="map-canvas" class="col-md-7"></div>
 
     </div>
     <footer class="footer text-center">

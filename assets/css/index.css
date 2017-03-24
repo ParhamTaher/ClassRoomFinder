@@ -196,3 +196,38 @@ hr {
   justify-content: left;
   padding:5px;
 }
+
+#room_info {
+  background-color: #e6ecff;
+  color: #002F65;
+}
+
+#commentBtn {
+  background-color: #002F65;
+  color: 	white;
+  height:40px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+#comments_section {
+  background-color: #e6ecff;
+  color: #002F65;
+  border-style: solid;
+  border-width: 2px;
+}
+
+.comment {
+  background-color: #84aced;
+  color: 	white;
+  height:40px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px;
+  border-radius: 7px;
+}
