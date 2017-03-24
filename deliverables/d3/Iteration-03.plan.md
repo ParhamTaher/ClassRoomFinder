@@ -37,7 +37,7 @@ We will use our mark on the plan and review documents as a success metric.
 
 * For this stage, providing the database inserts and connections as well as hosting the group's database on a site such as Heroku. This will ensure that the database is accessible and easy to connect to for further use in the front-end and backend.
 
-**Front-end and Visuals:** Bence Linder, Parham Taher
+**Front-end and Visuals:** Bence Linder, Shray Sharma, Parham Taher
 
 * Creation and maintenance of the visual aspects of the application. This includes the development of the required HTML and CSS files as well as any front-end JS scripts.
 
