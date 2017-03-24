@@ -2,30 +2,13 @@ var express = require('express');
 var Promise = require('bluebird');
 var logger = require('tracer').console();
 var queryService = require('./db/query-service');
+var MyError = require('./error-service.js');
 
-var buildingService = (function() {
+var adminService = (function() {
   return {
-    getNearbyBuildings: function(payLoad) {
-    	/*
-      Returns all nearby buildings within this proximity
-    	*/
-
-    	// DO NOT IMPLEMENT THIS METHOD
-    	logger.log(payLoad);
-    },
-    getAllBuildings: function(payLoad) {
-    	/*
-            Returns all buildings
-    	*/
-    	return queryService.selectAll('buildings', 'name')
-    	.then(undefined, function(err){
-    		logger.log("Throwing an error");
-        throw new MyError(err.message, __line, 'building-service.js');
-      })
-    },
     createBuilding: function(payLoad) {
     	/*
-            Creates a building and a schedule
+      Creates a building and a schedule
     	*/
     	logger.log(payLoad);
     	return queryService.insert('buildings', 'name,address,num_rooms,lat,lon',[payLoad.name, payLoad.address, payLoad.num_rooms, payLoad.lat, payLoad.lon], 'building_id')
@@ -39,33 +22,35 @@ var buildingService = (function() {
     	})
     	.then(undefined, function(err){
     		logger.log("Throwing an error");
-        throw new MyError(err.message, __line, 'building-service.js');
+            throw new MyError(err.message, __line, 'error-service.js');
       })
     },
     createRoom: function(payLoad) {
         /*
-            Creates a room
+        Creates a room
         */
         logger.log(payLoad);
         return queryService.insert('classrooms', 'building_id,code,occupancy,is_lab',[payLoad.buildingId, payLoad.code, payLoad.occupancy, payLoad.isLab], 'room_id')
         .then(undefined, function(err){
             logger.log("Throwing an error");
-        throw new MyError(err.message, __line, 'building-service.js');
+            throw new MyError(err.message, __line, 'error-service.js');
       })
     },
-    getRoomSchedule: function(payLoad){
+    createRoomSchedule: function(payLoad) {
         /*
-            Returns the schedule associated with this room on this date
+        Creates the appended schedules for this room
         */
-        logger.log(payLoad)
-        var thisDay = payLoad.date + ' 00:00'
-        var nextDay = payLoad.date + ' 23:59';
-
-        logger.log(thisDay)
-        logger.log(nextDay)
-        return queryService.selectDate('schedules', ['start_time', 'end_time'], [thisDay, nextDay])
-    }
+        logger.log(payLoad);
+        var promiseArray = [];
+        //for (var timeSlot in payLoad.schedule){
+        for (var i = 0; i < payLoad.schedule.length; i++){
+            logger.log(i);
+            logger.log(payLoad.schedule[i]);
+            queryService.insert('schedules', 'classroom_id,building_id,activity,start_time,end_time', [payLoad.room_id, payLoad.building_id, payLoad.schedule[i].activity, payLoad.schedule[i].start_time, payLoad.schedule[i].end_time], 'schedule_id')
+        }
+        return 1;
+    },
   };
 })();
 
-module.exports = buildingService;
+module.exports = adminService;
