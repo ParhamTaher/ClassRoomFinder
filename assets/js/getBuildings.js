@@ -136,8 +136,8 @@
 $(document).ready(function() {
     console.log('Document ready.');
 
-    $('#map-canvas').fadeOut(300);
-    $('#list-group').fadeOut(300);
+    $('#map-canvas').hide();
+    $('#list-group').hide();
 
 
     // generate building list cards and marker list
@@ -163,7 +163,7 @@ $(document).ready(function() {
 
         var txt = "";
         var name, address;
-        name = "Bahen Centre";
+        name = "Bahen Center";
         address = "40 St George St";
 
         // create list-group-item with building info
@@ -251,6 +251,7 @@ $(document).ready(function() {
                 //alert("Room!");
                 $('#building_rooms').removeClass("hidden");
                 $('#map-canvas').addClass("hidden");
+                $('#comments_section').addClass("hidden");
 
                 $(".buildingName").html(buildingName + " -> Rooms");
             });
@@ -259,6 +260,7 @@ $(document).ready(function() {
                 //alert("Lab!");
                 $('#building_rooms').removeClass("hidden");
                 $('#map-canvas').addClass("hidden");
+                $('#comments_section').addClass("hidden");
 
                 $(".buildingName").html(buildingName + " -> Labs");
             });
@@ -267,6 +269,7 @@ $(document).ready(function() {
                 //alert("Lecture Hall!");
                 $('#building_rooms').removeClass("hidden");
                 $('#map-canvas').addClass("hidden");
+                $('#comments_section').addClass("hidden");
 
                 $(".buildingName").html(buildingName + " -> Lecture Halls");
             });
@@ -283,7 +286,7 @@ $(document).ready(function() {
 
       var txt = "";
       var name, address;
-      name = "Bahen Centre";
+      name = "Bahen Center";
       address = "40 St George St";
 
       // create list-group-item with building info
@@ -336,6 +339,7 @@ $(document).ready(function() {
           //alert("Room!");
           $('#building_rooms').removeClass("hidden");
           $('#map-canvas').addClass("hidden");
+          $('#comments_section').addClass("hidden");
 
           $(".buildingName").html(buildingName + " -> Rooms");
       });
@@ -344,6 +348,7 @@ $(document).ready(function() {
           //alert("Lab!");
           $('#building_rooms').removeClass("hidden");
           $('#map-canvas').addClass("hidden");
+          $('#comments_section').addClass("hidden");
 
           $(".buildingName").html(buildingName + " -> Labs");
       });
@@ -352,6 +357,7 @@ $(document).ready(function() {
           //alert("Lecture Hall!");
           $('#building_rooms').removeClass("hidden");
           $('#map-canvas').addClass("hidden");
+          $('#comments_section').addClass("hidden");
 
           $(".buildingName").html(buildingName + " -> Lecture Halls");
       });
@@ -368,7 +374,7 @@ $(document).ready(function() {
 
       var txt = "";
       var name, address;
-      name = "Bahen Centre";
+      name = "Bahen Center";
       address = "40 St George St";
 
       // create list-group-item with building info
@@ -492,6 +498,7 @@ $(document).ready(function() {
           //alert("Room!");
           $('#building_rooms').removeClass("hidden");
           $('#map-canvas').addClass("hidden");
+          $('#comments_section').addClass("hidden");
 
           $(".buildingName").html(buildingName + " -> Rooms");
       });
@@ -500,6 +507,7 @@ $(document).ready(function() {
           //alert("Lab!");
           $('#building_rooms').removeClass("hidden");
           $('#map-canvas').addClass("hidden");
+          $('#comments_section').addClass("hidden");
 
           $(".buildingName").html(buildingName + " -> Labs");
       });
@@ -508,6 +516,7 @@ $(document).ready(function() {
           //alert("Lecture Hall!");
           $('#building_rooms').removeClass("hidden");
           $('#map-canvas').addClass("hidden");
+          $('#comments_section').addClass("hidden");
 
           $(".buildingName").html(buildingName + " -> Lecture Halls");
       });

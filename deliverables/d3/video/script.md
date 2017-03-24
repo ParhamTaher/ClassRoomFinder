@@ -6,28 +6,28 @@ We've all been in situations where we had difficulty finding spaces for personal
 
 Our app steps in to provide University of Toronto students and faculty with a quick and easy way to find free spaces (lecture halls, classrooms, etc.) that they can use to study, play, work, or find others who are doing similar activities.
 
-In this video, we'll be showing you a quick demo of the functionality of our web app, DiscoverUofT. Our front-end is incomplete so we'll be demonstrating the functionality of the app through our mockups. We'll see how a typical user would interact with our app and showcase its basic functionality.
+In the last video, we explored a few user stories and the basic functionality of our application through our mockups. In this video, we'll be exploring the same features through our actual application instead while highlighting how we plan to improve and extend each feature's functionality in the future.
 
-## Demonstration:
+## Demonstration (~90s):
 
-### User One:
+### Tabs:
 
-We’ll start by looking at what is likely the most common scenario. Alex is a computer science student who is looking for somewhere to work on an assignment with his friends.
+On the homepage, you'll start off on the 'nearby' tab where you'll be able to see nearby buildings. Whenever you switch to another tab, the building list and map will load with the new information.
 
-Upon opening the web-app, he can see a map of his location displaying nearby buildings along with a list view of the buildings. You can see that the labels provide information about the number of available/total classrooms and the closing time. Here he can see the Bahen Centre has some availability so he will select that building.
+### Building List:
 
-Once he has chosen Bahen Centre, he can browse through a list of rooms inside. Here he selects a room, BA3195, and is provided with information regarding ongoing or upcoming lectures, tutorials, user events, and user comments. There is nothing going on right now so they head over to the room.
+Currently, the building list displays each building's name and address. You can click on a building's card to reveal a panel with more options, allowing to browse available rooms, labs, and lecture halls. In the future, we plan to show each building's distance from the user on its respective card in the list as well as improve animations when transitioning between pages.
 
-### User Two:
+### Map:
 
-The second user, Jenny, is a returning user. She is working on the same assignment herself and is hoping to collaborate with students in the same class. In our app, although first-time users can only see nearby buildings or search through all of them, users can bookmark their favourite buildings for convenience. She prefers to work in the labs at the Bahen Centre so she goes to her favourites tab and selects Bahen. While browsing available classrooms inside the Bahen Centre, Jenny can filter rooms by their event description or tags so she searches for her class, CSC301, and is able to locate a group working in room 3195. Now that she has found what she is looking for, Jenny can head to BA 3195 and join Alex and his friends to work on the assignment.
+Beside the list, you'll see a map generated with the help of Google's Map API which, at this moment, is only used as a visual aid. Each building in the list has a corresponding marker on the map displaying its location. Hovering over a marker will display the name of the building. In the future, we hope to greatly improve the map's functionality with several features. First, we'd like to allow users to bring up the 'more options' panel seen in the list by selecting a marker on the map instead. Additionally, after selecting a marker, we'd like to display a path to the building as well as its distance. Lastly, if possible, we'd like to scrap the generic theme on each marker and restyle them so that they display building codes instead (e.g. showing BA for Bahen or MP for McLennan Physical Labs).
 
-### User Three:
+### Rooms:
 
-Let’s look at our final use case with Phil. While he’s walking past Bahen, Phil decides to pull up the app and see if anything’s going on. In the comments section, he sees someone mention that there are free cookies being provided at the ongoing job fair and decides to go grab some. Since he’s already there, Phil decides to see if his favourite room, BA3195, is free so he can get some work done. Unfortunately, Phil sees that the room is taken and decides to not study instead since he hates every other room in Bahen.
+Now, let's pick a building and browse available rooms. Here, you'll see a list of rooms categorized and ordered by their availability. You can select a room to see when its official bookings, such as lectures and tutorials, as well as user bookings. Each room also provides a public comments section allowing users to share updates regarding each room or the building in general.
 
-## Conclusion:
+## Conclusion (~43s):
 
-Over the last few examples, we’ve seen how both single users and groups can utilize our app to not only quickly find free spaces that fit their needs, but also keep up with ongoing events happening in buildings around them..
+In order to reach the point where we can finally declare our application a minimum-viable-product, there's still a few features left to implement. As discussed previously, we plan to improve our map's usefulness and functionality by allowing users to select a building directly from the map, providing directions to each building, and creating intuitive map markers using building codes. Although we're currently providing data ourselves, we've started integrating Cobalt's API with our app, allowing us to get real information about buildings, rooms, labs, and lecture/tutorial timings. Regarding rooms, we need to write the front-end code for booking rooms and improve the look-and-feel of the rooms UI as well. Lastly, we need to continue and complete our integration of our front-end and back-end code.
 
-For the next iteration, our goal is to end with a minimum viable product which will perform all of the basic functionality. As such, our focus will be on developing the front end, integrating the backend to allow for basic functionality, and developing additional features such as room filtering and integrating the Google Image API.
+Thanks for watching. We hope you enjoyed the demo.
