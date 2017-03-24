@@ -1,7 +1,7 @@
 # TEAM AWESOME
 
 
-## Iteration XX - Review & Retrospect
+## Iteration 03 - Review & Retrospect
 
  * When: Thursday March 23, 2017 from 1:00 PM to 2:00 PM
  * Where: BA2195
