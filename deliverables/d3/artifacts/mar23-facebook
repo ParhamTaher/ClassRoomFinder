@@ -1,20 +1,14 @@
 March 23 minutes - Facebook
 
-- pr is up
 - Shray added some fades to transition betwen pages
-- Hopefully his ajax calls are correct
+- Needs more checking on his Ajax calls
 - Angela found that documentation took up more than expected,
 she wasn't able to finish her GET requests
 - She delegated the rest of her coding work to Bence
-- Bence has been quite busy with other work during this iteration, unfortunately
 - Maybe we should add room capacity?
 - We also have to differentiate between a room and lecture hall
-- also for the submenu of selecting a buidling, maybe we should have rooms, labs, lecture halls rather than rooms, bookings, comments?
-- Angela had trouble populating the database
+- For the submenu of selecting a buidling, maybe we should have rooms, labs, lecture halls rather than rooms, bookings, comments?
 - Shray was able to get the Google Maps API woroking!!
-- Shray was able to get Galbraith, Bahen and McLennan on the map
-- The app has better visuals
-- Parham and Shray decided to make a few changes from the mock-up to speed up our work
-So when you pick a building, Instead of going to whole new page, a panel with three 
+- Parham and Shray decided to make a few changes from the mock-up
+- Now when you pick a building, Instead of going to whole new page, a panel with three 
 buttons will slide down instead
-- 
