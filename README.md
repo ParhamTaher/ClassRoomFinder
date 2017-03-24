@@ -1,10 +1,15 @@
-#TEAM AWESOME
+# TEAM AWESOME
 
-#### [Deliverable 2 Demo Video](https://www.youtube.com/watch?v=dCPwDSkWu0s)
+## [Deliverable 3 Video]()
+## [Deliverable 2 Video](https://www.youtube.com/watch?v=dCPwDSkWu0s)
+
+#### UPDATE: Where does information come from?
+
+The main building and room information used for out application is retrieved from the Cobalt API used the by the University of Toronto. This allows us to retrieve class and tutorial schedules as well as the buildings in which they are scheduled. Along with partial user input this is the data that populates the application and provides smooth and accurate responses to our target users. 
 
 #### Q1: What are you planning to build?
 
-Our team is creating an application that finds empty classrooms and fields on the University of Toronto campus and informs the user of their location, size, and capacity. Our application would assist students in finding empty classrooms and/or fields where they can play games, study individually or hold group study sessions without disturbing lecture times. 
+Our team is creating an application that finds empty classrooms and fields on the University of Toronto campus and informs the user of their location, size, and capacity. Our application would assist students in finding empty classrooms and/or fields where they can play games, study individually or hold group study sessions without disturbing lecture times.
 
 We are planning to build a website application. The user will input a time range and the application will return a list of rooms and fields on the University of Toronto campus that are free during that time range, along with their size, capacity and times that they are free. Once a student selects a room, that room will change to "taken" status in the application and it will be visible to other students.
 
@@ -27,7 +32,7 @@ Our application will save users considerable amounts of time, as groups will no 
 
 ### Highlights
 
-During our meetings, there was much discussion regarding the type of application that should be  utilized to display our idea. We were conflicted between using an Android application or website  application to host our idea. 
+During our meetings, there was much discussion regarding the type of application that should be  utilized to display our idea. We were conflicted between using an Android application or website  application to host our idea.
 
 Initially, we thought we should create an Android application simply because it would be more convenient for students, since students spend a large component of their time on campus travelling between classes. However, we decided on a web application, since a web application can be adapted to mobile phone use on both Android and iOS platforms.
 
