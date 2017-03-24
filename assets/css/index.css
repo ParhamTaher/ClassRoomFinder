@@ -144,3 +144,55 @@ hr {
         text-align: center;
     }
 }
+
+/* Romm styling stuff */
+.buildingName {
+  background-color: #002F65;
+  color: 	white;
+  height:40px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.availableHeader {
+  background-color: #44e263;
+  color: 	#002F65;
+  height:40px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.availableSoonHeader {
+  background-color: #e8e54e;
+  color: 	#002F65;
+  height:40px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.notAvailableHeader {
+  background-color: #e55c54;
+  color: 	#002F65;
+  height:40px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.roomBtn {
+  background-color: #e6ecff;
+  color: 	#002F65;
+  height:40px;
+  text-align: left;
+  cursor: pointer;
+  cursor: hand;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  padding:5px;
+}
