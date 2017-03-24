@@ -35,7 +35,7 @@ var queryService = (function() {
     },
     selectTwoConds: function(table, conds, cond_values) {
       logger.log(cond_values)
-      var text = 'SELECT * FROM ' + table + ' WHERE )' + conds[0] + '= $1' + ' AND ' + conds[1] + '= $2)';
+      var text = 'SELECT * FROM ' + table + ' WHERE ' + conds[0] + '= $1' + ' AND ' + conds[1] + '= $2)';
       var values = cond_values;
       logger.log(text);
       logger.log(values);
@@ -46,12 +46,15 @@ var queryService = (function() {
           return result.rows;
         });
     },
-      selectDate: function(table, conds, cond_values, order_by) {
+      selectDate: function(table, conds, cond_values, order_by, group_by) {
       logger.log(cond_values)
-      var text = 'SELECT * FROM ' + table + ' WHERE ' + conds[0] + ' >= $1' + ' AND ' + conds[1] + ' < $2';
+      var text = 'SELECT * FROM ' + table + ' WHERE ' + conds[0] + ' >= $1' + ' AND ' + conds[1] + ' < $2' + ' AND ' + conds[2] + ' = $3';
       var values = cond_values;
       if (order_by){
         text = text + ' ORDER_BY ' + order_by;
+      }
+      if (group_by){
+        text = text + ' GROUP_BY ' + group_by;
       }
       logger.log(text);
       logger.log(values);

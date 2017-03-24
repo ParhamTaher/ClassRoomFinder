@@ -63,7 +63,20 @@ var buildingService = (function() {
 
         logger.log(thisDay)
         logger.log(nextDay)
-        return queryService.selectDate('schedules', ['start_time', 'end_time'], [thisDay, nextDay])
+        return queryService.selectDate('schedules', ['start_time', 'end_time', 'classroom_id'], [thisDay, nextDay, payLoad.roomId], 'start_time')
+    },
+
+    getBuildingSchedule: function(payLoad){
+        /*
+            Returns the schedule associated with this room on this date
+        */
+        logger.log(payLoad)
+        var thisDay = payLoad.date + ' 00:00'
+        var nextDay = payLoad.date + ' 23:59';
+
+        logger.log(thisDay)
+        logger.log(nextDay)
+        return queryService.selectDate('schedules', ['start_time', 'end_time', 'building_id'], [thisDay, nextDay, payLoad.buildingId], 'start_time', 'room_id')
     }
   };
 })();
