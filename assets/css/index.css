@@ -1,0 +1,233 @@
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    background: #E3F2FD;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 100px;
+}
+
+h1,
+h2,
+.card-heading {
+    font-weight: bold;
+}
+
+.card-distance {
+    font-size: 3rem;
+}
+
+.main {
+    padding-top: 80px;
+}
+
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: 10px 15px /* adjust here */
+    margin-bottom: -1px;
+    border: 1px solid #ddd;
+    line-height: 1em /* set to text height */
+}
+
+.main {
+    width: 70%;
+    height: auto;
+}
+
+.panel-footer {
+    padding: 0;
+    padding-top: 10px;
+    margin: 0;
+    margin-top: 5px;
+    background-color: inherit;
+}
+
+.panel-footer .btn {
+    padding: 5px 2px;
+}
+
+/* .container {
+    outline: 1px solid orange;
+} */
+
+#nav {
+    background-color: #002a5c;
+}
+
+.nav-pills > li {
+    float: none;
+    display: inline-block;
+    width: 25%;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+ul.nav-pills > li > a {
+    padding: 12px 16px;
+    margin: 0 -3px;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+}
+
+.nav-pills {
+    text-align: center;
+}
+
+.nav-pills > li > a {
+    color: white;
+    background-color: #002a5c;
+}
+
+.nav-pills > li > a:hover {
+    color: white;
+    background-color: #2196F3;
+}
+
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover {
+    color: white;
+    background-color: #2196F3;
+}
+
+#map-canvas {
+    height: 500px;
+    width: 400px
+    background-color: grey;
+}
+
+.jumbotron {
+    background-color: #002a5c;
+    padding: 10px 0;
+    margin: 0;
+}
+
+.hidden {
+    display: none;
+}
+
+hr {
+    border-color: #2196F3;
+}
+
+.hr-container {
+    clear: both;
+    padding: 10px 0;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 70px;
+    background-color: #002a5c;
+}
+
+.footer p {
+    padding-top: 18px;
+    font-size: 20px;
+    font-weight: lighter;
+}
+
+@media (min-width: 768px) {
+    .navbar .navbar-nav {
+        display: inline-block;
+        float: none;
+        vertical-align: top;
+    }
+    .navbar .navbar-collapse {
+        text-align: center;
+    }
+}
+
+/* Romm styling stuff */
+.buildingName {
+  background-color: #002F65;
+  color: 	white;
+  height:40px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.availableHeader {
+  background-color: #44e263;
+  color: 	#002F65;
+  height:40px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.availableSoonHeader {
+  background-color: #e8e54e;
+  color: 	#002F65;
+  height:40px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.notAvailableHeader {
+  background-color: #e55c54;
+  color: 	#002F65;
+  height:40px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.roomBtn {
+  background-color: #e6ecff;
+  color: 	#002F65;
+  height:40px;
+  text-align: left;
+  cursor: pointer;
+  cursor: hand;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  padding:5px;
+}
+
+#room_info {
+  background-color: #e6ecff;
+  color: #002F65;
+}
+
+#commentBtn {
+  background-color: #002F65;
+  color: 	white;
+  height:40px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+#comments_section {
+  background-color: #e6ecff;
+  color: #002F65;
+  border-style: solid;
+  border-width: 2px;
+}
+
+.comment {
+  background-color: #84aced;
+  color: 	white;
+  height:40px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px;
+  border-radius: 7px;
+}
