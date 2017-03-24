@@ -9,16 +9,15 @@
 ## Process - Reflection
 
 Overall, this iteration was much smoother than the last. Our group members have
-become fully accustomed to the work flow, deliverables and deadlines and everyone is contributing. Unlike the last iteration, group members worked continuously on this project
-throughout the entire iteration and faced only minor challenges due to time constraints and other course material.
+become fully accustomed to the work flow, deliverables and deadlines and everyone is contributing. Unlike the last iteration, group members worked continuously on this project throughout the entire iteration and faced only minor challenges due to time constraints and other course material.
 
 #### Decisions that turned out well
 
- * We got the front-end and backend running completed for submission.
+ * We got the basic functionality in the front-end and backend working and completed for submission.
  * We have the basic structure for all the HTTP requests.
  * We haven't had any hiccups in terms of time management for this iteration. This is a vast improvement from the last iteration.
  * The decision to put Ishwant in control of the pull requests was successful in avoiding conflicts.
- * Google maps API looks great and is now fully functional.
+ * Google maps API integration looks great and is now fully functional.
  * Backend endpoints are being hit and producing all the required and expected results for use in the front-end pages as well as use in the last iteration for application completion.
 
 
@@ -26,7 +25,7 @@ throughout the entire iteration and faced only minor challenges due to time cons
 
  * Splitting front-end and backend development into two groups proves challenging when files have to be integrated and/or merged.
  * Ishwant created asynchronous calls to the database. Parham and Angela are unfamiliar with some of this method of database connectivity and backend development.
- * We began attempting to use React as our front-end framework. This proved unsuccessful as React has a very high learning curve and we were unable to acquire the necessary skills in the short amount of time required for the project. This led to the development using just Node JS and Express with a Rest
+ * We began attempting to use React as our front-end framework. This proved unsuccessful as React has a very high learning curve and we were unable to acquire the necessary skills in the short amount of time required for the project. As a result, we went back to using what we already knew such as NodeJS, Express, JQuery, etc.
 
 
 #### Planned changes
@@ -40,9 +39,9 @@ throughout the entire iteration and faced only minor challenges due to time cons
 #### Goals and/or tasks that were met/completed:
 
  * Goal: Google Maps integration
-	- Basic functionality of this feature was completed. Although we only have basic functionality completed, we were very proud of achieving this goal.
+	- Basic functionality of this feature was completed. Although we only have basic functionality completed, we're happy to get it finally working.
 
- * Goal: Finish the [front-end](../assets/) HTML/CSS
+ * Goal: Finish basic front-end functionality [front-end](../assets/) HTML/CSS
  	- This was completed by Parham, Shray and Bence
 
  * Goal: Populate the database
@@ -51,31 +50,27 @@ throughout the entire iteration and faced only minor challenges due to time cons
 #### Goals and/or tasks that were planned but not met/completed:
 
  * Goal: Google Maps integration
- 	- Full functionality of this feature was not completed
- 	- Our developers found learning the Google Maps API more difficult than expected
- 	- Our developers wanted to learn the Google Maps API, however were not
- 	able to given time constraints
- 	- We had to look into other map alternatives
- 	- We were only able to implement basic functionality.
- 	- We had originally planned for full functionality of this feature.
+ 	- We were only able to implement a basic map where markers are placed according to the building list.
+ 	- The Google Maps API was a bit frustrating to use and get working as expected so we did not have time to completely implement every feature we had in mind for the map.
 
- * Goal: Finish the front-end HTML/CSS
- 	- This was completed, however the usage of a React template was abandoned.
- 	- Parham found the React template too difficult to learn given
- 	time constraints.
- 	- More user-friendly alternatives were used instead.
+ * Goal: Finish the front-end
+ 	- This was mostly completed, however the usage of a React template was abandoned.
+ 	- Our front-end team found the React library too difficult and complex to learn and implement well given time constraints.
+ 	- Used JQuery for UI instead.
 
 ## Meeting Highlights
 
-Going into the next iteration, our main insights are:
+Going into the next iteration, our main goals/insights are:
 
- * Better integration of Google Maps/Other map technology
- 	- Despite the fact that the Google Maps API was difficult to learn, our
- 	developers are eager to learn this technology. Our group will continue
- 	to integrate the Google Maps API into our application.
+* Better integration of Google Maps technology
+ 	- Now that we've become comfortable with the basic API, we'll continue
+ 	to integrate the Google Maps API into our application and extend its functionality with more complex features.
 
- * Prepare for the final presentation
- 	- Many of our group members are not accustomed to presentations.
+* Populating database through Cobalt
+    - For this phase, we've been manually populating the database with information about buildings, timings, etc. For the final product, we will aim to integrate Cobalt's API into our application so we have real data.
+
+* Prepare for the final presentation
  	- We are going to have a group meeting where we practice our presentation.
  	- We will create scripts for each group member to ensure the
- 	presentation goes smoothly. Scripts will eventually be memorized to prevent dependency on paper and loss of eye contact with professor.
+ 	presentation goes smoothly. 
+    - Scripts will eventually be memorized to prevent dependency on paper and increase confidence during presentation.
