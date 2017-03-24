@@ -8,60 +8,31 @@
 
 ## Process - Reflection
 
-Overall, this iteration was much smoother than the last. Our group members have 
-become fully accustomed to the work flow and everyone is contributing. 
-Unlike the last iteration, group members worked continuously on this project 
-throughout the entire iteration.
+Overall, this iteration was much smoother than the last. Our group members have
+become fully accustomed to the work flow, deliverables and deadlines and everyone is contributing. Unlike the last iteration, group members worked continuously on this project
+throughout the entire iteration and faced only minor challenges due to time constraints and other course material.
 
 #### Decisions that turned out well
 
-List process-related (i.e. team organization) decisions that, in retrospect, turned out to be successful.
-
- * Our decision to abandon the React template was successful. Parham found the
- React template too complicated, and decided to switch to another front-end technology.
- Ultimately, this was a good decision because React isn't user friendly. Our team found it
- much easier to develop the front end without React.
-
-
- * The decision to put Ishwant in control of the pull requests was sucessful in avoiding conflicts. We haven't had any GitHub conflicts during this iteration. Ishwant was
- definitely the best group member for this position.
-
- * Delegating the creation of the server to Ishwant was also a good decision. The group
- found Ishwant's coding style to easy to read. The group did not have trouble adding
- to Ishwant's code.
+ * We got the front-end and backend running completed for submission.
+ * We have the basic structure for all the HTTP requests.
+ * We haven't had any hiccups in terms of time management for this iteration. This is a vast improvement from the last iteration.
+ * The decision to put Ishwant in control of the pull requests was successful in avoiding conflicts.
+ * Google maps API looks great and is now fully functional.
+ * Backend endpoints are being hit and producing all the required and expected results for use in the front-end pages as well as use in the last iteration for application completion.
 
 
 #### Decisions that did not turn out as well as we hoped
 
- * We encountered difficulty connecting the frontend to the backend. We had decided to 
- divide our group into two parts: those who worked on the frontend, and those who worked
- on the backend. We found that this wasn't a good design decision. Our group members
- spent too much time troubleshooting issues that arose from frontend - backend
- incompatibility.
-
-
- * Our developers had a lot of trouble learning the Google Maps API. At one point, we were
- ready to abandon the Google Maps API altogether and look for alternatives. Thankfully,
- Shray was able to implement basic Google Maps functionality in the homepage the night 
- before the deadline. Although we did manage to figure out the Google Maps API, we felt
- our implementation of this feature came too close to the deadline. We underestimated
- the complexity of this feature.
-
- * We had to abandon React. We found this technology too hard to learn and not 
- user-friendly. Although we did find a solution for this issue, we should have 
- initialized the frontend with more user-friendly technology to avoid wasting
- time.
+ * Splitting front-end and backend development into two groups proves challenging when files have to be integrated and/or merged.
+ * Ishwant created asynchronous calls to the database. Parham and Angela are unfamiliar with some of this method of database connectivity and backend development.
+ * We began attempting to use React as our front-end framework. This proved unsuccessful as React has a very high learning curve and we were unable to acquire the necessary skills in the short amount of time required for the project. This led to the development using just Node JS and Express with a Rest
 
 
 #### Planned changes
 
-List any process-related changes you are planning to make (if there are any)
-
- * We have decided to add a login. Instead of using cookies we're going to use a login system. This will make keeping track of favourites much easier.
-
- * Unfortunately, we are going to limit the features of the Google Maps API.
- Right now, it's not a high priority. It is not needed to meet the requirements of the 
- upcoming deliverable.
+ * We have decided to add a login instead of using cookies for user information as originally planned. This will provide an easier way to track user favorites and preferences within the application.
+ * We now have a strict 2-day deadline where all deliverables from subgroups must be delivered to the main group forum at least 2 days before submission deadline. This will allow for review by group members as well as a grace period for unexpected issues.
 
 
 ## Product - Review
@@ -69,20 +40,13 @@ List any process-related changes you are planning to make (if there are any)
 #### Goals and/or tasks that were met/completed:
 
  * Goal: Google Maps integration
-	- Basic functionality of this feature was completed the night of March 23
-	- Only the homepage has Google Maps integration
-	- Although we only have basic funcionality completed, we were very proud
-	of achieving this goal.
-	- Our developers found it difficult to use the Google Maps API.
-	- We were very close to abandoning the use of the Google Maps API.
-	- Thankfully, we were able to get basic functionality working.
+	- Basic functionality of this feature was completed. Although we only have basic functionality completed, we were very proud of achieving this goal.
 
- * Goal: Finish the frontend HTML/CSS
- 	- This was completed by Parham
- 	- [link to artifact to show it was completed]
+ * Goal: Finish the [front-end](../assets/) HTML/CSS
+ 	- This was completed by Parham, Shray and Bence
 
- * Goal: Popluate the database
- 	- This was accomplished by various group members.
+ * Goal: Populate the database
+ 	- This was accomplished by Angela and will be continued when the Cobalt API is integrated to populate the application.
 
 #### Goals and/or tasks that were planned but not met/completed:
 
@@ -93,11 +57,11 @@ List any process-related changes you are planning to make (if there are any)
  	able to given time constraints
  	- We had to look into other map alternatives
  	- We were only able to implement basic functionality.
- 	- We had originally planned for full functionaity of this feature.
+ 	- We had originally planned for full functionality of this feature.
 
- * Goal: Finish the frontend HTML/CSS
+ * Goal: Finish the front-end HTML/CSS
  	- This was completed, however the usage of a React template was abandoned.
- 	- Parham found the React template too difficult to learn given 
+ 	- Parham found the React template too difficult to learn given
  	time constraints.
  	- More user-friendly alternatives were used instead.
 
@@ -105,13 +69,13 @@ List any process-related changes you are planning to make (if there are any)
 
 Going into the next iteration, our main insights are:
 
- * Integration of Google Maps/Other map technology
- 	- Despite the fact that the Google Maps API was difficult to learn, our 
- 	developers are eager to learn this technology. Our group will continue 
- 	to integrate the Google Maps API into our application. 
+ * Better integration of Google Maps/Other map technology
+ 	- Despite the fact that the Google Maps API was difficult to learn, our
+ 	developers are eager to learn this technology. Our group will continue
+ 	to integrate the Google Maps API into our application.
 
- * Prepare for the Demo
+ * Prepare for the final presentation
  	- Many of our group members are not accustomed to presentations.
- 	- We are going to have a group meeting where we practice our demo.
- 	- We will create scripts for each group member to ensure the 
- 	presentation goes smoothly.
+ 	- We are going to have a group meeting where we practice our presentation.
+ 	- We will create scripts for each group member to ensure the
+ 	presentation goes smoothly. Scripts will eventually be memorized to prevent dependency on paper and loss of eye contact with professor.
