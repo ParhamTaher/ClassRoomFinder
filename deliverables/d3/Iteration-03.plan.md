@@ -99,6 +99,9 @@ Facebook Messenger Group Chat
 * Meeting minutes are kept for every meeting.
 We review the meeting minutes from the previous meeting before
 each new meeting to reorient ourselves with what needs to be done.
+Group members also refer to the minutes throughout the iteration
+to make sure all items discussed in the meeting are implemented and
+addressed.
 
 #### Git / GitHub workflow
 
@@ -111,6 +114,12 @@ and Ishwant's codebase.
 * By delegating the pull requests to Ishwant, we have successfully
 avoided conflicts.
 * Changes to documentation are committed directly to the master repo.
+* Angela was fully in charge of documentation, so we felt that it would
+be most efficient for her to make document changes to the master repo
+directly.
+* Ishwant built the server, and we felt that he was the most comfortable
+with node.js. Thus, we felt it would be best to delegate the handling 
+of the pull requests to him.
 
 
 ## Product
@@ -118,10 +127,14 @@ avoided conflicts.
 #### Goals and tasks
 
  * Goal: Google Maps integration
- 	- We will have to understand the Google Maps API to understand how to integrate this with our application
- 	- Hopefully this will be easy for our developers
+ 	- We are going to integrate Google Maps into our application.
+ 	- We will have to learn the Google Maps API to understand how to integrate this with our application.
+ 	- Hopefully this will be easy for our developers.
+
  * Finish the frontend HTML/CSS
  	- Parham has planned to create a React template
+ 	- Parham and Shray are in charge of front-end development.
+
  * Popluate the database
  	- This will be a joint group effort
 
@@ -130,5 +143,7 @@ avoided conflicts.
 List/describe the artifacts you will produce in order to present your project idea.
 
  * We will produce meeting minutes for each meeting
- 	- These will be reviewed before starting each new meeting to remind the group members of the current project state and 
- 	current project issues
+ 	- These will be reviewed before starting each new meeting to remind the group members of the current project state and current project issues.
+ 	- Members will refer to these meeting minutes throughout the iteration to 
+ 	keep track of design ideas that were discussed in order to make sure they were 
+ 	implemented.

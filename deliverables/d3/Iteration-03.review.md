@@ -17,41 +17,51 @@ throughout the entire iteration.
 
 List process-related (i.e. team organization) decisions that, in retrospect, turned out to be successful.
 
- * We got the frontend and backend running running in time.
- * We have the basic structure for all the HTTP requests.
- * We managed to finish everything on time. 
- * We haven't had any hiccups in terms of time management for this iteration. 
- This is a vast improvement from the last iteration.
- * Everyone seems to gotten used to the GitHub workflow.
- * The decision to put Ishwant in control of the pull requests was sucessful in avoiding conflicts.
+ * Our decision to abandon the React template was successful. Parham found the
+ React template too complicated, and decided to switch to another front-end technology.
+ Ultimately, this was a good decision because React isn't user friendly. Our team found it
+ much easier to develop the front end without React.
+
+
+ * The decision to put Ishwant in control of the pull requests was sucessful in avoiding conflicts. We haven't had any GitHub conflicts during this iteration. Ishwant was
+ definitely the best group member for this position.
+
+ * Delegating the creation of the server to Ishwant was also a good decision. The group
+ found Ishwant's coding style to easy to read. The group did not have trouble adding
+ to Ishwant's code.
 
 
 #### Decisions that did not turn out as well as we hoped
 
- * We are having trouble connecting the frontend to the backend.
- * We divided the work into two parts, frontend and backend. We are finding that this wasn't a good design decision.
- Dividing the work in this manner made connecting the front end to the back end overtly complex.
- * This resulted in unnecessary troubleshooting.
- * Ishwant created asynchronous calls to the database. Parham and Angela are unfamiliar with this method of 
- database connectivity.
- * We are having a lot of trouble using Google Maps API
- * We are deciding to scrap it.
- * React was too hard to learn, we wanted to learn it for the project but we did not have time to learn it.
- It was not developer friendly.
- * 
+ * We encountered difficulty connecting the frontend to the backend. We had decided to 
+ divide our group into two parts: those who worked on the frontend, and those who worked
+ on the backend. We found that this wasn't a good design decision. Our group members
+ spent too much time troubleshooting issues that arose from frontend - backend
+ incompatibility.
+
+
+ * Our developers had a lot of trouble learning the Google Maps API. At one point, we were
+ ready to abandon the Google Maps API altogether and look for alternatives. Thankfully,
+ Shray was able to implement basic Google Maps functionality in the homepage the night 
+ before the deadline. Although we did manage to figure out the Google Maps API, we felt
+ our implementation of this feature came too close to the deadline. We underestimated
+ the complexity of this feature.
+
+ * We had to abandon React. We found this technology too hard to learn and not 
+ user-friendly. Although we did find a solution for this issue, we should have 
+ initialized the frontend with more user-friendly technology to avoid wasting
+ time.
 
 
 #### Planned changes
 
 List any process-related changes you are planning to make (if there are any)
 
- * We have decided to add a login.
- * Instead of using cookies we're going to use a login system, this will 
- make keeping track of favourites much easier
+ * We have decided to add a login. Instead of using cookies we're going to use a login system. This will make keeping track of favourites much easier.
+
  * Unfortunately, we are going to limit the features of the Google Maps API.
  Right now, it's not a high priority. It is not needed to meet the requirements of the 
- next deliverable.
-
+ upcoming deliverable.
 
 
 ## Product - Review
@@ -72,7 +82,7 @@ List any process-related changes you are planning to make (if there are any)
  	- [link to artifact to show it was completed]
 
  * Goal: Popluate the database
- 	- This was accomplished by Angela
+ 	- This was accomplished by various group members.
 
 #### Goals and/or tasks that were planned but not met/completed:
 
