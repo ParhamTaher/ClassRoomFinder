@@ -1,11 +1,11 @@
 # TEAM AWESOME
 
-## [Deliverable 3 Video]()
+## [Deliverable 3 Video](https://www.youtube.com/watch?v=IeXBkIrlurg)
 ## [Deliverable 2 Video](https://www.youtube.com/watch?v=dCPwDSkWu0s)
 
 #### UPDATE: Where does information come from?
 
-The main building and room information used for out application is retrieved from the Cobalt API used the by the University of Toronto. This allows us to retrieve class and tutorial schedules as well as the buildings in which they are scheduled. Along with partial user input this is the data that populates the application and provides smooth and accurate responses to our target users. 
+The main building and room information used for out application is retrieved from the Cobalt API used the by the University of Toronto. This allows us to retrieve class and tutorial schedules as well as the buildings in which they are scheduled. Along with partial user input this is the data that populates the application and provides smooth and accurate responses to our target users.
 
 #### Q1: What are you planning to build?
 
