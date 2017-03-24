@@ -1,9 +1,5 @@
 # TEAM AWESOME
 
- > _Note:_ This document is meant to be written during (or shortly after) your review meeting, which should happen fairly close to the due date.      
- >      
- > _Suggestion:_ Have your review meeting a day or two before the due date. This way you will have some time to go over (and edit) this document, and all team members should have a chance to make their contribution.
-
 
 ## Iteration XX - Review & Retrospect
 
@@ -12,7 +8,10 @@
 
 ## Process - Reflection
 
-Overall, this iteration was much smoother than the last. 
+Overall, this iteration was much smoother than the last. Our group members have 
+become fully accustomed to the work flow and everyone is contributing. 
+Unlike the last iteration, group members worked continuously on this project 
+throughout the entire iteration.
 
 #### Decisions that turned out well
 
@@ -59,10 +58,18 @@ List any process-related changes you are planning to make (if there are any)
 
 #### Goals and/or tasks that were met/completed:
 
+ * Goal: Google Maps integration
+	- Basic functionality of this feature was completed the night of March 23
+	- Only the homepage has Google Maps integration
+	- Although we only have basic funcionality completed, we were very proud
+	of achieving this goal.
+	- Our developers found it difficult to use the Google Maps API.
+	- We were very close to abandoning the use of the Google Maps API.
+	- Thankfully, we were able to get basic functionality working.
+
  * Goal: Finish the frontend HTML/CSS
  	- This was completed by Parham
  	- [link to artifact to show it was completed]
- 	- Parham has planned to create a React template
 
  * Goal: Popluate the database
  	- This was accomplished by Angela
@@ -70,37 +77,31 @@ List any process-related changes you are planning to make (if there are any)
 #### Goals and/or tasks that were planned but not met/completed:
 
  * Goal: Google Maps integration
- 	- This was not completed
+ 	- Full functionality of this feature was not completed
  	- Our developers found learning the Google Maps API more difficult than expected
  	- Our developers wanted to learn the Google Maps API, however were not
  	able to given time constraints
  	- We had to look into other map alternatives
- 	- This goal wasn't completed due to time constraints
+ 	- We were only able to implement basic functionality.
+ 	- We had originally planned for full functionaity of this feature.
 
  * Goal: Finish the frontend HTML/CSS
- 	- This was completed, however the usage of a React template was abandoned
- 	- Parham found the React template way too difficult to learn
- 	- More user-friendly alternatives were used instead
+ 	- This was completed, however the usage of a React template was abandoned.
+ 	- Parham found the React template too difficult to learn given 
+ 	time constraints.
+ 	- More user-friendly alternatives were used instead.
 
 ## Meeting Highlights
 
 Going into the next iteration, our main insights are:
 
- * 2 - 4 items
- * Short (no more than one short paragraph per item)
- * High-level concepts that should guide your work for the next iteration.
- * These concepts should help you decide on where to focus your efforts.
- * Can be related to product and/or process.
------
  * Integration of Google Maps/Other map technology
  	- Despite the fact that the Google Maps API was difficult to learn, our 
  	developers are eager to learn this technology. Our group will continue 
- 	to attempt to integrate the Google Maps API into our application. If
- 	our group members still cannot integrate the Google Maps API
- 	successfully, we still stick to our alternatives.
+ 	to integrate the Google Maps API into our application. 
 
  * Prepare for the Demo
- 	- Many of our group members are not accustomed to presentations
- 	- We are going to have a group meeting where we practice our demo
+ 	- Many of our group members are not accustomed to presentations.
+ 	- We are going to have a group meeting where we practice our demo.
  	- We will create scripts for each group member to ensure the 
- 	presentation goes smoothly
+ 	presentation goes smoothly.

@@ -132,4 +132,3 @@ List/describe the artifacts you will produce in order to present your project id
  * We will produce meeting minutes for each meeting
  	- These will be reviewed before starting each new meeting to remind the group members of the current project state and 
  	current project issues
- 	- 
