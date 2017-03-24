@@ -1,4 +1,5 @@
 var buildingName = "";
+var roomNumber = "";
 
 function loadRooms() {
 
@@ -14,7 +15,7 @@ function getBuilingNameFromBtnClicked() {
 
 
 $(document).ready(function() {
-
+  /*
   $('.list-group-item').click(function() {
       buildingName = $(this).attr("name");
       //alert(buildingName);
@@ -44,5 +45,31 @@ $(document).ready(function() {
 
       $(".buildingName").html(buildingName + " -> Lecture Halls");
   });
+  */
 
+  $('.roomBtn').click(function() {
+
+      roomNumber = $(this).html()
+      //alert(roomNumber);
+      $('#room_info').removeClass("hidden");
+      $('#building_rooms').addClass("hidden");
+
+      //alert(buildingName);
+
+  });
+
+  $('#commentBtn').click(function() {
+      $('#comments_section').removeClass("hidden");
+      $('#room_info').addClass("hidden");
+
+      //alert(buildingName);
+
+  });
+
+
+  $('#submitComment').click(function() {
+    //alert($('#commentText').val());
+    $('#comments').append('<div class="comment">' + $('#commentText').val() + '</div>')
+
+  });
 });
