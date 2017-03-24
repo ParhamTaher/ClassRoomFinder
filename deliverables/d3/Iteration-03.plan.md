@@ -10,10 +10,7 @@
 #### Changes from previous iteration
 
 * Creation of documentation
-In our last iteration, we neglected to delegate the task of creation of documentation. Angela volunteered to fulfill this role. Thus, we had to change Angela's role from soley backend role to a backend/documentation role, and move some of her backend duties to Ishwant. We had to move some of her backend duties to Ishwant because we realized
-documentation is significant time commitment and also that documentation
-is worth a considerable portion of our mark. Also, the other group
-members will add to the plan and review documents as they see fit.
+In our last iteration, we neglected to delegate the task of creation of documentation. Angela volunteered to fulfill this role. Thus, we had to change Angela's role from soley backend role to a backend/documentation role, and move some of her backend duties to Ishwant. We had to move some of her backend duties to Ishwant because we realized documentation is significant time commitment and also that documentation is worth a considerable portion of our mark. Also, the other group members will add to the plan and review documents as they see fit.
 
 We will use our mark on the plan and review documents as a success metric.
 
@@ -26,8 +23,7 @@ We will use our mark on the plan and review documents as a success metric.
 
 **Documentation:** Angela Ruiz
 
-* Oversees creation and editing of Iteration documents. Other members are encouraged to add
-to the documents but Angela will oversee the document creation process.
+* Oversees creation and editing of Iteration documents. Other members are encouraged to add to the documents but Angela will oversee the document creation process.
 
 **Backend:** Ishawant Sodhi, Angela Ruiz, Jaleel Grant
 
@@ -39,11 +35,15 @@ to the documents but Angela will oversee the document creation process.
 
 **Database:** Jaleel Grant
 
-* For this stage, providing the database inserts and connections as well as hosting the group's database on a site such as Heroku. This will ensure that the database is accessible and easy to connect to for further use in the front-end and backend.  
+* For this stage, providing the database inserts and connections as well as hosting the group's database on a site such as Heroku. This will ensure that the database is accessible and easy to connect to for further use in the front-end and backend.
 
-**Front-end and Visuals:** Bence Linder, Shray Sharma, Parham Taher
+**Front-end and Visuals:** Bence Linder, Parham Taher
 
-* Creation and maintenance of the visual aspects of the application. This includes the development of the required HTML and CSS files as well as the creation of deliverable three's demo video and presentation.
+* Creation and maintenance of the visual aspects of the application. This includes the development of the required HTML and CSS files as well as any front-end JS scripts.
+
+**Demo Video:** Shray Sharma
+
+* The writing, recording, and editing for deliverable three's demo video.
 
 Throughout this phase roles have only seen slight changes but the main outline for activities and responsibilities remains the same for group members. The major change in this phase was the inclusion of a prescribed documenter.
 
@@ -121,4 +121,4 @@ List/describe the artifacts you will produce in order to present your project id
 
  * We will produce meeting [minutes](artifacts/) for each meeting
  	- These will be reviewed before starting each new meeting to remind the group members of the current project state and current project issues.
-* The [demo video]() will be created by reviewing and improving the last iteration's video taking TA advice into consideration. 
+* The [demo video]() will be created by reviewing and improving the last iteration's video taking TA advice into consideration.

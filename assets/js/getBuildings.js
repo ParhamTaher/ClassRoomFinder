@@ -151,12 +151,6 @@ $(document).ready(function() {
     // hide all panel footers on page load
     $(".panel-footer").hide();
 
-
-
-
-
-
-
     // Default
     loadNearbyMap();
 
@@ -170,7 +164,7 @@ $(document).ready(function() {
         var txt = "";
         var name, address;
         name = "Bahen Centre";
-        address = "40 St George St, Toronto, ON";
+        address = "40 St George St";
 
         // create list-group-item with building info
         txt += '<a class="list-group-item" name="' + name + '">'
@@ -205,7 +199,7 @@ $(document).ready(function() {
 
         var name, address;
         name = "Galbraith Building";
-        address = "35 St George St, Toronto, ON";
+        address = "35 St George St";
 
         // create list-group-item with building info
         txt += '<a class="list-group-item" name="' + name + '">'
@@ -290,7 +284,7 @@ $(document).ready(function() {
       var txt = "";
       var name, address;
       name = "Bahen Centre";
-      address = "40 St George St, Toronto, ON";
+      address = "40 St George St";
 
       // create list-group-item with building info
       txt += '<a class="list-group-item" name="' + name + '">'
@@ -375,7 +369,7 @@ $(document).ready(function() {
       var txt = "";
       var name, address;
       name = "Bahen Centre";
-      address = "40 St George St, Toronto, ON";
+      address = "40 St George St";
 
       // create list-group-item with building info
       txt += '<a class="list-group-item" name="' + name + '">'
@@ -410,7 +404,7 @@ $(document).ready(function() {
 
       var name, address;
       name = "Galbraith Building";
-      address = "35 St George St, Toronto, ON";
+      address = "35 St George St";
 
       // create list-group-item with building info
       txt += '<a class="list-group-item" name="' + name + '">'
@@ -445,7 +439,7 @@ $(document).ready(function() {
 
       var name, address;
       name = "McLennan Physical Laboratories";
-      address = "255 Huron Street Toronto, ON";
+      address = "255 Huron Street";
 
       // create list-group-item with building info
       txt += '<a class="list-group-item" name="' + name + '">'
