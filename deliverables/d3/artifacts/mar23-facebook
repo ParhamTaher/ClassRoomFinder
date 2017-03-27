@@ -1,0 +1,14 @@
+March 23 minutes - Facebook
+
+- Shray added some fades to transition betwen pages
+- Needs more checking on his Ajax calls
+- Angela found that documentation took up more than expected,
+she wasn't able to finish her GET requests
+- She delegated the rest of her coding work to Bence
+- Maybe we should add room capacity?
+- We also have to differentiate between a room and lecture hall
+- For the submenu of selecting a buidling, maybe we should have rooms, labs, lecture halls rather than rooms, bookings, comments?
+- Shray was able to get the Google Maps API woroking!!
+- Parham and Shray decided to make a few changes from the mock-up
+- Now when you pick a building, Instead of going to whole new page, a panel with three 
+buttons will slide down instead
