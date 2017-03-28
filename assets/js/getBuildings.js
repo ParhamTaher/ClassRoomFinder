@@ -10,9 +10,8 @@
         ];
  */
  // global list of building markers
- var markers = [
-     ['Bahen Center', 43.659643, -79.397668]
- ];
+
+var markers = [];
 
  function initMap() {
      var map;
@@ -47,63 +46,110 @@
  }
 
  /* Ajax call to get buildings */
- function getBuildings(url) {
-     $.ajax({
-         url: url,
-         method: "GET",
-         dataType: "json",
-         contentType: "application/json; charset=utf-8",
-         success: function(data) {
-             var buildings = data;
-             if (!buildings.length) {
-                 console.log('No buildings found.');
-                 return;
-             }
+function getBuildings(route_url) {
+    new_markers = [];
+    $.ajax({
+        type: 'GET',
+        url: route_url,
+        success: function(data) {
+            // data is  JSON of all building List
+            if (data.response.length <= 0) {
+              console.log('No buildings found.');
+              return;
+            }
 
-             var txt = "";
-             var name, address;
-             for (var i = 0; i < buildings.length; i++) {
-                 // store name, slice address to keep only number and street name
-                 name = buildings[i].name;
-                 address = buildings[i].address.slice(0, buildings[i].address.indexOf(','));
+            console.log("Success", data);
 
-                 // create list-group-item with building info
-                 txt += '<a class="list-group-item" name="' + name + '">'
-                     + '<div class="row"><div class="col-sm-9">'
-                     + '<h4 class="card-heading list-group-item-heading">' + name + '</h4>'
-                     + '<p class="list-group-item-text">' + address + '</p></div>'
-                     + '<div class="card-icon col-sm-3">'
-                     + '<i class="fa fa-angle-down fa-3x pull-right" aria-hidden="true"></i></div></div>'
-                     + '<div class="panel-footer"><div class="btn-group btn-group-justified">'
-                     + '<div class="btn-group"><a class="btn btn-default rooms-sub-nav">'
-                     + '<i class=""></i> Rooms </a></div><div class="btn-group">'
-                     + '<a class="btn btn-default labs-sub-nav"><i class=""></i> Labs</a></div>'
-                     + '<div class="btn-group"><a class="btn btn-default lecture-sub-nav">'
-                     + '<i class=""></i> Lecture Halls</a></div></div></div></a>'
+            var txt = "";
+            var name, address;
+            for (var i = 0; i < data.response.length; i++) {
+                // store name, slice address to keep only number and street name
+                name = data.response[i].name;
+                address = data.response[i].address.slice(0, data.response[i].address.indexOf(','));
 
-                 // create marker for this building and push to list
-                 markers.push([buildings[i].name, buildings[i].lat, buildings[i].lon]);
-             }
+                // create list-group-item with building info
+                txt += '<a class="list-group-item" name="' + name + '">'
+                    + '<div class="row">'
+                    + '<div class="col-sm-9">'
+                    + '<h4 class="card-heading list-group-item-heading">' + name + '</h4>'
+                    + '<p class="list-group-item-text">' + address + '</p>'
+                    + '</div>'
+                    + '<div class="card-icon col-sm-3">'
+                    + '<i class="fa fa-angle-down fa-3x pull-right" aria-hidden="true"></i>'
+                    + '</div>'
+                    + '</div>'
+                    + '<div class="panel-footer">'
+                    + '<div class="btn-group btn-group-justified">'
+                    + '<div class="btn-group">'
+                    + '<button class="btn btn-default rooms-sub-nav">'
+                    + '<i class=""></i> Rooms'
+                    + '</button>'
+                    + '</div>'
+                    + '<div class="btn btn-default labs-sub-nav">'
+                    + '<i class=""></i> Labs'
+                    + '</button>'
+                    + '</div>'
+                    + '<div class="btn-group">'
+                    + '<button class="btn btn-default lecture-sub-nav">'
+                    + '<i class=""></i> Lecture Halls'
+                    + '</button>'
+                    + '</div>'
+                    + '</div>'
+                    + '</div>'
+                    + '</a>'
 
-             // append building list cards to list-group
-             $("#list-group").append(txt).removeClass("hidden");
-         }
-     });
- }
+                console.log("lat", data.response[i].lat)
+;                new_markers.push([data.response[i].name, data.response[i].lon, (-1)*data.response[i].lat]);
+                //console.log(markers);
+            }
+            markers = new_markers;
+            $("#list-group").html(txt).removeClass("hidden");
+            $(".panel-footer").hide();
 
- function loadNearbyMap() {
-   $('#map-canvas').fadeOut(300).empty();
-   //$('#list-group').fadeOut(300).empty();
-   markers = [
-       ['Bahen Center', 43.659643, -79.397668],
-       ['Galbraith Building', 43.660131, -79.395993]
-   ];
-   //getBuildings('/api/v1/building/get_nearby_buildings');
-   initMap();
-   $('#list-group').fadeIn(300);
-   $('#map-canvas').fadeIn(300);
-   $(".panel-footer").hide();
- }
+            var buildingName = "";
+            // on card click, show card's panel footer
+            $('.list-group-item').click(function(){
+                buildingName = $(this).attr("name");
+                $(".panel-footer").not($(this).children(".panel-footer")).each(function() {
+                    $(this).slideUp(300);
+                });
+                $(this).children(".panel-footer").slideToggle(300);
+            });
+
+            $('.rooms-sub-nav').click(function() {
+                $('#building_rooms').removeClass("hidden");
+                $('#map-canvas').addClass("hidden");
+                $(".buildingName").html(buildingName + " -> Rooms");
+            });
+
+            $('.labs-sub-nav').click(function() {
+              $('#building_rooms').removeClass("hidden");
+              $('#map-canvas').addClass("hidden");
+              $(".buildingName").html(buildingName + " -> Labs");
+            });
+
+            $('.lecture-sub-nav').click(function() {
+              $('#building_rooms').removeClass("hidden");
+              $('#map-canvas').addClass("hidden");
+              $(".buildingName").html(buildingName + " -> Lecture Halls");
+            });
+        }
+    });
+}
+
+function loadNearbyMap() {
+  $('#map-canvas').fadeOut(300).empty();
+  //$('#list-group').fadeOut(300).empty();
+  markers = [
+      ['Bahen Center', 43.659643, -79.397668],
+      ['Galbraith Building', 43.660131, -79.395993]
+  ];
+  //getBuildings('/api/v1/building/get_nearby_buildings');
+  initMap();
+  $('#list-group').fadeIn(300);
+  $('#map-canvas').fadeIn(300);
+  //$(".panel-footer").hide();
+}
 
  function loadFavouritesMap() {
    $('#map-canvas').fadeOut(300).empty();
@@ -118,411 +164,42 @@
    $(".panel-footer").hide();
  }
 
- function loadAllMap() {
-   $('#map-canvas').fadeOut(300).empty();
-   //$('#list-group').fadeOut(300).empty();
-   markers = [
-       ['Bahen Center', 43.659643, -79.397668],
-       ['Galbraith Building', 43.660131, -79.395993],
-       ['McLennan Physical Laboratories', 43.660879, -79.398444]
-   ];
-   //getBuildings('/api/v1/building/get_all_buildings');
-   initMap();
-   $('#list-group').fadeIn(300);
-   $('#map-canvas').fadeIn(300);
-   $(".panel-footer").hide();
- }
+function loadAllMap() {
+    $('#map-canvas').fadeOut(300).empty();
+
+    getBuildings('/api/v1/building/get_all_buildings');
+    initMap();
+    $('#list-group').fadeIn(300);
+    $('#map-canvas').fadeIn(300);
+}
 
 $(document).ready(function() {
     console.log('Document ready.');
 
-    $('#map-canvas').hide();
-    $('#list-group').hide();
+    $('#map-canvas').fadeOut(300);
+    $('#list-group').fadeOut(300);
 
-
-    // generate building list cards and marker list
-    //getBuildings('/api/v1/building/get_nearby_buildings'); // UNCOMMENT THIS ONCE SERVER IS RUNNING
-    $('#list-group').fadeIn(300);
-
-    // create map with building markers
-    initMap();
-    $('#map-canvas').fadeIn(300);
-
-    // hide all panel footers on page load
-    $(".panel-footer").hide();
-
-    // Default
-    loadNearbyMap();
-
+    //Load by default
+    loadAllMap();
+    console.log("Loaded!");
     // nearby clicked, reload building list and map
     $('#nearby').click(function() {
+        console.log("Nearby!");
+    });
+
+    // favourites clicked, reload building list and map
+    $('#favourites').click(function() {
+        console.log("Favourites!");
+    });
+
+    // all clicked, reload building list and map
+    $('#all').click(function() {
         $('#building_rooms').addClass("hidden");
         $('#room_info').addClass("hidden");
         $('#comments_section').addClass("hidden");
         $('#map-canvas').removeClass("hidden");
 
-        var txt = "";
-        var name, address;
-        name = "Bahen Center";
-        address = "40 St George St";
-
-        // create list-group-item with building info
-        txt += '<a class="list-group-item" name="' + name + '">'
-            + '<div class="row">'
-            + '<div class="col-sm-9">'
-            + '<h4 class="card-heading list-group-item-heading">' + name + '</h4>'
-            + '<p class="list-group-item-text">' + address + '</p>'
-            + '</div>'
-            + '<div class="card-icon col-sm-3">'
-            + '<i class="fa fa-angle-down fa-3x pull-right" aria-hidden="true"></i>'
-            + '</div>'
-            + '</div>'
-            + '<div class="panel-footer">'
-            + '<div class="btn-group btn-group-justified">'
-            + '<div class="btn-group">'
-            + '<button class="btn btn-default rooms-sub-nav">'
-            + '<i class=""></i> Rooms'
-            + '</button>'
-            + '</div>'
-            + '<div class="btn btn-default labs-sub-nav">'
-            + '<i class=""></i> Labs'
-            + '</button>'
-            + '</div>'
-            + '<div class="btn-group">'
-            + '<button class="btn btn-default lecture-sub-nav">'
-            + '<i class=""></i> Lecture Halls'
-            + '</button>'
-            + '</div>'
-            + '</div>'
-            + '</div>'
-            + '</a>'
-
-        var name, address;
-        name = "Galbraith Building";
-        address = "35 St George St";
-
-        // create list-group-item with building info
-        txt += '<a class="list-group-item" name="' + name + '">'
-            + '<div class="row">'
-            + '<div class="col-sm-9">'
-            + '<h4 class="card-heading list-group-item-heading">' + name + '</h4>'
-            + '<p class="list-group-item-text">' + address + '</p>'
-            + '</div>'
-            + '<div class="card-icon col-sm-3">'
-            + '<i class="fa fa-angle-down fa-3x pull-right" aria-hidden="true"></i>'
-            + '</div>'
-            + '</div>'
-            + '<div class="panel-footer">'
-            + '<div class="btn-group btn-group-justified">'
-            + '<div class="btn-group">'
-            + '<button class="btn btn-default rooms-sub-nav">'
-            + '<i class=""></i> Rooms'
-            + '</button>'
-            + '</div>'
-            + '<div class="btn btn-default labs-sub-nav">'
-            + '<i class=""></i> Labs'
-            + '</button>'
-            + '</div>'
-            + '<div class="btn-group">'
-            + '<button class="btn btn-default lecture-sub-nav">'
-            + '<i class=""></i> Lecture Halls'
-            + '</button>'
-            + '</div>'
-            + '</div>'
-            + '</div>'
-            + '</a>'
-
-            $("#list-group").html(txt);
-
-            // on card click, show card's panel footer
-            $('.list-group-item').click(function(){
-                $(".panel-footer").not($(this).children(".panel-footer")).each(function() {
-                    $(this).slideUp(300);
-                });
-                $(this).children(".panel-footer").slideToggle(300);
-            });
-
-            var buildingName = "";
-            $('.list-group-item').click(function() {
-                buildingName = $(this).attr("name");
-            });
-
-            $('.rooms-sub-nav').click(function() {
-                //alert("Room!");
-                $('#building_rooms').removeClass("hidden");
-                $('#map-canvas').addClass("hidden");
-                $('#comments_section').addClass("hidden");
-
-                $(".buildingName").html(buildingName + " -> Rooms");
-            });
-
-            $('.labs-sub-nav').click(function() {
-                //alert("Lab!");
-                $('#building_rooms').removeClass("hidden");
-                $('#map-canvas').addClass("hidden");
-                $('#comments_section').addClass("hidden");
-
-                $(".buildingName").html(buildingName + " -> Labs");
-            });
-
-            $('.lecture-sub-nav').click(function() {
-                //alert("Lecture Hall!");
-                $('#building_rooms').removeClass("hidden");
-                $('#map-canvas').addClass("hidden");
-                $('#comments_section').addClass("hidden");
-
-                $(".buildingName").html(buildingName + " -> Lecture Halls");
-            });
-
-        loadNearbyMap();
-    });
-
-    // favourites clicked, reload building list and map
-    $('#favourites').click(function() {
-      $('#building_rooms').addClass("hidden");
-      $('#room_info').addClass("hidden");
-      $('#comments_section').addClass("hidden");
-      $('#map-canvas').removeClass("hidden");
-
-      var txt = "";
-      var name, address;
-      name = "Bahen Center";
-      address = "40 St George St";
-
-      // create list-group-item with building info
-      txt += '<a class="list-group-item" name="' + name + '">'
-          + '<div class="row">'
-          + '<div class="col-sm-9">'
-          + '<h4 class="card-heading list-group-item-heading">' + name + '</h4>'
-          + '<p class="list-group-item-text">' + address + '</p>'
-          + '</div>'
-          + '<div class="card-icon col-sm-3">'
-          + '<i class="fa fa-angle-down fa-3x pull-right" aria-hidden="true"></i>'
-          + '</div>'
-          + '</div>'
-          + '<div class="panel-footer">'
-          + '<div class="btn-group btn-group-justified">'
-          + '<div class="btn-group">'
-          + '<button class="btn btn-default rooms-sub-nav">'
-          + '<i class=""></i> Rooms'
-          + '</button>'
-          + '</div>'
-          + '<div class="btn btn-default labs-sub-nav">'
-          + '<i class=""></i> Labs'
-          + '</button>'
-          + '</div>'
-          + '<div class="btn-group">'
-          + '<button class="btn btn-default lecture-sub-nav">'
-          + '<i class=""></i> Lecture Halls'
-          + '</button>'
-          + '</div>'
-          + '</div>'
-          + '</div>'
-          + '</a>'
-
-      $("#list-group").html(txt);
-
-      // on card click, show card's panel footer
-      $('.list-group-item').click(function(){
-          $(".panel-footer").not($(this).children(".panel-footer")).each(function() {
-              $(this).slideUp(300);
-          });
-          $(this).children(".panel-footer").slideToggle(300);
-      });
-
-      var buildingName = "";
-      $('.list-group-item').click(function() {
-          buildingName = $(this).attr("name");
-      });
-
-      $('.rooms-sub-nav').click(function() {
-          //alert("Room!");
-          $('#building_rooms').removeClass("hidden");
-          $('#map-canvas').addClass("hidden");
-          $('#comments_section').addClass("hidden");
-
-          $(".buildingName").html(buildingName + " -> Rooms");
-      });
-
-      $('.labs-sub-nav').click(function() {
-          //alert("Lab!");
-          $('#building_rooms').removeClass("hidden");
-          $('#map-canvas').addClass("hidden");
-          $('#comments_section').addClass("hidden");
-
-          $(".buildingName").html(buildingName + " -> Labs");
-      });
-
-      $('.lecture-sub-nav').click(function() {
-          //alert("Lecture Hall!");
-          $('#building_rooms').removeClass("hidden");
-          $('#map-canvas').addClass("hidden");
-          $('#comments_section').addClass("hidden");
-
-          $(".buildingName").html(buildingName + " -> Lecture Halls");
-      });
-
-      loadFavouritesMap();
-    });
-
-    // all clicked, reload building list and map
-    $('#all').click(function() {
-      $('#building_rooms').addClass("hidden");
-      $('#room_info').addClass("hidden");
-      $('#comments_section').addClass("hidden");
-      $('#map-canvas').removeClass("hidden");
-
-      var txt = "";
-      var name, address;
-      name = "Bahen Center";
-      address = "40 St George St";
-
-      // create list-group-item with building info
-      txt += '<a class="list-group-item" name="' + name + '">'
-          + '<div class="row">'
-          + '<div class="col-sm-9">'
-          + '<h4 class="card-heading list-group-item-heading">' + name + '</h4>'
-          + '<p class="list-group-item-text">' + address + '</p>'
-          + '</div>'
-          + '<div class="card-icon col-sm-3">'
-          + '<i class="fa fa-angle-down fa-3x pull-right" aria-hidden="true"></i>'
-          + '</div>'
-          + '</div>'
-          + '<div class="panel-footer">'
-          + '<div class="btn-group btn-group-justified">'
-          + '<div class="btn-group">'
-          + '<button class="btn btn-default rooms-sub-nav">'
-          + '<i class=""></i> Rooms'
-          + '</button>'
-          + '</div>'
-          + '<div class="btn btn-default labs-sub-nav">'
-          + '<i class=""></i> Labs'
-          + '</button>'
-          + '</div>'
-          + '<div class="btn-group">'
-          + '<button class="btn btn-default lecture-sub-nav">'
-          + '<i class=""></i> Lecture Halls'
-          + '</button>'
-          + '</div>'
-          + '</div>'
-          + '</div>'
-          + '</a>'
-
-      var name, address;
-      name = "Galbraith Building";
-      address = "35 St George St";
-
-      // create list-group-item with building info
-      txt += '<a class="list-group-item" name="' + name + '">'
-          + '<div class="row">'
-          + '<div class="col-sm-9">'
-          + '<h4 class="card-heading list-group-item-heading">' + name + '</h4>'
-          + '<p class="list-group-item-text">' + address + '</p>'
-          + '</div>'
-          + '<div class="card-icon col-sm-3">'
-          + '<i class="fa fa-angle-down fa-3x pull-right" aria-hidden="true"></i>'
-          + '</div>'
-          + '</div>'
-          + '<div class="panel-footer">'
-          + '<div class="btn-group btn-group-justified">'
-          + '<div class="btn-group">'
-          + '<button class="btn btn-default rooms-sub-nav">'
-          + '<i class=""></i> Rooms'
-          + '</button>'
-          + '</div>'
-          + '<div class="btn btn-default labs-sub-nav">'
-          + '<i class=""></i> Labs'
-          + '</button>'
-          + '</div>'
-          + '<div class="btn-group">'
-          + '<button class="btn btn-default lecture-sub-nav">'
-          + '<i class=""></i> Lecture Halls'
-          + '</button>'
-          + '</div>'
-          + '</div>'
-          + '</div>'
-          + '</a>'
-
-      var name, address;
-      name = "McLennan Physical Laboratories";
-      address = "255 Huron Street";
-
-      // create list-group-item with building info
-      txt += '<a class="list-group-item" name="' + name + '">'
-          + '<div class="row">'
-          + '<div class="col-sm-9">'
-          + '<h4 class="card-heading list-group-item-heading">' + name + '</h4>'
-          + '<p class="list-group-item-text">' + address + '</p>'
-          + '</div>'
-          + '<div class="card-icon col-sm-3">'
-          + '<i class="fa fa-angle-down fa-3x pull-right" aria-hidden="true"></i>'
-          + '</div>'
-          + '</div>'
-          + '<div class="panel-footer">'
-          + '<div class="btn-group btn-group-justified">'
-          + '<div class="btn-group">'
-          + '<button class="btn btn-default rooms-sub-nav">'
-          + '<i class=""></i> Rooms'
-          + '</button>'
-          + '</div>'
-          + '<div class="btn btn-default labs-sub-nav">'
-          + '<i class=""></i> Labs'
-          + '</button>'
-          + '</div>'
-          + '<div class="btn-group">'
-          + '<button class="btn btn-default lecture-sub-nav">'
-          + '<i class=""></i> Lecture Halls'
-          + '</button>'
-          + '</div>'
-          + '</div>'
-          + '</div>'
-          + '</a>'
-
-
-      $("#list-group").html(txt);
-
-      // on card click, show card's panel footer
-      $('.list-group-item').click(function(){
-          $(".panel-footer").not($(this).children(".panel-footer")).each(function() {
-              $(this).slideUp(300);
-          });
-          $(this).children(".panel-footer").slideToggle(300);
-      });
-
-      var buildingName = "";
-      $('.list-group-item').click(function() {
-          buildingName = $(this).attr("name");
-      });
-
-      $('.rooms-sub-nav').click(function() {
-          //alert("Room!");
-          $('#building_rooms').removeClass("hidden");
-          $('#map-canvas').addClass("hidden");
-          $('#comments_section').addClass("hidden");
-
-          $(".buildingName").html(buildingName + " -> Rooms");
-      });
-
-      $('.labs-sub-nav').click(function() {
-          //alert("Lab!");
-          $('#building_rooms').removeClass("hidden");
-          $('#map-canvas').addClass("hidden");
-          $('#comments_section').addClass("hidden");
-
-          $(".buildingName").html(buildingName + " -> Labs");
-      });
-
-      $('.lecture-sub-nav').click(function() {
-          //alert("Lecture Hall!");
-          $('#building_rooms').removeClass("hidden");
-          $('#map-canvas').addClass("hidden");
-          $('#comments_section').addClass("hidden");
-
-          $(".buildingName").html(buildingName + " -> Lecture Halls");
-      });
-
-      loadAllMap();
-
+        loadAllMap();
     });
 
 

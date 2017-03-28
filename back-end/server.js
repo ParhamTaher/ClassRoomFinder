@@ -10,12 +10,14 @@ var userRoutes = require('./routes/user-route');
 var buildingRoutes = require('./routes/building-route');
 var adminRoutes = require('./routes/admin-route');
 
-app.set('port', (process.env.PORT || 5000))
+app.set('port', (process.env.PORT || 5000));
 
 // Process application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({
   extended: true
-}))
+}));
+
+app.use(express.static('../assets'));
 
 // Process application/json
 app.use(bodyParser.json());
