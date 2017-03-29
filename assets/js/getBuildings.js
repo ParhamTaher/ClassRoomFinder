@@ -13,37 +13,37 @@
 
 var markers = [];
 
- function initMap() {
-     var map;
-     var bounds = new google.maps.LatLngBounds();
-     var mapOptions = {
-         mapTypeId: 'roadmap'
-     };
+function initMap() {
+    var map;
+    var bounds = new google.maps.LatLngBounds();
+    var mapOptions = {
+        mapTypeId: 'roadmap'
+    };
 
-     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-     map.setTilt(45);
+    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+    map.setTilt(45);
 
-     // place each marker on the map
-     var marker, i;
-     for (i = 0; i < markers.length; i++) {
-         var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
-         bounds.extend(position);
-         marker = new google.maps.Marker({
-             position: position,
-             map: map,
-             title: markers[i][0]
-         });
+    // place each marker on the map
+    var marker, i;
+    for (i = 0; i < markers.length; i++) {
+        var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
+        bounds.extend(position);
+        marker = new google.maps.Marker({
+            position: position,
+            map: map,
+            title: markers[i][0]
+        });
 
-         // Automatically center the map fitting all markers on the screen
-         map.fitBounds(bounds);
-     }
+        // Automatically center the map fitting all markers on the screen
+        map.fitBounds(bounds);
+    }
 
-     // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
-     var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
-         this.setZoom(16);
-         google.maps.event.removeListener(boundsListener);
-     });
- }
+    // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
+    var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
+        this.setZoom(16);
+        google.maps.event.removeListener(boundsListener);
+    });
+}
 
  /* Ajax call to get buildings */
 function getBuildings(route_url) {
@@ -61,14 +61,15 @@ function getBuildings(route_url) {
             console.log("Success", data);
 
             var txt = "";
-            var name, address;
+            var id, name, address;
             for (var i = 0; i < data.response.length; i++) {
                 // store name, slice address to keep only number and street name
+                id = data.response[i].building_id;
                 name = data.response[i].name;
                 address = data.response[i].address.slice(0, data.response[i].address.indexOf(','));
 
                 // create list-group-item with building info
-                txt += '<a class="list-group-item" name="' + name + '">'
+                txt += '<a id="' + id + '" class="list-group-item" name="' + name + '">'
                     + '<div class="row">'
                     + '<div class="col-sm-9">'
                     + '<h4 class="card-heading list-group-item-heading">' + name + '</h4>'
@@ -137,18 +138,13 @@ function getBuildings(route_url) {
     });
 }
 
-function loadNearbyMap() {
-  $('#map-canvas').fadeOut(300).empty();
-  //$('#list-group').fadeOut(300).empty();
-  markers = [
-      ['Bahen Center', 43.659643, -79.397668],
-      ['Galbraith Building', 43.660131, -79.395993]
-  ];
-  //getBuildings('/api/v1/building/get_nearby_buildings');
-  initMap();
-  $('#list-group').fadeIn(300);
-  $('#map-canvas').fadeIn(300);
-  //$(".panel-footer").hide();
+function loadNearbyMap(lat, lon) {
+    $('#map-canvas').fadeOut(300).empty();
+
+    getBuildings('/api/v1/building/get_nearby_buildings/?lat=' + parseInt(lat) + '&' + 'lon=' + parseInt(lon));
+    initMap();
+    $('#list-group').fadeIn(300);
+    $('#map-canvas').fadeIn(300);
 }
 
  function loadFavouritesMap() {
@@ -173,6 +169,27 @@ function loadAllMap() {
     $('#map-canvas').fadeIn(300);
 }
 
+// https://zeit.co/blog/async-and-await
+function sleep (time) {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}
+
+// Geolocation Code referenced from: https://www.w3schools.com/html/html5_geolocation.asp
+var user_location_lat = 0;
+var user_location_lon = 0;
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
+}
+function showPosition(position) {
+    user_location_lat = position.coords.latitude;
+    user_location_lon = position.coords.longitude;
+}
+//
+
 $(document).ready(function() {
     console.log('Document ready.');
 
@@ -185,6 +202,12 @@ $(document).ready(function() {
     // nearby clicked, reload building list and map
     $('#nearby').click(function() {
         console.log("Nearby!");
+        getLocation();
+        sleep(4000).then(() => {
+            console.log(user_location_lat, user_location_lon);
+            loadNearbyMap(user_location_lat, user_location_lon);
+        });
+
     });
 
     // favourites clicked, reload building list and map
