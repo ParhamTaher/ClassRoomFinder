@@ -87,5 +87,5 @@ CREATE TABLE comments
     building_id int NOT NULL REFERENCES buildings (building_id),
     title VARCHAR(20) NOT NULL,
     message TEXT NOT NULL,
-    importance comment_type
+    type comment_type
 )
