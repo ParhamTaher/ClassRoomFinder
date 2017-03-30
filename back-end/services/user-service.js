@@ -102,8 +102,17 @@ var userService = (function() {
         logger.log(result);
         return result[0].room_id
       })
+    },
+    addComment: function(payLoad){
+      /*
+      Takes user_id and relevant info to create a comment
+      */
+      logger.log(payLoad)
+      return queryService.insert('comments', 'building_id,title,message,user_id', [payLoad.building_id, payLoad.title, payLoad.message, payLoad.user_id], 'comment_id')
     }
+
   };
 })();
 
 module.exports = userService;
+

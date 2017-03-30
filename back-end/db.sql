@@ -8,10 +8,8 @@ DROP TABLE IF EXISTS building_hours CASCADE;
 DROP TABLE IF EXISTS bookings CASCADE;
 DROP TABLE IF EXISTS schedules CASCADE;
 
-DROP TYPE IF EXISTS comment_type CASCADE;
 DROP TYPE IF EXISTS day CASCADE;
 
-CREATE TYPE comment_type AS ENUM ('High', 'Medium', 'Low');
 CREATE TYPE day AS ENUM ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday');
 
 
@@ -85,7 +83,7 @@ CREATE TABLE comments
 (
     comment_id SERIAL PRIMARY KEY,
     building_id int NOT NULL REFERENCES buildings (building_id),
+    user_id int NOT NULL REFERENCES users (user_id),
     title VARCHAR(20) NOT NULL,
     message TEXT NOT NULL,
-    type comment_type
 )
