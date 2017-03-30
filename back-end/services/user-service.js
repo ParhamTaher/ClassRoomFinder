@@ -5,20 +5,19 @@ var queryService = require('./db/query-service');
 
 var userService = (function() {
   return {
-    getId: function(payLoad) {
-      /*
+    /*
       Takes a cookie in the Json payload and returns the user_id if it exists
       Or returns a newly created one
-      */
-
-    	logger.log(payLoad);
-      return queryService.select('users', 'cookie', payLoad.cookie)
+    */
+    getId: function(payload) {
+    	logger.log(payload);
+      return queryService.select('users', 'cookie', payload.cookie)
       .then(function(result){
         logger.log(result);
         if (result.length > 0){
           return result;
         } else {
-          return queryService.insert('users', 'cookie', [payLoad.cookie], 'user_id')    
+          return queryService.insert('users', 'cookie', [payload.cookie], 'user_id')    
         }
       })
     },

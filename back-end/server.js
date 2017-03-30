@@ -40,7 +40,6 @@ app.post('/api/v1/user/create_booking', userRoutes);
 app.post('/api/v1/user/delete_booking', userRoutes);
 app.post('/api/v1/user/add_comment', userRoutes);
 
-
 app.get('/api/v1/building/get_nearby_buildings', buildingRoutes);
 app.get('/api/v1/building/get_all_buildings', buildingRoutes);
 app.get('/api/v1/building/get_building_info', buildingRoutes);
@@ -59,7 +58,6 @@ app.post('/api/v1/admin/add_building_hours', adminRoutes);
 app.get('/api/v1/cobalt/get_buildings', cobaltRoutes);
 app.get('/api/v1/cobalt/get_rooms', cobaltRoutes);
 // app.get('/api/v1/cobalt/get_schedules', cobaltRoutes);
-
 
 app.listen(app.get('port'), function() {
   console.log('running on port', app.get('port'))
