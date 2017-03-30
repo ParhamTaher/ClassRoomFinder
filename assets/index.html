@@ -2,171 +2,116 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>DiscoverUofT: All Buildings</title>
-  <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <!-- Optional theme -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-  <script src="https://use.fontawesome.com/79bb3bc9ab.js"></script>
-  <link rel="stylesheet" type="text/css" href="css/index.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJce_pI1qTbrrpP3XiBLRN-b3hICqQiPU&callback=initialize">
-  </script>
-  <script src="js/getBuildings.js"></script>
-  <script src="js/loadRooms.js"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DiscoverUofT: All Buildings</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://use.fontawesome.com/79bb3bc9ab.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJce_pI1qTbrrpP3XiBLRN-b3hICqQiPU&callback=initialize">
+    </script>
+    <script src="js/getBuildings.js"></script>
+    <script src="js/loadRooms.js"></script>
 </head>
 
 <body>
-  <div class="jumbotron text-center">
-    <h1>DiscoverUofT</h1>
-    <p>Find free spaces on campus easier and faster than ever before.</p>
-  </div>
-  <div id="nav" class="col-md-12">
-    <div class="col-md-8 col-md-offset-2">
-      <ul class="nav nav-pills">
-        <li class="active"><a id="nearby" data-toggle="tab">Nearby</a></li>
-        <li><a id="favourites" data-toggle="tab">Favourites</a></li>
-        <li><a id="all" data-toggle="tab">All Buildings</a></li>
-      </ul>
+    <div class="jumbotron text-center">
+        <h1>DiscoverUofT</h1>
+        <p>Find free spaces on campus easier and faster than ever before.</p>
     </div>
-  </div>
-  <div class="container main">
-    <div id="list-group" class="col-md-5">
-      <a class="list-group-item" name="Bahen Center">
-        <div class="row">
-          <div class="col-sm-9">
-            <h4 class="card-heading list-group-item-heading">Bahen Center</h4>
-            <p class="list-group-item-text">40 St George St</p>
-          </div>
-          <div class="card-icon col-sm-3">
-            <i class="fa fa-angle-down fa-3x pull-right" aria-hidden="true"></i>
-          </div>
+    <div id="nav" class="col-md-12">
+        <div class="col-md-8 col-md-offset-2">
+            <ul class="nav nav-pills">
+                <li class="active"><a id="nearby" data-toggle="tab">Nearby</a></li>
+                <li><a id="favourites" data-toggle="tab">Favourites</a></li>
+                <li><a id="all" data-toggle="tab">All Buildings</a></li>
+            </ul>
         </div>
-        <div class="panel-footer">
-          <div class="btn-group btn-group-justified">
-            <div class="btn-group">
-              <button class="btn btn-default rooms-sub-nav">
-                <i class=""></i> Rooms
-              </button>
-            </div>
-            <div class="btn-group">
-              <button class="btn btn-default labs-sub-nav">
-                <i class=""></i> Labs
-              </button>
-            </div>
-            <div class="btn-group">
-              <button class="btn btn-default lecture-sub-nav">
-                <i class=""></i> Lecture Halls
-              </button>
+    </div>
+    <div class="container main">
+        <div id="list-group" class="col-md-5"></div>
+
+        <div id="building_rooms" class="col-md-7 hidden">
+          <div class="buildingName ">
+            Bahen Centre
+          </div>
+          <div class="availableHeader">
+            Available
+          </div>
+          <div class="available">
+            <div class="roomBtn">
+              BA2200
             </div>
           </div>
-        </div>
-      </a>
-      <a class="list-group-item" name="Galbraith Building">
-        <div class="row">
-          <div class="col-sm-9">
-            <h4 class="card-heading list-group-item-heading">Galbraith Building</h4>
-            <p class="list-group-item-text">35 St George St</p>
+          <div class="availableSoonHeader">
+            Available Soon
           </div>
-          <div class="card-icon col-sm-3">
-            <i class="fa fa-angle-down fa-3x pull-right" aria-hidden="true"></i>
-          </div>
-        </div>
-        <div class="panel-footer">
-          <div class="btn-group btn-group-justified">
-            <div class="btn-group">
-              <button class="btn btn-default rooms-sub-nav">
-                <i class=""></i> Rooms
-              </button>
-            </div>
-            <div class="btn-group">
-              <button class="btn btn-default labs-sub-nav">
-                <i class=""></i> Labs
-              </button>
-            </div>
-            <div class="btn-group">
-              <button class="btn btn-default lecture-sub-nav">
-                <i class=""></i> Lecture Halls
-              </button>
+          <div class="availableSoon">
+            <div class="roomBtn">
+              BA3195
             </div>
           </div>
+          <div class="notAvailableHeader">
+            Not Available
+          </div>
+          <div class="notAvailable">
+            <div class="roomBtn">
+              BA1070
+            </div>
+          </div>
+      </div>
+
+      <div id="room_info" class="col-md-7 hidden">
+        <div id="room_info_title">Today's Bookings</div>
+        <div>
+          <div>Official Bookings</div>
+          <ul>
+            <li>CSC148 Tutorial 2:00pm - 3:00PM</li>
+            <li>CSC207 Tutorial 5:00pm - 6:00PM</li>
+          </ul>
         </div>
-      </a>
+        <div>
+          <div>User Bookings</div>
+          <ul>
+            <li>CSC301 study session 6:00pm - 7:00PM</li>
+          </ul>
+        </div>
+        <div id="commentBtn">
+          Comments
+        </div>
+      </div>
+
+      <div id="comments_section" class="col-md-7 hidden">
+        <div id="comments">
+          Recent Comments
+          <div class="comment">
+            Free cookies at BA3195!
+          </div>
+          <div class="comment">
+            Closed during reading week!
+          </div>
+        </div>
+
+        <div>
+          <input id="commentText" type="text" name="commentText">
+          <input id="submitComment"type="submit" value="Submit Comment">
+        </div>
+      </div>
+
+        <div id="map-canvas" class="col-md-7"></div>
+
     </div>
-    <div id="building_rooms" class="col-md-7 hidden">
-      <div class="buildingName ">
-        Bahen Centre
-      </div>
-      <div class="availableHeader">
-        Available
-      </div>
-      <div class="available">
-        <div class="roomBtn">
-          BA2200
+    <footer class="footer text-center">
+        <div class="container">
+            <p>2017 DiscoverUofT</p>
         </div>
-      </div>
-      <div class="availableSoonHeader">
-        Available Soon
-      </div>
-      <div class="availableSoon">
-        <div class="roomBtn">
-          BA3195
-        </div>
-      </div>
-      <div class="notAvailableHeader">
-        Not Available
-      </div>
-      <div class="notAvailable">
-        <div class="roomBtn">
-          BA1070
-        </div>
-      </div>
-    </div>
-    <div id="room_info" class="col-md-7 hidden">
-      <div id="room_info_title">Today's Bookings</div>
-      <div>
-        <div>Official Bookings</div>
-        <ul>
-          <li>CSC148 Tutorial 2:00pm - 3:00PM</li>
-          <li>CSC207 Tutorial 5:00pm - 6:00PM</li>
-        </ul>
-      </div>
-      <div>
-        <div>User Bookings</div>
-        <ul>
-          <li>CSC301 study session 6:00pm - 7:00PM</li>
-        </ul>
-      </div>
-      <div id="commentBtn">
-        Comments
-      </div>
-    </div>
-    <div id="comments_section" class="col-md-7 hidden">
-      <div id="comments">
-        Recent Comments
-        <div class="comment">
-          Free cookies at BA3195!
-        </div>
-        <div class="comment">
-          Closed during reading week!
-        </div>
-      </div>
-      <div>
-        <input id="commentText" type="text" name="commentText">
-        <input id="submitComment" type="submit" value="Submit Comment">
-      </div>
-    </div>
-    <div id="map-canvas" class="col-md-7"></div>
-  </div>
-  <footer class="footer text-center">
-    <div class="container">
-      <p>2017 DiscoverUofT</p>
-    </div>
-  </footer>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    </footer>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
 
 </html>
