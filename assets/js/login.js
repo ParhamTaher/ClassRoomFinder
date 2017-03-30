@@ -1,35 +1,32 @@
-$( document ).ready(function() {
-    $('#login-btn').click(login);
+$(document).ready(function() {
+
 });
 
-function login(){
-	var $un = $("input[name=username]").val();
-	var $pw = $("input[name=password]").val();
-	if (!$un) {
-		alert("Please enter username", "red");
-		return;
-	} else if (!$pw) {
-		alert("Please enter password", "red");
-		return;
-	}
+function onSuccess(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    var id_token = googleUser.getAuthResponse().id_token;
+    console.log('Logged in as: ' + profile.getName());
+}
 
-	var user_info = { username: $un, password: $pw };
-  alert("Logged in with user: " + user_info.username);
-  /*
-	$.ajax({
-        type: 'POST',
-        url: '/login',
-        data: user_info,
-        success: function(r) {
-        	var msg = JSON.parse(r).msg;
-        	if (JSON.parse(r).success) {
-        		noti(msg, "green");
-            	setTimeout(function(){window.location.href = "./index";}, 500);
-        	}
-        	else {
-        		noti(msg, "red");
-        	}
-        }
+function onFailure(error) {
+    console.log(error);
+}
+
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function() {
+        console.log('User signed out.');
     });
-    */
+}
+
+function renderButton() {
+    gapi.signin2.render('login-g', {
+        'scope': 'profile email',
+        'width': 240,
+        'height': 50,
+        'longtitle': true,
+        'theme': 'dark',
+        'onsuccess': onSuccess,
+        'onfailure': onFailure
+    });
 }
