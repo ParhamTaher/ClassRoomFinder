@@ -6,6 +6,7 @@ function onSuccess(googleUser) {
     var profile = googleUser.getBasicProfile();
     var id_token = googleUser.getAuthResponse().id_token;
     console.log('Logged in as: ' + profile.getName());
+    window.location = "home.html"
 }
 
 function onFailure(error) {

@@ -9,8 +9,8 @@
             ['McLennan Physical Laboratories', 43.660879, -79.398444]
         ];
  */
- // global list of building markers
 
+ // global list of building markers
 var markers = [];
 
 function initMap() {
@@ -48,19 +48,21 @@ function initMap() {
 }
 
  /* Ajax call to get buildings */
-function getBuildings(route_url) {
-    new_markers = [];
+function getBuildings(url) {
     $.ajax({
         type: 'GET',
-        url: route_url,
+        url: url,
         success: function(data) {
-            // data is  JSON of all building List
-            if (data.response.length <= 0) {
-              console.log('No buildings found.');
-              return;
+            // clear old building data
+            markers.clear();
+
+            // check to see if data is empty
+            if (!data.response.length) {
+                console.log('No buildings found.');
+                return;
             }
 
-            console.log("Success", data);
+            console.log("Success: buildings found.");
 
             var txt = "";
             var id, name, address;
@@ -68,7 +70,8 @@ function getBuildings(route_url) {
                 // store name, slice address to keep only number and street name
                 id = data.response[i].building_id;
                 name = data.response[i].name;
-                address = data.response[i].address.slice(0, data.response[i].address.indexOf(','));
+                address = data.response[i].address.slice(
+                    0, data.response[i].address.indexOf(','));
 
                 // create list-group-item with building info
                 txt += '<a class="list-group-item" name="' + name + '">'
@@ -101,76 +104,43 @@ function getBuildings(route_url) {
                     + '<br />'
                     + '<button id="' + id + '" type="button" class="btn btn-lg btn-block btn-warning">Add Favourites</button>'
                     + '</div>'
-                    + '</a>'
+                    + '</a>';
 
-                console.log("lat", data.response[i].lat)
-;                new_markers.push([data.response[i].name, data.response[i].lat, data.response[i].lon]);
-                //console.log(markers);
+                // push building to markers list
+                markers.push([data.response[i].name, data.response[i].lat, data.response[i].lon]);
             }
-            markers = new_markers;
+
             $("#list-group").html(txt).removeClass("hidden");
             $(".panel-footer").hide();
-
-            var buildingName = "";
-            // on card click, show card's panel footer
-            $('.list-group-item').click(function(){
-                buildingName = $(this).attr("name");
-                $(".panel-footer").not($(this).children(".panel-footer")).each(function() {
-                    $(this).slideUp(300);
-                });
-                $(this).children(".panel-footer").slideToggle(300);
-            });
-
-            $('.rooms-sub-nav').click(function() {
-                $('#building_rooms').removeClass("hidden");
-                $('#map-canvas').addClass("hidden");
-                $(".buildingName").html(buildingName + " -> Rooms");
-            });
-
-            $('.labs-sub-nav').click(function() {
-              $('#building_rooms').removeClass("hidden");
-              $('#map-canvas').addClass("hidden");
-              $(".buildingName").html(buildingName + " -> Labs");
-            });
-
-            $('.lecture-sub-nav').click(function() {
-              $('#building_rooms').removeClass("hidden");
-              $('#map-canvas').addClass("hidden");
-              $(".buildingName").html(buildingName + " -> Lecture Halls");
-            });
         }
     });
 }
 
-function loadNearbyMap(lat, lon) {
+// reload list and map with nearby buildings
+function loadNearby(lat, lon) {
     $('#map-canvas').fadeOut(300).empty();
-
-    getBuildings('/api/v1/building/get_nearby_buildings/?lat=' + parseInt(lat) + '&' + 'lon=' + parseInt(lon));
+    getBuildings('/api/v1/building/get_nearby_buildings?lat=' + lat + '&' + 'lon=' + lon);
     initMap();
-    $('#list-group').fadeIn(300);
     $('#map-canvas').fadeIn(300);
+    $(".panel-footer").hide();
 }
 
- function loadFavouritesMap() {
-   $('#map-canvas').fadeOut(300).empty();
-   //$('#list-group').fadeOut(300).empty();
-   markers = [
-       ['Bahen Center', 43.659643, -79.397668]
-   ];
-   //getBuildings('/api/v1/user/get_favourite_buildings');
-   initMap();
-   $('#list-group').fadeIn(300);
-   $('#map-canvas').fadeIn(300);
-   $(".panel-footer").hide();
- }
-
-function loadAllMap() {
+// reload list and map with user's favourite buildings
+function loadFavourites() {
     $('#map-canvas').fadeOut(300).empty();
+    getBuildings('/api/v1/user/get_favourite_buildings');
+    initMap();
+    $('#map-canvas').fadeIn(300);
+    $(".panel-footer").hide();
+}
 
+// reload list and map with all buildings
+function loadAll() {
+    $('#map-canvas').fadeOut(300).empty();
     getBuildings('/api/v1/building/get_all_buildings');
     initMap();
-    $('#list-group').fadeIn(300);
     $('#map-canvas').fadeIn(300);
+    $(".panel-footer").hide();
 }
 
 // https://zeit.co/blog/async-and-await
@@ -178,9 +148,7 @@ function sleep (time) {
   return new Promise((resolve) => setTimeout(resolve, time));
 }
 
-// Geolocation Code referenced from: https://www.w3schools.com/html/html5_geolocation.asp
-var user_location_lat = 0;
-var user_location_lon = 0;
+// get current location of user
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
@@ -188,46 +156,41 @@ function getLocation() {
         alert("Geolocation is not supported by this browser.");
     }
 }
+
+// save user's current location in variables
 function showPosition(position) {
-    user_location_lat = position.coords.latitude;
-    user_location_lon = position.coords.longitude;
+    user_lat = position.coords.latitude;
+    user_lon = position.coords.longitude;
 }
-//
+
+// on card click, show card's panel footer
+$('.list-group-item').click(function() {
+    $(".panel-footer").not($(this).children(".panel-footer")).each(function() {
+        $(this).slideUp(300);
+    });
+    $(this).children(".panel-footer").slideToggle(300);
+});
 
 $(document).ready(function() {
-    console.log('Document ready.');
+    console.log("Document ready.");
 
-    $('#map-canvas').fadeOut(300);
-    $('#list-group').fadeOut(300);
+    // homepage defaults to nearby buildings
+    getLocation();
+    loadNearby(user_lat, user_lon);
 
-    //Load by default
-    loadAllMap();
-    console.log("Loaded!");
-    // nearby clicked, reload building list and map
+    // nearby buildings clicked, reload building list and map
     $('#nearby').click(function() {
-        console.log("Nearby!");
         getLocation();
-        sleep(4000).then(() => {
-            console.log(user_location_lat, user_location_lon);
-            loadNearbyMap(user_location_lat, user_location_lon);
-        });
-
+        loadNearby(user_lat, user_lon);
     });
 
-    // favourites clicked, reload building list and map
+    // favourite buildings clicked, reload building list and map
     $('#favourites').click(function() {
-        console.log("Favourites!");
+        loadFavourites();
     });
 
-    // all clicked, reload building list and map
+    // all buildings clicked, reload building list and map
     $('#all').click(function() {
-        $('#building_rooms').addClass("hidden");
-        $('#room_info').addClass("hidden");
-        $('#comments_section').addClass("hidden");
-        $('#map-canvas').removeClass("hidden");
-
-        loadAllMap();
+        loadAll();
     });
-
-
 });
