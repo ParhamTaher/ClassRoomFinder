@@ -50,6 +50,21 @@ var adminService = (function() {
         }
         return Promise.all(promiseArray);
     },
+    addBuildingHours: function(payLoad) {
+      /*
+      Add these hours to this building's schedule
+      */
+      logger.log(payLoad)
+      logger.log(Object.keys(payLoad.schedule).length)
+      var promiseArray = [];
+      for (var day in payLoad.schedule){
+        var times = payLoad.schedule[day].split('-')
+        logger.log(times)
+        promiseArray.push(queryService.insert('building_hours', 'building_id,day,open_time,closing_time', [payLoad.building_id, day, times[0], times[1]], 'schedule_id'));
+      }
+      return Promise.all(promiseArray);
+
+    }
   };
 })();
 

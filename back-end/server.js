@@ -54,6 +54,7 @@ app.get('/api/v1/building/get_building_schedule', buildingRoutes);
 app.post('/api/v1/admin/create_building', adminRoutes);
 app.post('/api/v1/admin/add_room', adminRoutes);
 app.post('/api/v1/admin/add_room_schedule', adminRoutes);
+app.post('/api/v1/admin/add_building_hours', adminRoutes);
 
 app.get('/api/v1/cobalt/get_buildings', cobaltRoutes);
 app.get('/api/v1/cobalt/get_rooms', cobaltRoutes);

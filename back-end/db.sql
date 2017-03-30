@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS bookings CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS comments CASCADE;
 DROP TABLE IF EXISTS favourites CASCADE;
-DROP TABLE IF EXISTS building_schedule CASCADE;
+DROP TABLE IF EXISTS building_hours CASCADE;
 DROP TABLE IF EXISTS bookings CASCADE;
 DROP TABLE IF EXISTS schedules CASCADE;
 
@@ -26,7 +26,7 @@ CREATE TABLE buildings
     lon real NOT NULL
 );
 
-CREATE TABLE building_schedule
+CREATE TABLE building_hours
 (
     schedule_id SERIAL PRIMARY KEY,
     building_id INT NOT NULL REFERENCES buildings (building_id),
