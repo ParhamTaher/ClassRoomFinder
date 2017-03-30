@@ -91,6 +91,30 @@ router.post('/api/v1/building/add_room', function(req, res) {
 	})
 });
 
+router.get('/api/v1/building/get_building_hours', function(req, res) {
+	/*
+		Returns all hours for this building
+
+		Input (headers): None
+		Input (body): None
+		Input (query): building_id
+		Output: Unordered json {day: start_time, end_time}
+	*/
+
+	var payLoad = req.query;
+
+  logger.log(payLoad);
+  return buildingService.getBuildingHours(payLoad)
+	.then(function(schedule){
+    logger.log(schedule);
+		res.status(200).json({schedule});
+	})
+	.then(undefined, function(err){
+		res.status(500).json({status: "Failure", response: err});
+	})
+});
+
+
 router.get('/api/v1/building/get_room_schedule', function(req, res) {
 	/*
 		Returns all activities going on in this room on this date
