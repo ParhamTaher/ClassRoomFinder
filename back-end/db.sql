@@ -18,7 +18,7 @@ CREATE TYPE day AS ENUM ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday',
 CREATE TABLE buildings 
 (
     building_id SERIAL PRIMARY KEY,
-    code VARCHAR(5) UNIQUE,
+    code VARCHAR(5) UNIQUE, 
     name TEXT NOT NULL UNIQUE,
     address VARCHAR(100) NOT NULL,
     num_rooms integer NOT NULL,
