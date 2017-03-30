@@ -1,5 +1,7 @@
 var logger = require('tracer').console();
 var http = require('http');
+var fs = require('fs');
+var https = require('https');
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
@@ -9,6 +11,7 @@ var path = require('path');
 var userRoutes = require('./routes/user-route');
 var buildingRoutes = require('./routes/building-route');
 var adminRoutes = require('./routes/admin-route');
+var cobaltRoutes = require('./routes/cobalt-route');
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -49,6 +52,11 @@ app.get('/api/v1/building/get_building_schedule', buildingRoutes);
 app.post('/api/v1/admin/create_building', adminRoutes);
 app.post('/api/v1/admin/add_room', adminRoutes);
 app.post('/api/v1/admin/add_room_schedule', adminRoutes);
+
+app.get('/api/v1/cobalt/get_buildings', cobaltRoutes);
+app.get('/api/v1/cobalt/get_rooms', cobaltRoutes);
+// app.get('/api/v1/cobalt/get_schedules', cobaltRoutes);
+
 
 app.listen(app.get('port'), function() {
   console.log('running on port', app.get('port'))

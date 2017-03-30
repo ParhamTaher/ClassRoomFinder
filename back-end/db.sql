@@ -18,8 +18,9 @@ CREATE TYPE day AS ENUM ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday',
 CREATE TABLE buildings 
 (
     building_id SERIAL PRIMARY KEY,
+    code VARCHAR(5) UNIQUE,
     name TEXT NOT NULL UNIQUE,
-    address VARCHAR(50) NOT NULL,
+    address VARCHAR(100) NOT NULL,
     num_rooms integer NOT NULL,
     lat real NOT NULL,
     lon real NOT NULL
@@ -38,7 +39,6 @@ CREATE TABLE building_schedule
 CREATE TABLE classrooms
 (
     room_id SERIAL PRIMARY KEY,
-    building_id INT NOT NULL REFERENCES buildings (building_id),
     code VARCHAR(10) NOT NULL,
     occupancy integer NOT NULL,
     is_lab boolean NOT NULL 

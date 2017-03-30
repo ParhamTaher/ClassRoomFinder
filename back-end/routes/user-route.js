@@ -22,6 +22,7 @@ router.get('/api/v1/user/get_user_id', function(req, res) {
 		res.status(200).json({status: "Success", 'user_id': result[0].user_id})
 	})
   .catch(function(err){
+  	logger.log(err)
 		res.status(500).json({status: "Failure", response: err});
 	})
 });
@@ -105,7 +106,7 @@ router.post('/api/v1/user/create_booking', function(req, res) {
   var payLoad = {
   	"userId": parseInt(req.headers.user_id),
   	"buildingId": req.body.building_id,
-  	"room": req.body.room,
+  	"room_code": req.body.room_code,
   	"date": req.body.date,
   	"start_time": req.body.start_time,
   	"end_time": req.body.end_time,

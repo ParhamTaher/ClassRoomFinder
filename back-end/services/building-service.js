@@ -76,7 +76,7 @@ var buildingService = (function() {
 
         logger.log(thisDay)
         logger.log(nextDay)
-        return queryService.selectDate('schedules', ['start_time', 'end_time', 'building_id'], [thisDay, nextDay, payLoad.buildingId], 'start_time', 'room_id')
+        return queryService.selectDate('schedules', ['start_time', 'end_time', 'building_id'], [thisDay, nextDay, payLoad.buildingId], 'start_time', 'classroom_id, schedule_id')
     }
   };
 })();

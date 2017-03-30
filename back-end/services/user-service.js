@@ -76,7 +76,7 @@ var userService = (function() {
       return this.getRoomId(payLoad)
       .then(function(result){
         logger.log(result)
-        return queryService.insert('bookings', 'classroom_id,user_id,building_id,message,tags,start_time,end_time,booking_date', [result, payLoad.userId,payLoad.buildingId, payLoad.comment, payLoad.tag, payLoad.start_time, payLoad.end_time, payLoad.date], 'booking_id')
+        return queryService.insert('bookings', 'classroom_id,user_id,building_id,message,tags,start_time,end_time,booking_date', [result, payLoad.userId, payLoad.buildingId, payLoad.comment, payLoad.tag, payLoad.start_time, payLoad.end_time, payLoad.date], 'booking_id')
       })
       .then(undefined, function(err){
         throw new MyError(err.message, __line, 'user-service.js');
@@ -98,7 +98,7 @@ var userService = (function() {
       returns room id from room code and building id
       */
       logger.log(payLoad)
-      return queryService.selectTwoConds('classrooms', ['code', 'building_id'], [payLoad.room, payLoad.buildingId])
+      return queryService.select('classrooms', 'code', payLoad.room_code)
       .then(function(result){
         logger.log(result);
         return result[0].room_id
