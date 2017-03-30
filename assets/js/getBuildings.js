@@ -27,7 +27,7 @@ function initMap() {
     var marker, i;
     for (i = 0; i < markers.length; i++) {
         var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
-        bounds.extend(position);
+        //bounds.extend(position);
         marker = new google.maps.Marker({
             position: position,
             map: map,
@@ -35,12 +35,14 @@ function initMap() {
         });
 
         // Automatically center the map fitting all markers on the screen
+        var position = new google.maps.LatLng(43.662905, -79.395661);
+        bounds.extend(position)
         map.fitBounds(bounds);
     }
 
     // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
     var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
-        this.setZoom(16);
+        this.setZoom(15);
         google.maps.event.removeListener(boundsListener);
     });
 }
@@ -69,7 +71,7 @@ function getBuildings(route_url) {
                 address = data.response[i].address.slice(0, data.response[i].address.indexOf(','));
 
                 // create list-group-item with building info
-                txt += '<a id="' + id + '" class="list-group-item" name="' + name + '">'
+                txt += '<a class="list-group-item" name="' + name + '">'
                     + '<div class="row">'
                     + '<div class="col-sm-9">'
                     + '<h4 class="card-heading list-group-item-heading">' + name + '</h4>'
@@ -96,11 +98,13 @@ function getBuildings(route_url) {
                     + '</button>'
                     + '</div>'
                     + '</div>'
+                    + '<br />'
+                    + '<button id="' + id + '" type="button" class="btn btn-lg btn-block btn-warning">Add Favourites</button>'
                     + '</div>'
                     + '</a>'
 
                 console.log("lat", data.response[i].lat)
-;                new_markers.push([data.response[i].name, data.response[i].lon, (-1)*data.response[i].lat]);
+;                new_markers.push([data.response[i].name, data.response[i].lat, data.response[i].lon]);
                 //console.log(markers);
             }
             markers = new_markers;
