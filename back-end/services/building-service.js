@@ -53,21 +53,6 @@ var buildingService = (function() {
         throw new MyError(err.message, __line, 'building-service.js');
       })
     },
-getBuildingHours: function(payLoad){
-        /*
-          Returns JSON of building hours for each day
-        */
-        logger.log(payLoad)
-        return queryService.select('building_hours', 'building_id', payLoad.building_id)
-        .then(function(result){
-          var schedule = {};
-          for (var i = 0; i < result.length; i++){
-            schedule[result[i].day] = [result[i].open_time, result[i].closing_time]
-          }
-          return schedule;
-        })
-    }
-  },
     getRoomSchedule: function(payLoad){
         /*
           Returns the schedule associated with this room on this date
