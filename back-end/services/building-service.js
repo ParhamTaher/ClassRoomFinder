@@ -10,6 +10,7 @@ var buildingService = (function() {
       /*
       Returns all nearby buildings within this proximity
       */
+      
       var proximity = 0.0010
 
       var latUp = parseFloat(payLoad.lat) + proximity;
