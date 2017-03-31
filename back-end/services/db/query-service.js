@@ -33,6 +33,19 @@ var queryService = (function() {
           return result.rows;
         });
     },
+    selectNearby: function(table, conds, cond_values) {
+      logger.log(cond_values)
+      var text = 'SELECT * FROM ' + table + ' WHERE (lat > $1 AND lat < $2 AND lon < $3 AND lon > $4)';
+      var values = cond_values;
+      logger.log(text);
+      logger.log(values);
+      return dbService.query(text, values)
+        .then(function(result) {
+          logger.log("Number of rows found: ", result.rowCount);
+          logger.log('Query result: ', result.rows);
+          return result.rows;
+        });
+    },
     selectTwoConds: function(table, conds, cond_values) {
       logger.log(cond_values)
       var text = 'SELECT * FROM ' + table + ' WHERE (' + conds[0] + '= $1' + ' AND ' + conds[1] + '= $2)';
@@ -46,26 +59,6 @@ var queryService = (function() {
           return result.rows;
         });
     },
-    selectDate: function(table, conds, cond_values, order_by, group_by) {
-      logger.log(cond_values)
-      var text = 'SELECT * FROM ' + table + ' WHERE (' + conds[0] + ' >= $1' + ' AND ' + conds[1] + ' < $2' + ' AND ' + conds[2] + ' = $3)';
-      var values = cond_values;
-      if (group_by){
-        text = text + ' GROUP BY ' + group_by;
-      }
-      if (order_by){
-        text = text + ' ORDER BY ' + order_by;
-      }
-      logger.log(text);
-      logger.log(values);
-      return dbService.query(text, values)
-        .then(function(result) {
-          logger.log("Number of rows found: ", result.rowCount);
-          logger.log('Query result: ', result.rows);
-          return result.rows;
-        });
-    },
-
     select_complex: function(col, table, cond_value) {
       var text = 'SELECT * FROM ' + table + ' ORDER BY ' + col + ' DESC LIMIT 1';
       var values = [cond_value];

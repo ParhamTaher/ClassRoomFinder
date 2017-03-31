@@ -17,7 +17,7 @@ router.get('/api/v1/building/get_nearby_buildings', function(req, res) {
 		Output: Ordered list of buildings by location
 	*/
   var payLoad = req.query;
-
+  logger.log(payLoad)
 	return buildingService.getNearbyBuildings(payLoad)
 	.then(function(result){
     logger.log(result);
@@ -169,32 +169,6 @@ router.get('/api/v1/building/get_building_schedule', function(req, res) {
 	})
 });
 
-router.get('/api/v1/building/get_building_comments', function(req, res) {
-	/*
-		Returns all comments for this building
-
-		Input (headers): None
-		Input (body): None
-		Input (query): building_id
-		Output: Unordered json {day: start_time, end_time}
-	*/
-
-	var payLoad = req.query;
-
-  logger.log(payLoad);
-  return buildingService.getBuildingHours(payLoad)
-	.then(function(schedule){
-    logger.log(schedule);
-		res.status(200).json({schedule});
-	})
-	.then(undefined, function(err){
-		res.status(500).json({status: "Failure", response: err});
-	})
-});
-
-//----------------------ANGELA's CODE-----------------------------
-
-
 router.get('/api/v1/building/get_building_info', function(req, res) {
 
   	/*
@@ -203,11 +177,11 @@ router.get('/api/v1/building/get_building_info', function(req, res) {
 	Input (headers): None 
 	Input (body): N/A
 	Input (query): building_id
-	Output: available_classrooms, available_labs, img, latest_activity, latest_comment
+	Output: {Available/Available Soon/Unavailable: room_id, code}, comments, bookings, hours
 
 	*/
   	
-  	var payLoad = req.query;
+  var payLoad = req.query;
 
 	return buildingService.getBuildingInfo(payLoad)
 	.then(function(result){
@@ -226,17 +200,44 @@ router.get('/api/v1/building/get_room_info', function(req, res) {
 	GET
 	Input (headers): None
 	Input (body): N/A
-	Input (query): building_id, room_id
+	Input (query): room_id
 	Output: {Bookings: [], Comments: []}
 
 	*/
 
-  	var payLoad = req.query;
+  var payLoad = {
+  	"roomId": req.query.room_id
+  }
   
 	return buildingService.getRoomInfo(payLoad)
 	.then(function(result){
-    logger.log(result);
-		res.status(200).json({status: "Success", response: result});
+    //logger.log(result);
+    logger.log(result.bookings[0].booking_date)
+    logger.log(Date(result.bookings[0].booking_date))
+		res.status(200).json({status: "Success", result});
+	})
+  .catch(function(err){
+		res.status(500).json({status: "Failure", response: err});
+	})
+});
+
+router.get('/api/v1/building/get_building_comments', function(req, res) {
+
+	/*
+		Returns all comments for this building
+
+		Input (headers): None
+		Input (body): None
+		Input (query): building_id
+		Output: {Comment: user_id, comment_id, title, message}
+	*/
+
+  var payLoad = req.query;
+  
+	return buildingService.getBuildingComments(payLoad)
+	.then(function(comments){
+    logger.log(comments);
+		res.status(200).json({status: "Success", comments});
 	})
   .catch(function(err){
 		res.status(500).json({status: "Failure", response: err});
