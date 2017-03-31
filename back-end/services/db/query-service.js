@@ -35,7 +35,7 @@ var queryService = (function() {
     },
     selectTwoConds: function(table, conds, cond_values) {
       logger.log(cond_values)
-      var text = 'SELECT * FROM ' + table + ' WHERE )' + conds[0] + '= $1' + ' AND ' + conds[1] + '= $2)';
+      var text = 'SELECT * FROM ' + table + ' WHERE (' + conds[0] + '= $1' + ' AND ' + conds[1] + '= $2)';
       var values = cond_values;
       logger.log(text);
       logger.log(values);
@@ -46,12 +46,15 @@ var queryService = (function() {
           return result.rows;
         });
     },
-      selectDate: function(table, conds, cond_values, order_by) {
+    selectDate: function(table, conds, cond_values, order_by, group_by) {
       logger.log(cond_values)
-      var text = 'SELECT * FROM ' + table + ' WHERE ' + conds[0] + ' >= $1' + ' AND ' + conds[1] + ' < $2';
+      var text = 'SELECT * FROM ' + table + ' WHERE (' + conds[0] + ' >= $1' + ' AND ' + conds[1] + ' < $2' + ' AND ' + conds[2] + ' = $3)';
       var values = cond_values;
+      if (group_by){
+        text = text + ' GROUP BY ' + group_by;
+      }
       if (order_by){
-        text = text + ' ORDER_BY ' + order_by;
+        text = text + ' ORDER BY ' + order_by;
       }
       logger.log(text);
       logger.log(values);
@@ -61,6 +64,46 @@ var queryService = (function() {
           logger.log('Query result: ', result.rows);
           return result.rows;
         });
+    },
+
+    select_complex: function(col, table, cond_value) {
+      var text = 'SELECT * FROM ' + table + ' ORDER BY ' + col + ' DESC LIMIT 1';
+      var values = [cond_value];
+      logger.log(text);
+      logger.log(values);
+      return dbService.query(text, values)
+        .then(function(result) {
+          logger.log(result.rowCount);
+          return result.rows;
+        });
+    },
+
+    selectJoin: function(table1, table2, cond_values) {
+      logger.log(cond_values);
+      var text = 'SELECT * FROM ' + table1 + ',' + table2 + ' WHERE classroom_id=' + cond_values[0] + ' AND building_id=' + cond_values[1];
+      var values = cond_values;
+      logger.log(text);
+      logger.log(values);
+      return dbService.query(text, values)
+      .then(function(result) {
+        logger.log("Number of rows found: ", result.rowCount);
+        logger.log('Query result: ', result.rows);
+        logger.log(result.rowCount);
+        return result.rows;
+      });
+    },
+
+    /* ================ SELECT COL================ */
+    select_col: function(col, table, cond, cond_value) {
+      var text = 'SELECT ' + col + ' FROM ' + table + ' WHERE ' + cond + '= $1';
+      var values = [cond_value];
+      logger.log(text);
+      logger.log(values);
+      return dbService.query(text, values)
+      .then(function(result) {
+        logger.log(result.rowCount);
+        return result.rows;
+      });
     },
     /* ================ INSERT ================ */
 

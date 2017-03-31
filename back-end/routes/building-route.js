@@ -2,7 +2,9 @@ var express = require('express');
 var router = express.Router();
 var Promise = require('bluebird');
 var logger = require('tracer').console();
-var buildingService  = require('../services/building-service.js');
+//var userService  = require('../services/building-service.js');
+var queryService = require('../services/db/query-service.js');
+var buildingService = require('../services/building-service.js');
 
 router.get('/api/v1/building/get_nearby_buildings', function(req, res) {
 	/*
@@ -114,7 +116,6 @@ router.get('/api/v1/building/get_building_hours', function(req, res) {
 	})
 });
 
-
 router.get('/api/v1/building/get_room_schedule', function(req, res) {
 	/*
 		Returns all activities going on in this room on this date
@@ -141,8 +142,105 @@ router.get('/api/v1/building/get_room_schedule', function(req, res) {
 		res.status(500).json({status: "Failure", response: err});
 	})
 });
-/*
-app.get('/api/v1/building/get_room_schedule', buildingRoutes);
-app.get('/api/v1/building/get_building_schedule', buildingRoutes);
-*/
+
+router.get('/api/v1/building/get_building_schedule', function(req, res) {
+	/*
+		Returns all activities going on in this room on this date
+
+		Input (headers): None
+		Input (body): None
+		Input (query): building_id, date (YYYY-MM-DD)
+		Output: Ordered by time list [{booking_id, activity, start_time, end_time}]
+	*/
+
+	var payLoad = {
+		"buildingId": parseInt(req.query.building_id),
+		"date": req.query.date
+	}
+
+  logger.log(payLoad);
+  return buildingService.getBuildingSchedule(payLoad)
+	.then(function(result){
+    logger.log(result);
+		res.status(200).json({status: "Success", response: result});
+	})
+	.then(undefined, function(err){
+		res.status(500).json({status: "Failure", response: err});
+	})
+});
+
+router.get('/api/v1/building/get_building_comments', function(req, res) {
+	/*
+		Returns all comments for this building
+
+		Input (headers): None
+		Input (body): None
+		Input (query): building_id
+		Output: Unordered json {day: start_time, end_time}
+	*/
+
+	var payLoad = req.query;
+
+  logger.log(payLoad);
+  return buildingService.getBuildingHours(payLoad)
+	.then(function(schedule){
+    logger.log(schedule);
+		res.status(200).json({schedule});
+	})
+	.then(undefined, function(err){
+		res.status(500).json({status: "Failure", response: err});
+	})
+});
+
+//----------------------ANGELA's CODE-----------------------------
+
+
+router.get('/api/v1/building/get_building_info', function(req, res) {
+
+  	/*
+  	- get_building_info()
+	GET
+	Input (headers): None 
+	Input (body): N/A
+	Input (query): building_id
+	Output: available_classrooms, available_labs, img, latest_activity, latest_comment
+
+	*/
+  	
+  	var payLoad = req.query;
+
+	return buildingService.getBuildingInfo(payLoad)
+	.then(function(result){
+    logger.log(result);
+		res.status(200).json({status: "Success", response: result});
+	})
+  .catch(function(err){
+		res.status(500).json({status: "Failure", response: err});
+	})
+});
+
+router.get('/api/v1/building/get_room_info', function(req, res) {
+
+	/*
+	- get_room_info()
+	GET
+	Input (headers): None
+	Input (body): N/A
+	Input (query): building_id, room_id
+	Output: {Bookings: [], Comments: []}
+
+	*/
+
+  	var payLoad = req.query;
+  
+	return buildingService.getRoomInfo(payLoad)
+	.then(function(result){
+    logger.log(result);
+		res.status(200).json({status: "Success", response: result});
+	})
+  .catch(function(err){
+		res.status(500).json({status: "Failure", response: err});
+	})
+});
+
 module.exports = router;
