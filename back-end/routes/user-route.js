@@ -22,6 +22,7 @@ router.get('/api/v1/user/get_user_id', function(req, res) {
 		res.status(200).json({status: "Success", 'user_id': result[0].user_id})
 	})
   .catch(function(err){
+  	logger.log(err)
 		res.status(500).json({status: "Failure", response: err});
 	})
 });
@@ -105,7 +106,7 @@ router.post('/api/v1/user/create_booking', function(req, res) {
   var payLoad = {
   	"userId": parseInt(req.headers.user_id),
   	"buildingId": req.body.building_id,
-  	"room": req.body.room,
+  	"room_code": req.body.room_code,
   	"date": req.body.date,
   	"start_time": req.body.start_time,
   	"end_time": req.body.end_time,
@@ -143,6 +144,29 @@ router.post('/api/v1/user/delete_booking', function(req, res) {
 		res.status(200).json({status: "Success"})
 	})
   .catch(function(err){
+		res.status(500).json({status: "Failure", response: err});
+	})
+});
+
+router.post('/api/v1/user/add_comment', function(req, res) {
+	/*
+		Adds a comment by this user to the building 
+
+		Input (headers): user_id
+		Input (body): building_id, title, message, priority (High, Medium, Low)
+		Input (query): none
+		Output: comment_id
+	*/
+  var payLoad = req.body
+  payLoad["user_id"] = parseInt(req.headers.user_id);
+  
+  return userService.addComment(payLoad)
+	.then(function(result){
+    logger.log(result);
+		res.status(200).json({status: "Success", 'comment_id': result.rows[0].comment_id})
+	})
+  .catch(function(err){
+  	logger.log(err)
 		res.status(500).json({status: "Failure", response: err});
 	})
 });

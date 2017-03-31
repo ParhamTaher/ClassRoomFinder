@@ -70,4 +70,25 @@ router.post('/api/v1/admin/add_room_schedule', function(req, res) {
 	}
 });
 
+router.post('/api/v1/admin/add_building_hours', function(req, res) {
+	/*
+		Returns a schedule_Id of inserted days
+
+		Input (headers): None
+		Input (body): building_id, schedule ({day: hours})
+		Input (query): None
+		Output: array of schedule_ids
+	*/
+
+	var payLoad = req.body;
+	return adminService.addBuildingHours(payLoad)
+	.then(function(result){
+    logger.log(result);
+		res.status(200).json({status: "Success", result});
+	})
+	.then(undefined, function(err){
+		res.status(500).json({status: "Failure", response: err});
+	})
+});
+
 module.exports = router;

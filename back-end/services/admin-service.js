@@ -30,7 +30,7 @@ var adminService = (function() {
         Creates a room
         */
         logger.log(payLoad);
-        return queryService.insert('classrooms', 'building_id,code,occupancy,is_lab',[payLoad.buildingId, payLoad.code, payLoad.occupancy, payLoad.isLab], 'room_id')
+        return queryService.insert('classrooms', 'code,occupancy,is_lab',[payLoad.code, payLoad.occupancy, payLoad.isLab], 'room_id')
         .then(undefined, function(err){
             logger.log("Throwing an error");
             throw new MyError(err.message, __line, 'error-service.js');
@@ -46,10 +46,25 @@ var adminService = (function() {
         for (var i = 0; i < payLoad.schedule.length; i++){
             logger.log(i);
             logger.log(payLoad.schedule[i]);
-            queryService.insert('schedules', 'classroom_id,building_id,activity,start_time,end_time', [payLoad.room_id, payLoad.building_id, payLoad.schedule[i].activity, payLoad.schedule[i].start_time, payLoad.schedule[i].end_time], 'schedule_id')
+            promiseArray.push(queryService.insert('schedules', 'classroom_id,building_id,activity,start_time,end_time', [payLoad.room_id, payLoad.building_id, payLoad.schedule[i].activity, payLoad.schedule[i].start_time, payLoad.schedule[i].end_time], 'schedule_id'));
         }
-        return 1;
+        return Promise.all(promiseArray);
     },
+    addBuildingHours: function(payLoad) {
+      /*
+      Add these hours to this building's schedule
+      */
+      logger.log(payLoad)
+      logger.log(Object.keys(payLoad.schedule).length)
+      var promiseArray = [];
+      for (var day in payLoad.schedule){
+        var times = payLoad.schedule[day].split('-')
+        logger.log(times)
+        promiseArray.push(queryService.insert('building_hours', 'building_id,day,open_time,closing_time', [payLoad.building_id, day, times[0], times[1]], 'schedule_id'));
+      }
+      return Promise.all(promiseArray);
+
+    }
   };
 })();
 

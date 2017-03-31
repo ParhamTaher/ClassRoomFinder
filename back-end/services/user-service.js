@@ -5,20 +5,19 @@ var queryService = require('./db/query-service');
 
 var userService = (function() {
   return {
-    getId: function(payLoad) {
-      /*
+    /*
       Takes a cookie in the Json payload and returns the user_id if it exists
       Or returns a newly created one
-      */
-
-    	logger.log(payLoad);
-      return queryService.select('users', 'cookie', payLoad.cookie)
+    */
+    getId: function(payload) {
+    	logger.log(payload);
+      return queryService.select('users', 'cookie', payload.cookie)
       .then(function(result){
         logger.log(result);
         if (result.length > 0){
           return result;
         } else {
-          return queryService.insert('users', 'cookie', [payLoad.cookie], 'user_id')    
+          return queryService.insert('users', 'cookie', [payload.cookie], 'user_id')    
         }
       })
     },
@@ -76,7 +75,7 @@ var userService = (function() {
       return this.getRoomId(payLoad)
       .then(function(result){
         logger.log(result)
-        return queryService.insert('bookings', 'classroom_id,user_id,building_id,message,tags,start_time,end_time,booking_date', [result, payLoad.userId,payLoad.buildingId, payLoad.comment, payLoad.tag, payLoad.start_time, payLoad.end_time, payLoad.date], 'booking_id')
+        return queryService.insert('bookings', 'classroom_id,user_id,building_id,message,tags,start_time,end_time,booking_date', [result, payLoad.userId, payLoad.buildingId, payLoad.comment, payLoad.tag, payLoad.start_time, payLoad.end_time, payLoad.date], 'booking_id')
       })
       .then(undefined, function(err){
         throw new MyError(err.message, __line, 'user-service.js');
@@ -98,13 +97,22 @@ var userService = (function() {
       returns room id from room code and building id
       */
       logger.log(payLoad)
-      return queryService.selectTwoConds('classrooms', ['code', 'building_id'], [payLoad.room, payLoad.buildingId])
+      return queryService.select('classrooms', 'code', payLoad.room_code)
       .then(function(result){
         logger.log(result);
         return result[0].room_id
       })
+    },
+    addComment: function(payLoad){
+      /*
+      Takes user_id and relevant info to create a comment
+      */
+      logger.log(payLoad)
+      return queryService.insert('comments', 'building_id,title,message,user_id', [payLoad.building_id, payLoad.title, payLoad.message, payLoad.user_id], 'comment_id')
     }
+
   };
 })();
 
 module.exports = userService;
+

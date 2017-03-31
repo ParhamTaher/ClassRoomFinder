@@ -156,6 +156,7 @@ hr {
     /* Set the fixed height of the footer here */
     height: 70px;
     background-color: #002a5c;
+    margin-top: 70px;
 }
 
 .footer p {
