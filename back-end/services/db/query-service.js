@@ -59,44 +59,18 @@ var queryService = (function() {
           return result.rows;
         });
     },
-    select_complex: function(col, table, cond_value) {
-      var text = 'SELECT * FROM ' + table + ' ORDER BY ' + col + ' DESC LIMIT 1';
-      var values = [cond_value];
+    selectAndJoin: function(building_id, day, time) {
+      logger.log(building_id, day, time)
+      var values = [building_id, day, time]
+      var text = 'SELECT * FROM (schedules INNER JOIN classrooms ON schedules.classroom_id = classrooms.room_id) WHERE (classrooms.building_id = $1 AND schedules.weekday = $2 AND schedules.end_time >= $3) ORDER BY room_id, start_time' 
       logger.log(text);
       logger.log(values);
       return dbService.query(text, values)
         .then(function(result) {
-          logger.log(result.rowCount);
+          logger.log("Number of rows found: ", result.rowCount);
+          logger.log('Query result: ', result.rows);
           return result.rows;
         });
-    },
-
-    selectJoin: function(table1, table2, cond_values) {
-      logger.log(cond_values);
-      var text = 'SELECT * FROM ' + table1 + ',' + table2 + ' WHERE classroom_id=' + cond_values[0] + ' AND building_id=' + cond_values[1];
-      var values = cond_values;
-      logger.log(text);
-      logger.log(values);
-      return dbService.query(text, values)
-      .then(function(result) {
-        logger.log("Number of rows found: ", result.rowCount);
-        logger.log('Query result: ', result.rows);
-        logger.log(result.rowCount);
-        return result.rows;
-      });
-    },
-
-    /* ================ SELECT COL================ */
-    select_col: function(col, table, cond, cond_value) {
-      var text = 'SELECT ' + col + ' FROM ' + table + ' WHERE ' + cond + '= $1';
-      var values = [cond_value];
-      logger.log(text);
-      logger.log(values);
-      return dbService.query(text, values)
-      .then(function(result) {
-        logger.log(result.rowCount);
-        return result.rows;
-      });
     },
     /* ================ INSERT ================ */
 
