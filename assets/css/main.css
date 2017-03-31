@@ -1,3 +1,5 @@
+/* GENERAL */
+
 * {
     -webkit-border-radius: 0 !important;
     -moz-border-radius: 0 !important;
@@ -18,85 +20,31 @@ body {
     flex-direction: column;
 }
 
-.content {
-    flex: 1;
-}
-
 h1,
-h2,
-.card-heading {
+h2 {
     font-weight: bold;
 }
 
-.card-distance {
-    font-size: 3rem;
+.hidden {
+    display: none;
 }
 
-.main {
-    width: 90%;
-    height: 500px;
-    padding-top: 30px;
+hr {
+    border-color: #2196F3;
 }
 
-#list-group {
-    height: 500px;
-    overflow-y: auto;
-    margin: 10px 0;
+.hr-container {
+    clear: both;
+    padding: 10px 0;
 }
 
-::-webkit-scrollbar {
-    width: 12px;
-    /* for vertical scrollbars */
-    height: 12px;
-    /* for horizontal scrollbars */
-    margin: 10px 0;
-}
 
-::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.1);
-}
+/* HEADER AND NAV */
 
-::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.5);
-}
-
-#addon {
+.jumbotron {
     background-color: #002a5c;
-    color: white;
-}
-
-.list-group-item {
-    position: relative;
-    display: block;
-    padding: 10px 15px/* adjust here */
-    margin-bottom: -1px;
-    border: 1px solid #ddd;
-    line-height: 1em/* set to text height */
-}
-
-.rotate {
-    -moz-transition: all 0.25s linear;
-    -webkit-transition: all 0.25s linear;
-    transition: all 0.25s linear;
-}
-
-.rotate.up {
-    -ms-transform: rotate(180deg);
-    -moz-transform: rotate(180deg);
-    -webkit-transform: rotate(180deg);
-    transform: rotate(180deg);
-}
-
-.panel-footer {
-    padding: 0;
-    padding-top: 10px;
+    padding: 10px 0;
     margin: 0;
-    margin-top: 5px;
-    background-color: inherit;
-}
-
-.panel-footer .btn {
-    padding: 5px 2px;
 }
 
 #nav {
@@ -136,29 +84,125 @@ ul.nav-pills > li > a {
     background-color: #2196F3;
 }
 
-#map-canvas {
-    height: 556px;
-    width: 400px background-color: grey;
+
+/* BUILDING LIST */
+
+.main {
+    width: 90%;
+    height: 500px;
+    padding-top: 30px;
 }
 
-.jumbotron {
+.content {
+    flex: 1;
+}
+
+.card-heading {
+    font-weight: bold;
+}
+
+.card-distance {
+    font-size: 3rem;
+}
+
+#list-group {
+    height: 500px;
+    overflow-y: auto;
+    margin: 10px 0;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+    /* for vertical scrollbars */
+    height: 12px;
+    /* for horizontal scrollbars */
+    margin: 10px 0;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+#addon {
     background-color: #002a5c;
-    padding: 10px 0;
+    color: white;
+}
+
+#list-group .list-group-item {
+    position: relative;
+    display: block;
+    padding: 10px 15px/* adjust here */
+    margin-bottom: -1px;
+    border: 1px solid #ddd;
+    line-height: 1em/* set to text height */
+}
+
+.rotate {
+    -moz-transition: all 0.25s linear;
+    -webkit-transition: all 0.25s linear;
+    transition: all 0.25s linear;
+}
+
+.rotate.up {
+    -ms-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+#list-group .panel-footer {
+    padding: 0;
+    padding-top: 10px;
+    margin: 0;
+    margin-top: 5px;
+    background-color: inherit;
+}
+
+#list-group .panel-footer .btn {
+    padding: 5px 2px;
+}
+
+
+/* MAP */
+
+#map-canvas {
+    height: 556px;
+}
+
+
+/* COMMENTS */
+
+#comments {
+    color: black;
+}
+
+#comments .header {
+    padding: 5px 0 18px;
     margin: 0;
 }
 
-.hidden {
-    display: none;
+.panel > .comment-header {
+    background-image: none;
+    background-color: #002a5c;
+    color: white;
 }
 
-hr {
-    border-color: #2196F3;
+.comment-body {
+    color: black;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
-.hr-container {
-    clear: both;
-    padding: 10px 0;
+.comment-date {
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
+
+/* FOOTER */
 
 .footer {
     width: 100%;
@@ -172,6 +216,9 @@ hr {
     font-size: 20px;
     font-weight: lighter;
 }
+
+
+/* RESPONSIVE DESIGN */
 
 @media (min-width: 768px) {
     .navbar .navbar-nav {
