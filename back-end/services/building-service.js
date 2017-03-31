@@ -10,7 +10,8 @@ var buildingService = (function() {
       /*
       Returns all nearby buildings within this proximity
       */
-      var proximity = 0.0010;
+      
+      var proximity = 0.0010
 
       var latUp = parseFloat(payLoad.lat) + proximity;
       var latDown = parseFloat(payLoad.lat) - proximity;
@@ -35,25 +36,65 @@ var buildingService = (function() {
     getBuildingInfo: function(payLoad) {
       /*
       Return {Available/Available Soon/Unavailable: room_id, code}, comments, bookings, hours
+      Unavailable - booked right now and not free soon
+      Available soon - booked right now but free soon
+      Available - not booked
       */
       logger.log(payLoad)
-      // var rooms = null;
-      // return queryService.select('classrooms', 'building_id', payLoad.building_id)
-      // .then(function(result){
-      //   logger.log(result)
-      //   rooms = result;
-      //   var promiseArray = []
-      //   for (var room in rooms){
-      //     logger.log(room)
-      //     logger.log(rooms[room].room_id)
-      //     promiseArray.push()
+      var rooms = null;
+      var day = moment().format('dddd')
+      var time = moment().format('HH:mm')
+      var splitTime = time.split(':')
+      var future = parseInt(splitTime[0]) + 1 
+      var newTime = future + ':' + splitTime[1]
 
-      //   }
-      //})
+      return queryService.selectAndJoin(parseInt(payLoad.building_id), day, time)
+      .then(function(result){
+        var rooms = {}
+        var nextBookings = {}
+        for (var entry in result){
+          var room = result[entry].room_id
+          var startTime = result[entry].start_time
+          var endTime = result[entry].end_time
 
+          if (!rooms.hasOwnProperty(room)){
+            rooms[room] = [result[entry].code];
+            nextBookings[room] = startTime
+          }
 
+          if (startTime < time && endTime > time){
+            rooms[room].push('busy_now')
+            nextBookings[room] = endTime
+          }
+          if (startTime < newTime && endTime > newTime){
+            rooms[room].push('busy_later')
+          }
+        }
+        var available = []
+        var unavailable = []
+        var available_soon = []
+
+        logger.log(nextBookings)
+
+        for (var entry in rooms){
+          if (rooms[entry].indexOf('busy_now') != -1){
+            if (rooms[entry].indexOf('busy_later') != -1){
+              unavailable.push([rooms[entry][0], entry])
+            } else {
+              available_soon.push([rooms[entry][0], entry, nextBookings[entry]])
+            }
+          } else {
+            available.push([rooms[entry][0], entry, nextBookings[entry]])
+          }
+        }
+        var room_availability = {
+          "available": available,
+          "available_soon": available_soon,
+          "unavailable": unavailable
+        }
+        return room_availability;
+      })
     },
-
     getRoomInfo: function(payLoad) {
       /*
       Return {Bookings: [], Schedule: []}
