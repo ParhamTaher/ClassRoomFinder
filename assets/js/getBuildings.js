@@ -186,7 +186,7 @@ function showPosition(position) {
     user_lon = position.coords.longitude;
     console.log(user_lat + " " + user_lon);
     //loadNearby(user_lat, user_lon);
-    loadNearby(43.660415, -79.397011);
+    loadNearby(43.663475, -79.397431);
 }
 
 $(document).ready(function() {
