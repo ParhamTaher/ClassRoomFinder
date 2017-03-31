@@ -10,9 +10,16 @@ var buildingService = (function() {
       /*
       Returns all nearby buildings within this proximity
       */
+      var proximity = 0.0010
+      
+      var latUp = parseFloat(payLoad.lat) + proximity;
+      var latDown = parseFloat(payLoad.lat) - proximity;
+      var lonLeft = parseFloat(payLoad.lon) - proximity;
+      var lonRight = parseFloat(payLoad.lon) + proximity;
 
-      // DO NOT IMPLEMENT THIS METHOD
-      logger.log(payLoad);
+      logger.log(payLoad)
+      logger.log(latUp, latDown, lonLeft, lonRight)
+      return queryService.selectNearby('buildings', '', [latDown, latUp, lonRight, lonLeft]);
     },
     getAllBuildings: function(payLoad) {
       /*
@@ -29,6 +36,21 @@ var buildingService = (function() {
       /*
       Return {Available/Available Soon/Unavailable: room_id, code}, comments, bookings, hours
       */
+      logger.log(payLoad)
+      // var rooms = null;
+      // return queryService.select('classrooms', 'building_id', payLoad.building_id)
+      // .then(function(result){
+      //   logger.log(result)
+      //   rooms = result;
+      //   var promiseArray = []
+      //   for (var room in rooms){
+      //     logger.log(room)
+      //     logger.log(rooms[room].room_id)
+      //     promiseArray.push()
+
+      //   }
+      //})
+
 
     },
 
