@@ -108,7 +108,7 @@ var userService = (function() {
       Takes user_id and relevant info to create a comment
       */
       logger.log(payLoad)
-      return queryService.insert('comments', 'building_id,title,message,user_id', [payLoad.building_id, payLoad.title, payLoad.message, payLoad.user_id], 'comment_id')
+      return queryService.insert('comments', 'building_id,title,message,user_id,date_and_time', [payLoad.building_id, payLoad.title, payLoad.message, payLoad.user_id, 'now()'], 'comment_id')
     }
 
   };
