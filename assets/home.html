@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DiscoverUofT</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <script src="https://use.fontawesome.com/79bb3bc9ab.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJce_pI1qTbrrpP3XiBLRN-b3hICqQiPU"></script>
+  <script src="js/getBuildings.js"></script>
+</head>
+
+<body>
+  <div class="jumbotron text-center">
+    <h1>DiscoverUofT</h1>
+    <p>Find free spaces on campus easier and faster than ever before.</p>
+  </div>
+  <div id="nav" class="col-md-12">
+    <div class="col-md-8 col-md-offset-2">
+      <ul class="nav nav-pills">
+        <li class="active"><a id="favourites" data-toggle="tab">Favourites</a></li>
+        <li><a id="nearby" data-toggle="tab">Nearby</a></li>
+        <li><a id="all" data-toggle="tab">All</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container main">
+    <div class="list-container col-md-5">
+      <div id="search">
+        <div class="input-group input-group-lg">
+          <input type="text" class="form-control" placeholder="Find a building...">
+          <span class="input-group-btn">
+            <button class="btn btn-primary" type="button">Search!</button>
+          </span>
+        </div>
+      </div>
+      <div id="list-group"></div>
+    </div>
+    <div id="map-canvas" class="col-md-7"></div>
+  </div>
+  <footer class="footer text-center">
+    <div class="container">
+      <p>2017 DiscoverUofT</p>
+    </div>
+  </footer>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+
+</html>
