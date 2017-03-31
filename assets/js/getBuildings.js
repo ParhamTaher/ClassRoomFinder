@@ -10,8 +10,11 @@
         ];
  */
 
-// global list of building markers
-var markers = [];
+// global list of buildings in format [name, lat, lon]
+var buildingList = [];
+
+// list of markers on map
+var markers = []
 
 // user's current latitude and longitude
 var user_lat, user_lon;
@@ -27,15 +30,22 @@ function initMap() {
     map.setTilt(45);
 
     // place each marker on the map
-    var marker, i;
-    for (i = 0; i < markers.length; i++) {
-        var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
+    for (var i = 0; i < buildingList.length; i++) {
+        var position = new google.maps.LatLng(buildingList[i][1], buildingList[i][2]);
         bounds.extend(position)
-        marker = new google.maps.Marker({
+        var title = buildingList[i][0].substring(0, buildingList[i][0].lastIndexOf(" "));
+        var label = buildingList[i][0].substring(buildingList[i][0].lastIndexOf(" ") + 1);
+        //addMarker(map, position, title, label, i * 50);
+
+        var marker = new google.maps.Marker({
             position: position,
             map: map,
-            title: markers[i][0]
+            title: title,
+            label: label
         });
+
+        // add marker to markers list
+        markers.push(marker);
     }
 
     // Automatically center the map fitting all markers on the screen
@@ -43,18 +53,35 @@ function initMap() {
 
     // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
     var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
-        this.setZoom(16);
+        this.setZoom(17);
         google.maps.event.removeListener(boundsListener);
     });
 }
 
+/*function addMarker(map, position, title, label, timeout) {
+    window.setTimeout(function() {
+        var marker = new google.maps.Marker({
+            position: position,
+            map: map,
+            title: title,
+            label: label,
+            animation: google.maps.Animation.DROP
+        });
+
+        // add marker to markers list
+        markers.push(marker);
+    }, timeout);
+}*/
+
 /* Ajax call to get buildings */
 function getBuildings(url) {
+    console.log(url);
     $.ajax({
         type: 'GET',
         url: url,
         success: function(data) {
-            // clear old building data
+            // clear old building and marker data
+            buildingList = [];
             markers = [];
             var buildings = data.response;
 
@@ -89,8 +116,8 @@ function getBuildings(url) {
                     + '<div class="btn-group"><button class="btn btn-info btn-fav">'
                     + '<i class="fa fa-star"></i> Favourite</button></div></div></div></a>';
 
-                // push building to markers list
-                markers.push([buildings[i].name, buildings[i].lat, buildings[i].lon]);
+                // push building to building list
+                buildingList.push([buildings[i].name, buildings[i].lat, buildings[i].lon]);
             }
 
             $("#list-group").html(txt);
@@ -157,7 +184,9 @@ function getLocation() {
 function showPosition(position) {
     user_lat = position.coords.latitude;
     user_lon = position.coords.longitude;
-    loadNearby(user_lat, user_lon);
+    console.log(user_lat + " " + user_lon);
+    //loadNearby(user_lat, user_lon);
+    loadNearby(43.660415, -79.397011);
 }
 
 $(document).ready(function() {
@@ -201,7 +230,7 @@ $(document).ready(function() {
         var query = $.trim(this.value).toLowerCase();
         $('.list-group-item').hide();
         $('.list-group-item').each(function() {
-            if ($(this).data("name").toUpperCase().indexOf(query.toUpperCase()) != -1) {
+            if ($(this).data("name").toLowerCase().indexOf(query) != -1) {
                 $(this).show();
             }
         });
