@@ -153,7 +153,7 @@ router.post('/api/v1/user/add_comment', function(req, res) {
 		Adds a comment by this user to the building 
 
 		Input (headers): user_id
-		Input (body): building_id, title, message, priority (High, Medium, Low)
+		Input (body): building_id, title, message, date_time
 		Input (query): none
 		Output: comment_id
 	*/

@@ -46,7 +46,7 @@ var adminService = (function() {
         for (var i = 0; i < payLoad.schedule.length; i++){
             logger.log(i);
             logger.log(payLoad.schedule[i]);
-            promiseArray.push(queryService.insert('schedules', 'classroom_id,building_id,activity,start_time,end_time', [payLoad.room_id, payLoad.building_id, payLoad.schedule[i].activity, payLoad.schedule[i].start_time, payLoad.schedule[i].end_time], 'schedule_id'));
+            promiseArray.push(queryService.insert('schedules', 'classroom_id,building_id,activity,start_time,end_time,weekday', [payLoad.room_id, payLoad.building_id, payLoad.schedule[i].activity, payLoad.schedule[i].start_time, payLoad.schedule[i].end_time, payLoad.schedule[i].day], 'schedule_id'));
         }
         return Promise.all(promiseArray);
     },

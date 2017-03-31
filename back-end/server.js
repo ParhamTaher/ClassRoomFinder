@@ -2,6 +2,7 @@ var logger = require('tracer').console();
 var http = require('http');
 var fs = require('fs');
 var https = require('https');
+var moment = require('moment');
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();

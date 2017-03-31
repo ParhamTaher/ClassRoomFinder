@@ -1,6 +1,7 @@
 var express = require('express');
 var Promise = require('bluebird');
 var logger = require('tracer').console();
+var moment = require('moment');
 var queryService = require('./db/query-service');
 
 var buildingService = (function() {
@@ -26,55 +27,30 @@ var buildingService = (function() {
 
     getBuildingInfo: function(payLoad) {
       /*
-      Return available_classrooms, available_labs, img (skip), latest_activity, latest_comment
+      Return {Available/Available Soon/Unavailable: room_id, code}, comments, bookings, hours
       */
 
-      /*
-      var building_id = payLoad.building_id;
-
-      //messages
-      select COUNT(room_id), end_time, message
-
-      FROM classrooms, bookings, comments
-
-      WHERE is_lab = \'t\' AND building_id =' building_id
-      ORDER BY end_time
-      DESC LIMIT 1
-      */
-
-      var available_labs = queryService.select_col('COUNT(room_id)', 'classrooms', 'is_lab = \'t\' AND building_id', building_id);
-      var latest_activity = queryService.select_complex('end_time', 'bookings', 'building_id');
-      var latest_comment = queryService.select_col('message', 'comments', 'importance=\'High\' AND building_id', building_id);
-
-      var result = available_labs + " " + latest_activity + " " + latest_comment;
-
-
-      return result
-      .then(undefined, function(err){
-        logger.log("Throwing an error");
-        throw new MyError(err.message, __line, 'building-service.js');
-      })
     },
 
     getRoomInfo: function(payLoad) {
       /*
-      Return {Bookings: [], Comments: []}
+      Return {Bookings: [], Schedule: []}
       */
-
-      
-      var building_id = payLoad.building_id;
-      var room_id = payLoad.room_id;
-
-      var cond_values = [room_id, building_id];
-
-      /*
-      var bookings = queryService.select('bookings', 'classroom_id = ' + room_id + ' AND ' + 'building_id', building_id);
-      var comments = queryService.select_col('message', 'comments', 'building_id', building_id);
-      */
-
-      return queryService.selectJoin('bookings', 'comments', cond_values)
+      var schedulesAndBookings = {}
+      logger.log(payLoad)
+      return this.getRoomSchedule(payLoad)
+      .then(function(schedule){
+        schedulesAndBookings["schedule"] = schedule;
+        logger.log(schedule)
+        return queryService.select('bookings', 'classroom_id', payLoad.roomId)
+      })
+      .then(function(bookings){
+        logger.log(bookings)
+        schedulesAndBookings["bookings"] = bookings;
+        return schedulesAndBookings;
+      })
       .then(undefined, function(err){
-        logger.log("Throwing an error");
+        logger.log(err.message);
         throw new MyError(err.message, __line, 'building-service.js');
       })
     },
@@ -104,8 +80,8 @@ var buildingService = (function() {
         logger.log(payLoad);
         return queryService.insert('classrooms', 'building_id,code,occupancy,is_lab',[payLoad.buildingId, payLoad.code, payLoad.occupancy, payLoad.isLab], 'room_id')
         .then(undefined, function(err){
-            logger.log("Throwing an error");
-        throw new MyError(err.message, __line, 'building-service.js');
+          logger.log("Throwing an error");
+          throw new MyError(err.message, __line, 'building-service.js');
       })
     },
     getRoomSchedule: function(payLoad){
@@ -113,24 +89,20 @@ var buildingService = (function() {
           Returns the schedule associated with this room on this date
         */
         logger.log(payLoad)
-        var thisDay = payLoad.date + ' 00:00'
-        var nextDay = payLoad.date + ' 23:59';
+        var day = moment().format('dddd')
+        logger.log(day)
 
-        logger.log(thisDay)
-        logger.log(nextDay)
-        return queryService.selectDate('schedules', ['start_time', 'end_time', 'classroom_id'], [thisDay, nextDay, payLoad.roomId], 'start_time')
+        return queryService.selectTwoConds('schedules', ['weekday', 'classroom_id'], [day, payLoad.roomId], 'start_time')
     },
     getBuildingSchedule: function(payLoad){
         /*
           Returns the schedule associated with this room on this date
         */
         logger.log(payLoad)
-        var thisDay = payLoad.date + ' 00:00'
-        var nextDay = payLoad.date + ' 23:59';
+        var day = moment().format('dddd')
+        logger.log(day)
 
-        logger.log(thisDay)
-        logger.log(nextDay)
-        return queryService.selectDate('schedules', ['start_time', 'end_time', 'building_id'], [thisDay, nextDay, payLoad.buildingId], 'start_time', 'classroom_id, schedule_id')
+        return queryService.selectTwoConds('schedules', ['weekday', 'building_id'], [day, payLoad.buildingId], 'schedule_id')
     },
     getBuildingHours: function(payLoad){
         /*
@@ -145,6 +117,13 @@ var buildingService = (function() {
           }
           return schedule;
         })
+    },
+    getBuildingComments: function(payLoad){
+      /*
+        Returns all comments for this building
+      */
+      logger.log(payLoad)
+      return queryService.select('comments', 'building_id', payLoad.building_id)
     }
   };
 })();

@@ -75,8 +75,9 @@ CREATE TABLE schedules
     classroom_id int NOT NULL REFERENCES classrooms (room_id),
     building_id int NOT NULL REFERENCES buildings (building_id),
     activity VARCHAR(20) NOT NULL,
-    start_time TIMESTAMP NOT NULL,
-    end_time TIMESTAMP NOT NULL
+    start_time TIME NOT NULL,
+    end_time TIME NOT NULL,
+    weekday day NOT NULL
 );
 
 CREATE TABLE comments
@@ -86,4 +87,5 @@ CREATE TABLE comments
     user_id int NOT NULL REFERENCES users (user_id),
     title VARCHAR(20) NOT NULL,
     message TEXT NOT NULL,
+    date_and_time TIMESTAMP NOT NULL
 )
