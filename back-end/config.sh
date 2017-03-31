@@ -2,4 +2,4 @@ export DB_CONN=postgres://mlaqkqrwuxuspd:5c4fd3a7feda2241fa04c37bf09f75e25125077
 export COBALT_KEY=3GLtBkO3KWhczgFrnNr60Waw1TcTTfZ8
 
 
-nodemon server.js
+npm start
