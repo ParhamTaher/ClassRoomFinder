@@ -30,7 +30,7 @@ var adminService = (function() {
         Creates a room
         */
         logger.log(payLoad);
-        return queryService.insert('classrooms', 'code,occupancy,is_lab',[payLoad.code, payLoad.occupancy, payLoad.isLab], 'room_id')
+        return queryService.insert('classrooms', 'building_id,code,occupancy,is_lab',[payLoad.buildingId, payLoad.code, payLoad.occupancy, payLoad.isLab], 'room_id')
         .then(undefined, function(err){
             logger.log("Throwing an error");
             throw new MyError(err.message, __line, 'error-service.js');

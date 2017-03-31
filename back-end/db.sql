@@ -37,6 +37,7 @@ CREATE TABLE building_hours
 CREATE TABLE classrooms
 (
     room_id SERIAL PRIMARY KEY,
+    building_id INT NOT NULL REFERENCES buildings (building_id),
     code VARCHAR(10) NOT NULL,
     occupancy integer NOT NULL,
     is_lab boolean NOT NULL 

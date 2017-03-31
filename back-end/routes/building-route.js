@@ -17,7 +17,7 @@ router.get('/api/v1/building/get_nearby_buildings', function(req, res) {
 		Output: Ordered list of buildings by location
 	*/
   var payLoad = req.query;
-
+  logger.log(payLoad)
 	return buildingService.getNearbyBuildings(payLoad)
 	.then(function(result){
     logger.log(result);
