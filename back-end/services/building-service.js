@@ -41,15 +41,30 @@ var buildingService = (function() {
       Available - not booked
       */
       logger.log(payLoad)
+      var hours = null
+      var comments = null
       var rooms = null;
+
       var day = moment().format('dddd')
       var time = moment().format('HH:mm')
       var splitTime = time.split(':')
       var future = parseInt(splitTime[0]) + 1 
       var newTime = future + ':' + splitTime[1]
 
-      return queryService.selectAndJoin(parseInt(payLoad.building_id), day, time)
+      return module.exports.getBuildingHours(payLoad)
       .then(function(result){
+        logger.log(result)
+        hours = result
+        return module.exports.getBuildingComments(payLoad)
+      }) 
+      .then(function(result){
+        logger.log(result)
+        comments = result
+
+        return queryService.selectAndJoin(parseInt(payLoad.building_id), day, time)
+      })
+      .then(function(result){
+
         var rooms = {}
         var nextBookings = {}
         for (var entry in result){
@@ -60,15 +75,18 @@ var buildingService = (function() {
           if (!rooms.hasOwnProperty(room)){
             rooms[room] = [result[entry].code];
             nextBookings[room] = startTime
-          }
 
+          }
+          
           if (startTime < time && endTime > time){
             rooms[room].push('busy_now')
             nextBookings[room] = endTime
           }
+          logger.log('Here')
           if (startTime < newTime && endTime > newTime){
             rooms[room].push('busy_later')
           }
+
         }
         var available = []
         var unavailable = []
@@ -87,12 +105,14 @@ var buildingService = (function() {
             available.push([rooms[entry][0], entry, nextBookings[entry]])
           }
         }
-        var room_availability = {
+        var roomAvailability = {
           "available": available,
           "available_soon": available_soon,
           "unavailable": unavailable
         }
-        return room_availability;
+        var buildingInfo = {roomAvailability, hours, comments}
+        logger.log(buildingInfo)
+        return buildingInfo
       })
     },
     getRoomInfo: function(payLoad) {
@@ -159,7 +179,7 @@ var buildingService = (function() {
     },
     getBuildingSchedule: function(payLoad){
         /*
-          Returns the schedule associated with this room on this date
+          Returns the schedule associated with this building on this date
         */
         logger.log(payLoad)
         var day = moment().format('dddd')
@@ -192,3 +212,4 @@ var buildingService = (function() {
 })();
 
 module.exports = buildingService;
+
