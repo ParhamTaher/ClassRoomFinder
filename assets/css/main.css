@@ -54,6 +54,11 @@ h2,
     background: rgba(0, 0, 0, 0.5);
 }
 
+#addon {
+  background-color: #002a5c;
+  color: white;
+}
+
 .list-group-item {
     position: relative;
     display: block;

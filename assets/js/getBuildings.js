@@ -65,6 +65,7 @@ function getBuildings(url) {
             }
 
             console.log("Success: buildings found.");
+            addSearchBar();
 
             var txt = "";
             var id, name, address;
@@ -75,7 +76,7 @@ function getBuildings(url) {
                 address = buildings[i].address.slice(0, buildings[i].address.indexOf(','));
 
                 // create list-group-item with building info
-                txt += '<a class="list-group-item" data-bid="' + id + '">'
+                txt += '<a class="list-group-item" data-name="' + name + '">'
                     + '<div class="row"><div class="col-xs-9">'
                     + '<h4 class="card-heading list-group-item-heading">' + name + '</h4>'
                     + '<p class="list-group-item-text">' + address + '</p></div>'
@@ -92,8 +93,9 @@ function getBuildings(url) {
                 markers.push([buildings[i].name, buildings[i].lat, buildings[i].lon]);
             }
 
-            $("#list-group").html(txt).removeClass("hidden");
+            $("#list-group").html(txt);
             initMap();
+            $('#search').fadeIn(300);
             $('#list-group').fadeIn(300);
             $('#map-canvas').fadeIn(300);
             $(".panel-footer").hide();
@@ -101,10 +103,21 @@ function getBuildings(url) {
     });
 }
 
+// add search bar above list if buildings were found
+function addSearchBar() {
+    var searchBar = '<div class="input-group input-group-lg">'
+                    + '<span class="input-group-addon" id="addon">Building Name:</span>'
+                    + '<input type="text" class="form-control" id="query" placeholder="Find a building...">'
+                    + '</div>';
+
+    $("#search").html(searchBar);
+}
+
 // reload list and map with nearby buildings
 function loadNearby(lat, lon) {
     $('#map-canvas').fadeOut(300).empty();
     $('#list-group').fadeOut(300);
+    $('#search').fadeOut();
     getBuildings('/api/v1/building/get_nearby_buildings?lat=' + lat + '&' + 'lon=' + lon);
 }
 
@@ -112,6 +125,7 @@ function loadNearby(lat, lon) {
 function loadFavourites() {
     $('#map-canvas').fadeOut(300).empty();
     $('#list-group').fadeOut(300);
+    $('#search').fadeOut();
     getBuildings('/api/v1/user/get_favourite_buildings');
 }
 
@@ -119,6 +133,7 @@ function loadFavourites() {
 function loadAll() {
     $('#map-canvas').fadeOut(300).empty();
     $('#list-group').fadeOut(300);
+    $('#search').fadeOut();
     getBuildings('/api/v1/building/get_all_buildings');
 }
 
@@ -151,6 +166,7 @@ $(document).ready(function() {
     // hide list and map before populating
     $('#map-canvas').fadeOut();
     $('#list-group').fadeOut();
+    $('#search').fadeOut();
 
     // homepage defaults to nearby buildings
     //loadFavourites();
@@ -178,5 +194,16 @@ $(document).ready(function() {
         });
         $(this).children(".panel-footer").slideToggle(300);
         $(this).find('.rotate').toggleClass('up');
+    });
+
+    // dynamically update list based on search input
+    $("#search").on('keyup', '#query', function() {
+        var query = $.trim(this.value).toLowerCase();
+        $('.list-group-item').hide();
+        $('.list-group-item').each(function() {
+            if ($(this).data("name").toUpperCase().indexOf(query.toUpperCase()) != -1) {
+                $(this).show();
+            }
+        });
     });
 });
