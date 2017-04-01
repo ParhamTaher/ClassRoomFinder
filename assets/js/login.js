@@ -7,7 +7,7 @@ function onSuccess(googleUser) {
     var id_token = googleUser.getAuthResponse().id_token;
     console.log('Logged in as: ' + profile.getName());
     console.log('Token: ' + id_token);
-    window.location = "home.html";
+    location.href = "home.html?userid=1";
 }
 
 function onFailure(error) {
