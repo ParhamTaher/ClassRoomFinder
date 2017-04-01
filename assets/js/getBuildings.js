@@ -1,7 +1,4 @@
 /*
- * Most of this code was adapted from:
- * https://wrightshq.com/playground/placing-multiple-markers-on-a-google-map-using-api-3/
- *
  * Building list for testing purposes:
  *      var markers = [
             ['Bahen Center', 43.659643, -79.397668],
@@ -73,63 +70,6 @@ function initMap() {
     }, timeout);
 }*/
 
-/* Ajax call to get buildings */
-function getBuildings(url) {
-    console.log(url);
-    $.ajax({
-        type: 'GET',
-        url: url,
-        success: function(data) {
-            // clear old building and marker data
-            buildingList = [];
-            markers = [];
-            var buildings = data.response;
-
-            // check to see if building list is empty
-            if (!buildings.length) {
-                console.log('No buildings found.');
-                return;
-            }
-
-            console.log("Success: buildings found.");
-            addSearchBar();
-
-            var txt = "";
-            var id, name, address;
-            for (var i = 0; i < buildings.length; i++) {
-                // store name, slice address to keep only number and street name
-                id = buildings[i].building_id;
-                name = buildings[i].name.substring(0, buildings[i].name.lastIndexOf(" "));
-                address = buildings[i].address.slice(0, buildings[i].address.indexOf(','));
-
-                // create list-group-item with building info
-                txt += '<a class="list-group-item" data-name="' + name + '">'
-                    + '<div class="row"><div class="col-xs-9">'
-                    + '<h4 class="card-heading list-group-item-heading">' + name + '</h4>'
-                    + '<p class="list-group-item-text">' + address + '</p></div>'
-                    + '<div class="card-icon col-xs-3">'
-                    + '<i class="fa fa-angle-down fa-3x pull-right rotate" aria-hidden="true"></i></div></div>'
-                    + '<div class="panel-footer"><div class="btn-group btn-group-justified">'
-                    + '<div class="btn-group"><button class="btn btn-default btn-rooms">'
-                    + '<i class="fa fa-building"></i> Rooms </button></div><div class="btn-group">'
-                    + '<button class="btn btn-default btn-comments"><i class="fa fa-comments"></i> Comments</button></div>'
-                    + '<div class="btn-group"><button class="btn btn-info btn-fav">'
-                    + '<i class="fa fa-star"></i> Favourite</button></div></div></div></a>';
-
-                // push building to building list
-                buildingList.push([buildings[i].name, buildings[i].lat, buildings[i].lon]);
-            }
-
-            $("#list-group").html(txt);
-            initMap();
-            $('#search').fadeIn(300);
-            $('#list-group').fadeIn(300);
-            $('#map-canvas').fadeIn(300);
-            $(".panel-footer").hide();
-        }
-    });
-}
-
 // add search bar above list if buildings were found
 function addSearchBar() {
     var searchBar = '<div class="input-group input-group-lg">'
@@ -193,7 +133,7 @@ $(document).ready(function() {
     console.log("Document ready.");
 
     // hide list and map before populating
-    $('#map-canvas').fadeOut();
+    //$('#map-canvas').fadeOut();
     $('#list-group').fadeOut();
     $('#search').fadeOut();
 
@@ -225,6 +165,33 @@ $(document).ready(function() {
         $(this).find('.rotate').toggleClass('up');
     });
 
+    // load rooms list for building
+    $('#list-group').on('click', '.btn-rooms', function(e) {
+        // stop click event for parent div
+        e.stopPropagation();
+    });
+
+    // load comments for building
+    $('#list-group').on('click', '.btn-comments', function(e) {
+        // empty canvas to prep for comments
+        $('#map-canvas').fadeOut(300).empty();
+
+        // get building id and generate url with query
+        var buildingId = $(this).closest('.list-group-item').data("id");
+        var url = '/api/v1/building/get_building_comments?building_id=' + buildingId;
+        getComments(url);
+
+        // stop click event for parent div
+        e.stopPropagation();
+    });
+
+    // add building to user favourites
+    $('#list-group').on('click', '.btn-fav', function(e) {
+        // stop click event for parent div
+        e.stopPropagation();
+    });
+
+
     // dynamically update list based on search input
     $("#search").on('keyup', '#query', function() {
         var query = $.trim(this.value).toLowerCase();
@@ -236,3 +203,106 @@ $(document).ready(function() {
         });
     });
 });
+
+/* -------------- AJAX CALLS -------------- */
+
+/* Ajax call to get buildings */
+function getBuildings(url) {
+    console.log(url);
+    $.ajax({
+        type: 'GET',
+        url: url,
+        success: function(data) {
+            // clear old building and marker data
+            buildingList = [];
+            markers = [];
+            var buildings = data.response;
+
+            // check to see if building list is empty
+            if (!buildings.length) {
+                console.log('No buildings found.');
+                return;
+            }
+
+            console.log("Success: buildings found.");
+            addSearchBar();
+
+            var txt = "";
+            var id, name, address;
+            for (var i = 0; i < buildings.length; i++) {
+                // store name, slice address to keep only number and street name
+                id = buildings[i].building_id;
+                name = buildings[i].name.substring(0, buildings[i].name.lastIndexOf(" "));
+                address = buildings[i].address.slice(0, buildings[i].address.indexOf(','));
+
+                if (id == 79) {
+                    console.log(name);
+                }
+                // create list-group-item with building info
+                txt += '<a class="list-group-item" data-name="' + name + '" data-id="' + id + '">'
+                    + '<div class="row"><div class="col-xs-9">'
+                    + '<h4 class="card-heading list-group-item-heading">' + name + '</h4>'
+                    + '<p class="list-group-item-text">' + address + '</p></div>'
+                    + '<div class="card-icon col-xs-3">'
+                    + '<i class="fa fa-angle-down fa-3x pull-right rotate" aria-hidden="true"></i></div></div>'
+                    + '<div class="panel-footer"><div class="btn-group btn-group-justified">'
+                    + '<div class="btn-group"><button class="btn btn-default btn-rooms">'
+                    + '<i class="fa fa-building"></i> Rooms </button></div><div class="btn-group">'
+                    + '<button class="btn btn-default btn-comments"><i class="fa fa-comments"></i> Comments</button></div>'
+                    + '<div class="btn-group"><button class="btn btn-info btn-fav">'
+                    + '<i class="fa fa-star"></i> Favourite</button></div></div></div></a>';
+
+                // push building to building list
+                buildingList.push([buildings[i].name, buildings[i].lat, buildings[i].lon]);
+            }
+
+            $("#list-group").html(txt);
+            initMap();
+            $('#search').fadeIn(300);
+            $('#list-group').fadeIn(300);
+            $('#map-canvas').fadeIn(300);
+            $(".panel-footer").hide();
+        }
+    });
+}
+
+/* Ajax call to get comments */
+function getComments(url) {
+    console.log(url);
+    $.ajax({
+        type: 'GET',
+        url: url,
+        success: function(data) {
+            var comments = data.comments;
+            $('#map-canvas').html('<div id="comments"></div>');
+
+            // check to see if building list is empty
+            if (!comments.length) {
+                console.log('No comments found.');
+                $('#comments').html('<h2 class="header">No comments found.</h2>');
+                $('#map-canvas').fadeIn(300);
+                return;
+            }
+
+            console.log("Success: comments found.\n" + comments);
+
+            var txt = '<h2 class="header">Comments</h2>';
+            var title, comment, datetime;
+            for (var i = 0; i < comments.length; i++) {
+                title = comments[i].title;
+                comment = comments[i].message;
+                datetime = comments[i].date_and_time;
+
+                // create comment panel
+                txt += '<div class="panel panel-default">'
+                    + '<div class="panel-heading clearfix comment-header">'
+                    + '<h3 class="panel-title pull-left">' + title + '</h3></div>'
+                    + '<div class="panel-body comment-body">' + comment + '</div>'
+                    + '<div class="panel-footer comment-date text-muted">' + datetime + '</div></div>';
+            }
+
+            $("#comments").html(txt);
+            $('#map-canvas').fadeIn(300);
+        }
+    });
+}
