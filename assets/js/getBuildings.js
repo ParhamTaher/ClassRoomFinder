@@ -167,6 +167,14 @@ $(document).ready(function() {
 
     // load rooms list for building
     $('#list-group').on('click', '.btn-rooms', function(e) {
+        // empty canvas to prep for comments
+        $('#map-canvas').fadeOut(300).empty();
+
+        // get building id and generate url with query
+        var buildingId = $(this).closest('.list-group-item').data("id");
+        var url = '/api/v1/building/get_building_info?building_id=' + buildingId;
+        getRooms(url);
+
         // stop click event for parent div
         e.stopPropagation();
     });
@@ -235,9 +243,6 @@ function getBuildings(url) {
                 name = buildings[i].name.substring(0, buildings[i].name.lastIndexOf(" "));
                 address = buildings[i].address.slice(0, buildings[i].address.indexOf(','));
 
-                if (id == 79) {
-                    console.log(name);
-                }
                 // create list-group-item with building info
                 txt += '<a class="list-group-item" data-name="' + name + '" data-id="' + id + '">'
                     + '<div class="row"><div class="col-xs-9">'
@@ -262,6 +267,83 @@ function getBuildings(url) {
             $('#list-group').fadeIn(300);
             $('#map-canvas').fadeIn(300);
             $(".panel-footer").hide();
+        }
+    });
+}
+
+/* Ajax call to get a building's rooms */
+function getRooms(url) {
+    console.log(url);
+    $.ajax({
+        type: 'GET',
+        url: url,
+        success: function(data) {
+            console.log(JSON.stringify(data));
+            // get json of available, soon to be available, and unavailable rooms
+            var rooms = data.response.roomAvailability;
+
+            // add div to hold rooms
+            $('#map-canvas').html('<div id="rooms"></div>');
+
+            // check to see if building list is empty
+            if (!rooms.available.length &&
+                !rooms.available_soon.length &&
+                !rooms.unavailable.length) {
+                console.log('No rooms found.');
+                $('#rooms').html('<h2 class="header">No rooms found.</h2>');
+                $('#map-canvas').fadeIn(300);
+                return;
+            }
+
+            console.log("Success: rooms found.\n" + rooms);
+
+            // add heading and tabbed nav menu for rooms
+            $('#rooms').html('<h2 class="header">Rooms</h2><ul class="nav nav-tabs" role="tablist"><li role="presentation" class="active"><a href="#available" aria-controls="available" role="tab" data-toggle="tab">Available</a></li><li role="presentation"><a href="#available-soon" aria-controls="available-soon" role="tab" data-toggle="tab">Available Soon</a></li><li role="presentation"><a href="#unavailable" aria-controls="unavailable" role="tab" data-toggle="tab">Unavailable</a></li></ul><div class="tab-content"><div role="tabpanel" class="tab-pane fade in active" id="available"><div id="available-list" class="list-group col-md-12"></div></div><div role="tabpanel" class="tab-pane fade" id="available-soon"><div id="soon-list" class="list-group col-md-12"></div></div><div role="tabpanel" class="tab-pane fade" id="unavailable"><div id="unavailable-list" class="list-group col-md-12"></div></div></div>');
+
+            // vars to hold room info and html
+            var txt, id, code, i;
+
+            // add available rooms
+            var available = rooms.available;
+            for (i = 0; i < available.length; i++) {
+                id = available[i][0];
+                code = available[i][1];
+
+                // create room panel
+                txt += '<a data-id="' + id + '" class="list-group-item list-group-item-action col-md-3">' + code + '<i class="fa fa-caret-right pull-right" aria-hidden="true"></i></a>';
+            }
+
+            // add available room panels to list group
+            $("#available-list").html(txt);
+
+            // add available-soon rooms
+            txt = "";
+            var soon = rooms.available_soon;
+            for (i = 0; i < soon.length; i++) {
+                id = soon[i][0];
+                code = soon[i][1];
+
+                // create room panel
+                txt += '<a data-id="' + id + '" class="list-group-item list-group-item-action col-md-3">' + code + '<i class="fa fa-caret-right pull-right" aria-hidden="true"></i></a>';
+            }
+
+            // add available-soon room panels to list group
+            $("#soon-list").html(txt);
+
+            // add unavailable rooms
+            txt = "";
+            var unavailable = rooms.unavailable;
+            for (i = 0; i < unavailable.length; i++) {
+                id = unavailable[i][0];
+                code = unavailable[i][1];
+
+                // create room panel
+                txt += '<a data-id="' + id + '" class="list-group-item list-group-item-action col-md-3">' + code + '<i class="fa fa-caret-right pull-right" aria-hidden="true"></i></a>';
+            }
+
+            // add unavailable room panels to list group
+            $("#unavailable-list").html(txt);
+            $('#map-canvas').fadeIn(300);
         }
     });
 }
