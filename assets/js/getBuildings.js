@@ -287,11 +287,13 @@ function getComments(url) {
             console.log("Success: comments found.\n" + comments);
 
             var txt = '<h2 class="header">Comments</h2>';
-            var title, comment, datetime;
+            var title, comment, date, datetime;
             for (var i = 0; i < comments.length; i++) {
                 title = comments[i].title;
                 comment = comments[i].message;
-                datetime = comments[i].date_and_time;
+                date = new Date(Date.parse(comments[i].date_and_time)).toLocaleString();
+                datetime = date.slice(date.indexOf(",") + 2) + ", "
+                         + date.slice(0, date.indexOf(","));
 
                 // create comment panel
                 txt += '<div class="panel panel-default">'
