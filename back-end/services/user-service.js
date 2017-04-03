@@ -27,7 +27,7 @@ var userService = (function() {
       */
 
       logger.log(payLoad);
-      return queryService.select('favourites', 'user_id', payLoad.user_id)
+      return queryService.selectJoinGeneral('favourites', 'buildings', 'building_id', 'building_id', 'favourites.user_id', [payLoad.user_id], 'buildings.code')
       .then(function(result){
         logger.log(result);
         return result;
