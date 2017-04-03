@@ -38,7 +38,7 @@ CREATE TABLE classrooms
 (
     room_id SERIAL PRIMARY KEY,
     building_id INT NOT NULL REFERENCES buildings (building_id),
-    code VARCHAR(10) NOT NULL,
+    code VARCHAR(10) NOT NULL UNIQUE,
     occupancy integer NOT NULL,
     is_lab boolean NOT NULL 
 );
@@ -78,7 +78,8 @@ CREATE TABLE schedules
     activity VARCHAR(20) NOT NULL,
     start_time TIME NOT NULL,
     end_time TIME NOT NULL,
-    weekday day NOT NULL
+    weekday day NOT NULL,
+    UNIQUE (classroom_id, start_time, end_time, weekday)
 );
 
 CREATE TABLE comments
