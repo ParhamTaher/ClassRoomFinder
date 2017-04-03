@@ -1,12 +1,3 @@
-/*
- * Building list for testing purposes:
- *      var markers = [
-            ['Bahen Center', 43.659643, -79.397668],
-            ['Galbraith Building', 43.660131, -79.395993],
-            ['McLennan Physical Laboratories', 43.660879, -79.398444]
-        ];
- */
-
 // global list of buildings in format [name, lat, lon]
 var buildingList = [];
 
@@ -15,6 +6,9 @@ var markers = []
 
 // user's current latitude and longitude
 var user_lat, user_lon;
+
+// current user, building, and room ids being viewed
+var userId, buildingId, roomId;
 
 function initMap() {
     var map;
@@ -55,20 +49,6 @@ function initMap() {
     });
 }
 
-/*function addMarker(map, position, title, label, timeout) {
-    window.setTimeout(function() {
-        var marker = new google.maps.Marker({
-            position: position,
-            map: map,
-            title: title,
-            label: label,
-            animation: google.maps.Animation.DROP
-        });
-
-        // add marker to markers list
-        markers.push(marker);
-    }, timeout);
-}*/
 
 // add search bar above list if buildings were found
 function addSearchBar() {
@@ -80,6 +60,15 @@ function addSearchBar() {
     $("#search").html(searchBar);
 }
 
+
+// add comments input form
+function addCommentInput() {
+    var commentForm = '<textarea id="comment-title" class="form-control" rows="1" placeholder="Enter title here (max 20 chars)..."></textarea><textarea id="comment-txt" class="form-control" rows="2" placeholder="Enter comment here..."></textarea><button id="post-comment" type="button" class="btn btn-primary">Post Comment</button>';
+
+    $("#comments").append(commentForm);
+}
+
+
 // reload list and map with nearby buildings
 function loadNearby(lat, lon) {
     $('#map-canvas').fadeOut(300).empty();
@@ -87,6 +76,7 @@ function loadNearby(lat, lon) {
     $('#search').fadeOut();
     getBuildings('/api/v1/building/get_nearby_buildings?lat=' + lat + '&' + 'lon=' + lon);
 }
+
 
 // reload list and map with user's favourite buildings
 function loadFavourites() {
@@ -96,6 +86,7 @@ function loadFavourites() {
     getBuildings('/api/v1/user/get_favourite_buildings');
 }
 
+
 // reload list and map with all buildings
 function loadAll() {
     $('#map-canvas').fadeOut(300).empty();
@@ -104,10 +95,6 @@ function loadAll() {
     getBuildings('/api/v1/building/get_all_buildings');
 }
 
-// https://zeit.co/blog/async-and-await
-function sleep(time) {
-    return new Promise((resolve) => setTimeout(resolve, time));
-}
 
 // get current location of user
 function getLocation() {
@@ -129,11 +116,15 @@ function showPosition(position) {
     loadNearby(43.663475, -79.397431);
 }
 
+
 $(document).ready(function() {
     console.log("Document ready.");
 
+    // get user id from href
+    userId = location.href.slice(location.href.indexOf("=") + 1);
+
     // hide list and map before populating
-    //$('#map-canvas').fadeOut();
+    $('#map-canvas').fadeOut();
     $('#list-group').fadeOut();
     $('#search').fadeOut();
 
@@ -145,15 +136,18 @@ $(document).ready(function() {
         getLocation();
     });
 
+
     // favourite buildings clicked, reload building list and map
     $('#favourites').click(function() {
         loadFavourites();
     });
 
+
     // all buildings clicked, reload building list and map
     $('#all').click(function() {
         loadAll();
     });
+
 
     // on card click, show card's panel footer
     $('#list-group').on('click', '.list-group-item', function() {
@@ -165,13 +159,14 @@ $(document).ready(function() {
         $(this).find('.rotate').toggleClass('up');
     });
 
+
     // load rooms list for building
     $('#list-group').on('click', '.btn-rooms', function(e) {
         // empty canvas to prep for comments
         $('#map-canvas').fadeOut(300).empty();
 
         // get building id and generate url with query
-        var buildingId = $(this).closest('.list-group-item').data("id");
+        buildingId = $(this).closest('.list-group-item').data("id");
         var url = '/api/v1/building/get_building_info?building_id=' + buildingId;
         getRooms(url);
 
@@ -179,13 +174,26 @@ $(document).ready(function() {
         e.stopPropagation();
     });
 
+
+    // load room's schedule when clicked
+    $('#map-canvas').on('click', '#rooms a', function(e) {
+        // empty canvas to prep for schedule
+        $('#map-canvas').fadeOut(300).empty();
+
+        // get room id and generate url with query
+        var roomId = $(this).data("id");
+        var url = '/api/v1/building/get_room_info?building_id=' + buildingId + '&room_id=1';
+        getSchedule(url);
+    });
+
+
     // load comments for building
     $('#list-group').on('click', '.btn-comments', function(e) {
         // empty canvas to prep for comments
         $('#map-canvas').fadeOut(300).empty();
 
         // get building id and generate url with query
-        var buildingId = $(this).closest('.list-group-item').data("id");
+        buildingId = $(this).closest('.list-group-item').data("id");
         var url = '/api/v1/building/get_building_comments?building_id=' + buildingId;
         getComments(url);
 
@@ -193,8 +201,16 @@ $(document).ready(function() {
         e.stopPropagation();
     });
 
+
     // add building to user favourites
     $('#list-group').on('click', '.btn-fav', function(e) {
+        // get building id of card clicked
+        buildingId = $(this).closest('.list-group-item').data("id");
+
+        console.log("User " + userId + " favourited building " + buildingId);
+        // add building to user's favourites
+        //addFavourite();
+
         // stop click event for parent div
         e.stopPropagation();
     });
@@ -210,9 +226,47 @@ $(document).ready(function() {
             }
         });
     });
+
+
+    // add comment to database on post click
+    $('#map-canvas').on('click', '#post-comment', function() {
+        var title = $('#comment-title').val().trim();
+        var message = $('#comment-txt').val().trim();
+
+        if (!title.length || title.length > 20) {
+            alert('Title is required and must be less than 20 characters.');
+            console.log('Title is empty or too long.');
+            return;
+        }
+
+        if (!message.length) {
+            alert('Comment body is required.');
+            console.log('Comment body is empty.');
+            return;
+        }
+
+        // construct body for request
+        var reqBody = {
+            "building_id": buildingId,
+            "title": title,
+            "message": message
+        };
+
+        // add comment to database
+        addComment(reqBody);
+
+    });
+
+
+    // user sign out
+    $('#signout').click(function() {
+        signOut();
+    })
 });
 
+
 /* -------------- AJAX CALLS -------------- */
+
 
 /* Ajax call to get buildings */
 function getBuildings(url) {
@@ -267,9 +321,13 @@ function getBuildings(url) {
             $('#list-group').fadeIn(300);
             $('#map-canvas').fadeIn(300);
             $(".panel-footer").hide();
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus);
         }
     });
 }
+
 
 /* Ajax call to get a building's rooms */
 function getRooms(url) {
@@ -295,26 +353,50 @@ function getRooms(url) {
                 return;
             }
 
-            console.log("Success: rooms found.\n" + rooms);
+            console.log("Success: rooms found.");
 
             // add heading and tabbed nav menu for rooms
             $('#rooms').html('<h2 class="header">Rooms</h2><ul class="nav nav-tabs" role="tablist"><li role="presentation" class="active"><a href="#available" aria-controls="available" role="tab" data-toggle="tab">Available</a></li><li role="presentation"><a href="#available-soon" aria-controls="available-soon" role="tab" data-toggle="tab">Available Soon</a></li><li role="presentation"><a href="#unavailable" aria-controls="unavailable" role="tab" data-toggle="tab">Unavailable</a></li></ul><div class="tab-content"><div role="tabpanel" class="tab-pane fade in active" id="available"><div id="available-list" class="list-group col-md-12"></div></div><div role="tabpanel" class="tab-pane fade" id="available-soon"><div id="soon-list" class="list-group col-md-12"></div></div><div role="tabpanel" class="tab-pane fade" id="unavailable"><div id="unavailable-list" class="list-group col-md-12"></div></div></div>');
 
+            // check each tab individually
+            if (!rooms.available.length) {
+                console.log('No available rooms found.');
+                $('#available-list').html('<h3 class="header">No rooms found.</h3>');
+                $('#map-canvas').fadeIn(300);
+            }
+
+            // check each tab individually
+            if (!rooms.available_soon.length) {
+                console.log('No available-soon rooms found.');
+                $('#soon-list').html('<h3 class="header">No rooms found.</h3>');
+                $('#map-canvas').fadeIn(300);
+            }
+
+            // check each tab individually
+            if (!rooms.unavailable.length) {
+                console.log('No unavailable rooms found.');
+                $('#unavailable-list').html('<h3 class="header">No rooms found.</h3>');
+                $('#map-canvas').fadeIn(300);
+            }
+
             // vars to hold room info and html
-            var txt, id, code, i;
+            var txt = "", id, code, i;
 
             // add available rooms
             var available = rooms.available;
+            console.log(available + "\n" + available.length);
             for (i = 0; i < available.length; i++) {
-                id = available[i][0];
-                code = available[i][1];
+                id = available[i][1];
+                code = available[i][0];
 
                 // create room panel
-                txt += '<a data-id="' + id + '" class="list-group-item list-group-item-action col-md-3">' + code + '<i class="fa fa-caret-right pull-right" aria-hidden="true"></i></a>';
+                txt += '<a data-id="' + id
+                    + '" class="list-group-item list-group-item-action col-md-3 room-link">'
+                    + code + '<i class="fa fa-caret-right pull-right" aria-hidden="true"></i></a>';
             }
 
             // add available room panels to list group
-            $("#available-list").html(txt);
+            $("#available-list").prepend(txt);
 
             // add available-soon rooms
             txt = "";
@@ -324,11 +406,13 @@ function getRooms(url) {
                 code = soon[i][1];
 
                 // create room panel
-                txt += '<a data-id="' + id + '" class="list-group-item list-group-item-action col-md-3">' + code + '<i class="fa fa-caret-right pull-right" aria-hidden="true"></i></a>';
+                txt += '<a data-id="' + id
+                    + '" class="list-group-item list-group-item-action col-md-3 room-link">'
+                    + code + '<i class="fa fa-caret-right pull-right" aria-hidden="true"></i></a>';
             }
 
             // add available-soon room panels to list group
-            $("#soon-list").html(txt);
+            $("#soon-list").prepend(txt);
 
             // add unavailable rooms
             txt = "";
@@ -338,15 +422,125 @@ function getRooms(url) {
                 code = unavailable[i][1];
 
                 // create room panel
-                txt += '<a data-id="' + id + '" class="list-group-item list-group-item-action col-md-3">' + code + '<i class="fa fa-caret-right pull-right" aria-hidden="true"></i></a>';
+                txt += '<a data-id="' + id
+                    + '" class="list-group-item list-group-item-action col-md-3 room-link">'
+                    + code + '<i class="fa fa-caret-right pull-right" aria-hidden="true"></i></a>';
             }
 
             // add unavailable room panels to list group
-            $("#unavailable-list").html(txt);
+            $("#unavailable-list").prepend(txt);
             $('#map-canvas').fadeIn(300);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus);
         }
     });
 }
+
+
+/* Ajax call to get a room's schedule */
+function getSchedule(url) {
+    console.log(url);
+    $.ajax({
+        type: 'GET',
+        url: url,
+        success: function(data) {
+            console.log(JSON.stringify(data));
+            // get lists of official and user bookings
+            var officialBookings = data.result.schedule;
+            var userBookings = data.result.bookings;
+
+            // add div to hold rooms
+            $('#map-canvas').html('<div id="schedule"></div>');
+
+            // check to see if building list is empty
+            if (!officialBookings.length &&
+                !userBookings.length) {
+                console.log('No bookings found.');
+                $('#schedule').html('<h2 class="header">No bookings found.</h2>');
+                $('#map-canvas').fadeIn(300);
+                return;
+            }
+
+            // add heading and tabbed nav menu for rooms
+            $('#schedule').html('<h2 class="header">Room Bookings</h2><ul class="nav nav-tabs" role="tablist"><li role="presentation" class="active"><a href="#official" aria-controls="official" role="tab" data-toggle="tab">Official Schedule</a></li><li role="presentation"><a href="#user-bookings" aria-controls="user-bookings" role="tab" data-toggle="tab">User Bookings</a></li></ul><div class="tab-content"><div role="tabpanel" class="tab-pane fade in active" id="official"></div><div role="tabpanel" class="tab-pane fade" id="user-bookings"></div></div>');
+
+            // check each tab individually
+            if (!officialBookings.length) {
+                console.log('No official bookings found.');
+                $('#official').html('<h3 class="header">No bookings found.</h3>');
+                $('#map-canvas').fadeIn(300);
+            } else {
+                // add table structure to official tab
+                $('#official').html('<div class="table-responsive"><table class="table table-striped"><thead><tr><th>Start Time</th><th>End Time</th><th>Activity</th></tr></thead><tbody id="official-data"></tbody></table></div>');
+            }
+
+            // check each tab individually
+            if (!userBookings.length) {
+                console.log('No user bookings found.');
+                $('#user-bookings').html('<h3 class="header">No bookings found.</h3>');
+                $('#map-canvas').fadeIn(300);
+            } else {
+                // add table structure to user tab
+                $('#user-bookings').html('<div class="table-responsive"><table class="table table-striped"><thead><tr><th>Start Time</th><th>End Time</th><th>Activity</th></tr></thead><tbody id="user-data"></tbody></table></div>');
+            }
+
+            // vars to hold room info and html
+            var txt = "", start, end, activity;
+
+            // add official bookings to table
+            for (i = 0; i < officialBookings.length; i++) {
+                start = get12Hour(officialBookings[i].start_time);
+                end = get12Hour(officialBookings[i].end_time);
+                activity = officialBookings[i].activity;
+
+                // create room panel
+                txt += '<tr><td>' + start
+                    + '</td><td>' + end
+                    + '</td><td>' + activity + '</td></tr>';
+            }
+
+            // add available room panels to list group
+            $("#official-data").append(txt);
+
+            // add user bookings to table
+            for (i = 0; i < userBookings.length; i++) {
+                start = get12Hour(userBookings[i].start_time);
+                end = get12Hour(userBookings[i].end_time);
+                activity = userBookings[i].message;
+
+                // create room panel
+                txt += '<tr><td>' + start
+                    + '</td><td>' + end
+                    + '</td><td>' + activity + '</td></tr>';
+            }
+
+            // add available room panels to list group
+            $("#user-data").append(txt);
+            $('#map-canvas').fadeIn(300);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus);
+        }
+    });
+}
+
+
+function get12Hour(time) {
+    var timeArray = time.split(":");
+    console.log(timeArray);
+
+    // determine whether time is in AM or PM
+    var suffix = (parseInt(timeArray[0]) >= 12) ? " PM" : " AM";
+
+    // turn 24 hours to 12
+    var hours = ((parseInt(timeArray[0]) + 11) % 12 + 1);
+
+    // build new time string and return
+    var newTime = hours + ":" + timeArray[1] + suffix;
+    return newTime;
+}
+
 
 /* Ajax call to get comments */
 function getComments(url) {
@@ -356,19 +550,22 @@ function getComments(url) {
         url: url,
         success: function(data) {
             var comments = data.comments;
-            $('#map-canvas').html('<div id="comments"></div>');
+            $('#map-canvas').html(
+                '<div id="comments"><div id="comments-list"></div></div>');
 
             // check to see if building list is empty
             if (!comments.length) {
                 console.log('No comments found.');
                 $('#comments').html('<h2 class="header">No comments found.</h2>');
+                addCommentInput();
                 $('#map-canvas').fadeIn(300);
                 return;
             }
 
             console.log("Success: comments found.\n" + comments);
+            $('#comments').prepend('<h2 class="header">Comments</h2>');
 
-            var txt = '<h2 class="header">Comments</h2>';
+            var txt = "";
             var title, comment, date, datetime;
             for (var i = 0; i < comments.length; i++) {
                 title = comments[i].title;
@@ -385,8 +582,85 @@ function getComments(url) {
                     + '<div class="panel-footer comment-date text-muted">' + datetime + '</div></div>';
             }
 
-            $("#comments").html(txt);
+            $("#comments-list").prepend(txt);
+            addCommentInput();
             $('#map-canvas').fadeIn(300);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus);
         }
+    });
+}
+
+
+/* Ajax call to add a new comment */
+function addComment(body) {
+    $.ajax({
+        url: '/api/v1/user/add_comment',
+        type: "POST",
+        headers: {
+            'user_id': userId,
+        },
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: JSON.stringify(body),
+        success: function(data) {
+            console.log(data);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus);
+        }
+    });
+}
+
+
+/* Ajax call to add a building to user's favourites */
+function addFavourite() {
+    $.ajax({
+        url: '/api/v1/user/add_favourite_building',
+        type: "POST",
+        headers: {
+            'user_id': userId,
+        },
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: JSON.stringify({"building_id": buildingId}),
+        success: function(data) {
+            console.log(data);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus);
+        }
+    });
+}
+
+
+/* Ajax call to add a building to user's favourites */
+function delFavourite() {
+    $.ajax({
+        url: '/api/v1/user/delete_favourite_building',
+        type: "POST",
+        headers: {
+            'user_id': userId,
+        },
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: JSON.stringify({"building_id": buildingId}),
+        success: function(data) {
+            console.log(data);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus);
+        }
+    });
+}
+
+
+// user sign out function
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function() {
+        console.log('User signed out.');
+        location.href = "index.html";
     });
 }
