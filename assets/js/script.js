@@ -289,6 +289,8 @@ function getBuildings(url) {
             console.log("Success: buildings found.");
             addSearchBar();
 
+            var favs = getFavourites();
+
             var txt = "";
             var id, name, address;
             for (var i = 0; i < buildings.length; i++) {
@@ -321,6 +323,20 @@ function getBuildings(url) {
             $('#list-group').fadeIn(300);
             $('#map-canvas').fadeIn(300);
             $(".panel-footer").hide();
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus);
+        }
+    });
+}
+
+/* Ajax call to get buildings */
+function getFavourites() {
+    $.ajax({
+        type: 'GET',
+        url: '/api/v1/user/get_favourite_buildings',
+        success: function(data) {
+            return data.response;
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log(textStatus);
