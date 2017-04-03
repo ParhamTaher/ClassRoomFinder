@@ -39,7 +39,7 @@ router.get('/api/v1/user/get_favourite_buildings', function(req, res) {
 	return userService.getFavouriteBuildings(payLoad)
 	.then(function(result){
     logger.log(result);
-		res.status(200).json({status: "Success", result})
+		res.status(200).json({status: "Success", response: result})
 	})
   .catch(function(err){
 		res.status(500).json({status: "Failure", response: err});
@@ -87,7 +87,7 @@ router.post('/api/v1/user/delete_favourite_building', function(req, res) {
 	return userService.deleteFavouriteBuilding(payLoad)
 	.then(function(result){
     logger.log(result);
-		res.status(200).json({status: "Success", result})
+		res.status(200).json({status: "Success", response: result})
 	})
   .catch(function(err){
 		res.status(500).json({status: "Failure", response: err});
