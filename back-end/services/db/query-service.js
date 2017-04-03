@@ -72,6 +72,20 @@ var queryService = (function() {
           return result.rows;
         });
     },
+    selectJoinGeneral: function(table_one, table_two, table_one_on, table_two_on, cond, values, order_by) {
+      logger.log(table_one, table_two, table_one_on, table_two_on, cond, values, order_by)
+      var text = 'SELECT * FROM (' + table_one + ' INNER JOIN ' + table_two + ' ON ' + table_one + '.' + table_one_on + ' = '  + table_two + '.' + table_two_on + ') WHERE (' + cond + ' = $1)'
+      if (order_by){
+        text = text + ' ORDER BY '+ order_by
+      }
+      logger.log(text);
+      return dbService.query(text, values)
+        .then(function(result) {
+          logger.log("Number of rows found: ", result.rowCount);
+          logger.log('Query result: ', result.rows);
+          return result.rows;
+        });
+    },
     /* ================ INSERT ================ */
 
     /*
@@ -92,6 +106,52 @@ var queryService = (function() {
           console.log(result);
           return result;
         });
+    },
+    /*
+      To use this function call insert(table_name, 'string with column headers', [array of objects], [select statement])
+      Eg. Insert('user_context', 'user_id, context_name, context_payload', [userId, context, {}])
+    */
+    selectThenInsert: function(table, column, values, select, return_col) {
+      logger.log(table, column, values, select, return_col)
+      var columnString = utilService.generateColumnStr(column);
+      return module.exports.select(select[1], select[2], select[3])
+      .then(function(result){
+        values.push(result[0].room_id)
+        var text = 'INSERT INTO ' + table + ' (' + column + ') VALUES (' + columnString[0] + ')';
+        if (return_col) {
+          text = text + ' RETURNING ' + return_col;
+        }
+        logger.log('query:', text);
+        logger.log(values)
+        return dbService.query(text, values)
+        .then(function(result) {
+          console.log(result);
+          return result;
+        })
+      })
+      .then(undefined, function(err){
+        throw new MyError(err.message, __line, 'query-service.js');
+      })
+    },
+    /*
+      To use this function call insertOnConflict(table_name, 'string with column headers', [array of objects], return_col)
+      Eg. Insert('user_context', 'user_id, context_name, context_payload', [userId, context, {}], returning_value)
+    */
+    insertOnConflict: function(table, column, value, return_col){
+      var columnString = utilService.generateColumnStr(column);
+      var text = 'INSERT INTO ' + table + ' (' + column + ') VALUES (' + columnString[0] + ') ON CONFLICT DO NOTHING';
+      if (return_col){
+          text = text + ' RETURNING ' + return_col;
+      }
+      logger.log(text, value, return_col);
+      var values = value;
+      //logger.log('query:', text);
+      //logger.log(value)
+      return dbService.query(text, values)
+      .then(function(result) {
+          console.log(result);
+          return result;
+      });
     },
 
     /* ================ DELETE ================ */

@@ -57,7 +57,7 @@ app.post('/api/v1/admin/add_building_hours', adminRoutes);
 
 app.get('/api/v1/cobalt/get_buildings', cobaltRoutes);
 app.get('/api/v1/cobalt/get_rooms', cobaltRoutes);
-// app.get('/api/v1/cobalt/get_schedules', cobaltRoutes);
+app.get('/api/v1/cobalt/get_schedules', cobaltRoutes);
 
 app.listen(app.get('port'), function() {
   console.log('running on port', app.get('port'))

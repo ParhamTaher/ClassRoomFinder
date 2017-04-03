@@ -11,13 +11,13 @@ var userService = (function() {
     */
     getId: function(payload) {
     	logger.log(payload);
-      return queryService.select('users', 'cookie', payload.cookie)
+      return queryService.insertOnConflict('users', 'cookie', [payload.cookie], 'user_id')  
       .then(function(result){
         logger.log(result);
         if (result.length > 0){
           return result;
         } else {
-          return queryService.insert('users', 'cookie', [payload.cookie], 'user_id')    
+          return queryService.select('users', 'cookie', payload.cookie)   
         }
       })
     },
@@ -27,7 +27,7 @@ var userService = (function() {
       */
 
       logger.log(payLoad);
-      return queryService.select('favourites', 'user_id', payLoad.user_id)
+      return queryService.selectJoinGeneral('favourites', 'buildings', 'building_id', 'building_id', 'favourites.user_id', [payLoad.user_id], 'buildings.code')
       .then(function(result){
         logger.log(result);
         return result;
