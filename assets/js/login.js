@@ -1,10 +1,9 @@
 function onSuccess(googleUser) {
     var profile = googleUser.getBasicProfile();
-    var token = googleUser.getAuthResponse().id_token;
     var name = profile.getName();
-    console.log('Logged in as: ' + name);
-    //location.href = "home.html?userid=12";
-    addUser('/api/v1/user/get_user_id?cookie=' + token);
+    var email = profile.getEmail();
+    console.log('Logged in as: ' + email);
+    addUser('/api/v1/user/get_user_id?cookie=' + email);
 }
 
 function onFailure(error) {
