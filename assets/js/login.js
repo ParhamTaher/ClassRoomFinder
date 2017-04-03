@@ -3,8 +3,8 @@ function onSuccess(googleUser) {
     var token = googleUser.getAuthResponse().id_token;
     var name = profile.getName();
     console.log('Logged in as: ' + name);
-    location.href = "home.html?userid=12";
-    //addUser('/api/v1/user/get_user_id?cookie=' + token);
+    //location.href = "home.html?userid=12";
+    addUser('/api/v1/user/get_user_id?cookie=' + token);
 }
 
 function onFailure(error) {
