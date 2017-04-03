@@ -72,6 +72,20 @@ var queryService = (function() {
           return result.rows;
         });
     },
+    selectJoinGeneral: function(table_one, table_two, table_one_on, table_two_on, cond, values, order_by) {
+      logger.log(table_one, table_two, table_one_on, table_two_on, cond, values, order_by)
+      var text = 'SELECT * FROM (' + table_one + ' INNER JOIN ' + table_two + ' ON ' + table_one + '.' + table_one_on + ' ='  + table_two + '.' + table_two_on + ') WHERE (' + cond + ' = $1)'
+      if (order_by){
+        text = text + ' ORDER BY '+ order_by
+      }
+      logger.log(text);
+      return dbService.query(text, values)
+        .then(function(result) {
+          logger.log("Number of rows found: ", result.rowCount);
+          logger.log('Query result: ', result.rows);
+          return result.rows;
+        });
+    },
     /* ================ INSERT ================ */
 
     /*
