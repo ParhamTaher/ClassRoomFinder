@@ -74,7 +74,7 @@ function loadNearby(lat, lon) {
     $('#map-canvas').fadeOut(300).empty();
     $('#list-group').fadeOut(300);
     $('#search').fadeOut();
-    getBuildings('/api/v1/building/get_nearby_buildings?lat=' + lat + '&' + 'lon=' + lon);
+    makeBuildingList('/api/v1/building/get_nearby_buildings?lat=' + lat + '&' + 'lon=' + lon);
 }
 
 
@@ -83,7 +83,7 @@ function loadFavourites() {
     $('#map-canvas').fadeOut(300).empty();
     $('#list-group').fadeOut(300);
     $('#search').fadeOut();
-    getBuildings('/api/v1/user/get_favourite_buildings');
+    makeBuildingList('/api/v1/user/get_favourite_buildings');
 }
 
 
@@ -92,7 +92,7 @@ function loadAll() {
     $('#map-canvas').fadeOut(300).empty();
     $('#list-group').fadeOut(300);
     $('#search').fadeOut();
-    getBuildings('/api/v1/building/get_all_buildings');
+    makeBuildingList('/api/v1/building/get_all_buildings');
 }
 
 
@@ -215,6 +215,19 @@ $(document).ready(function() {
     });
 
 
+    // remove building from user favourites
+    $('#list-group').on('click', '.btn-unfav', function(e) {
+        // get building id of card clicked
+        buildingId = $(this).closest('.list-group-item').data("id");
+
+        // remove building from user's favourites
+        delFavourite();
+
+        // stop click event for parent div
+        e.stopPropagation();
+    });
+
+
     // dynamically update list based on search input
     $("#search").on('keyup', '#query', function() {
         var query = $.trim(this.value).toLowerCase();
@@ -267,8 +280,12 @@ $(document).ready(function() {
 /* -------------- AJAX CALLS -------------- */
 
 
+function makeBuildingList(url) {
+    getFavourites(getBuildings, url);
+}
+
 /* Ajax call to get buildings */
-function getBuildings(url) {
+function getBuildings(url, favs) {
     console.log(url);
     $.ajax({
         type: 'GET',
@@ -277,7 +294,6 @@ function getBuildings(url) {
             'user_id': userId,
         },
         success: function(data) {
-            console.log(JSON.stringify(data));
             // clear old building and marker data
             buildingList = [];
             markers = [];
@@ -292,15 +308,19 @@ function getBuildings(url) {
             console.log("Success: buildings found.");
             addSearchBar();
 
-            var favs = getFavourites();
-
             var txt = "";
-            var id, name, address;
+            var id, name, address, btnfav;
             for (var i = 0; i < buildings.length; i++) {
                 // store name, slice address to keep only number and street name
                 id = buildings[i].building_id;
                 name = buildings[i].name.substring(0, buildings[i].name.lastIndexOf(" "));
                 address = buildings[i].address.slice(0, buildings[i].address.indexOf(','));
+
+                if (favs.indexOf(id) > -1) {
+                    btnfav = '<div class="btn-group"><button class="btn btn-danger btn-unfav"><i class="fa fa-star"></i>Unfavourite</button></div></div></div></a>';
+                } else {
+                    btnfav = '<div class="btn-group"><button class="btn btn-info btn-fav"><i class="fa fa-star"></i>Favourite</button></div></div></div></a>';
+                }
 
                 // create list-group-item with building info
                 txt += '<a class="list-group-item" data-name="' + name + '" data-id="' + id + '">'
@@ -313,8 +333,7 @@ function getBuildings(url) {
                     + '<div class="btn-group"><button class="btn btn-default btn-rooms">'
                     + '<i class="fa fa-building"></i> Rooms </button></div><div class="btn-group">'
                     + '<button class="btn btn-default btn-comments"><i class="fa fa-comments"></i> Comments</button></div>'
-                    + '<div class="btn-group"><button class="btn btn-info btn-fav">'
-                    + '<i class="fa fa-star"></i> Favourite</button></div></div></div></a>';
+                    + btnfav;
 
                 // push building to building list
                 buildingList.push([buildings[i].name, buildings[i].lat, buildings[i].lon]);
@@ -334,7 +353,7 @@ function getBuildings(url) {
 }
 
 /* Ajax call to get buildings */
-function getFavourites() {
+function getFavourites(callback, callback_url) {
     $.ajax({
         type: 'GET',
         url: '/api/v1/user/get_favourite_buildings',
@@ -342,7 +361,15 @@ function getFavourites() {
             'user_id': userId,
         },
         success: function(data) {
-            return data.response;
+            var buildings = data.response;
+
+            // put all favourite building ids into an array
+            var ids = [];
+            for (var i = 0; i < buildings.length; i++) {
+                ids.push(buildings[i].building_id);
+            }
+
+            callback(callback_url, ids);
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log(textStatus);
@@ -638,7 +665,6 @@ function addComment(body) {
 
 /* Ajax call to add a building to user's favourites */
 function addFavourite() {
-    console.log("User " + userId + " favourited building " + buildingId);
     $.ajax({
         url: '/api/v1/user/add_favourite_building',
         type: "POST",
@@ -649,7 +675,7 @@ function addFavourite() {
         dataType: "json",
         data: JSON.stringify({"building_id": buildingId}),
         success: function(data) {
-            console.log("Success: " + data.fav_id);
+            console.log("User " + userId + " favourited building " + buildingId);
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log(textStatus);
@@ -670,7 +696,7 @@ function delFavourite() {
         dataType: "json",
         data: JSON.stringify({"building_id": buildingId}),
         success: function(data) {
-            console.log(data);
+            console.log("User " + userId + " unfavourited building " + buildingId);
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log(textStatus);
