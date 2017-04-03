@@ -39,7 +39,7 @@ hr {
 }
 
 .fa {
-  line-height: inherit;
+    line-height: inherit;
 }
 
 
@@ -86,14 +86,6 @@ ul.nav-pills > li > a {
 .nav-pills > li.active > a:hover {
     color: white;
     background-color: #2196F3;
-}
-
-.jumbotron p.top-right {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 17px 110px;
-    font-size: 1.7rem;
 }
 
 .jumbotron button.top-right {
@@ -196,8 +188,22 @@ ul.nav-pills > li > a {
 
 /* COMMENTS */
 
-#comments, #rooms {
+#comments {
     color: #002a5c;
+    height: 556px;
+}
+
+#comments-list {
+    color: #002a5c;
+    height: 343px;
+    overflow-y: auto;
+    margin-bottom: 18px;
+}
+
+#comment-title,
+#comment-txt {
+    resize: none;
+    margin-bottom: 10px;
 }
 
 #comments .header,
@@ -214,13 +220,38 @@ ul.nav-pills > li > a {
 
 .comment-body {
     color: black;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 8px;
+    padding-bottom: 8px;
 }
 
 .comment-date {
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+
+/* ROOMS */
+
+#rooms,
+#schedule {
+    color: #002a5c;
+    height: 556px;
+}
+
+#rooms > .tab-content,
+#schedule > .tab-content {
+    height: 400px;
+    overflow-y: auto;
+}
+
+thead th {
+    background-color: #002a5c;
+    color: white;
+}
+
+.table-striped>tbody>tr:nth-child(odd)>td,
+.table-striped>tbody>tr:nth-child(odd)>th {
+    background-color: #badfff;
 }
 
 
