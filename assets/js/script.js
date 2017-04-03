@@ -10,6 +10,9 @@ var user_lat, user_lon;
 // current user, building, and room ids being viewed
 var userId, buildingId, roomId;
 
+// current page user is on {f, n, a}
+var currentPage;
+
 function initMap() {
     var map;
     var bounds = new google.maps.LatLngBounds();
@@ -74,6 +77,7 @@ function loadNearby(lat, lon) {
     $('#map-canvas').fadeOut(300).empty();
     $('#list-group').fadeOut(300);
     $('#search').fadeOut();
+    currentPage = "n";
     makeBuildingList('/api/v1/building/get_nearby_buildings?lat=' + lat + '&' + 'lon=' + lon);
 }
 
@@ -83,6 +87,7 @@ function loadFavourites() {
     $('#map-canvas').fadeOut(300).empty();
     $('#list-group').fadeOut(300);
     $('#search').fadeOut();
+    currentPage = "f";
     makeBuildingList('/api/v1/user/get_favourite_buildings');
 }
 
@@ -92,6 +97,7 @@ function loadAll() {
     $('#map-canvas').fadeOut(300).empty();
     $('#list-group').fadeOut(300);
     $('#search').fadeOut();
+    currentPage = "a";
     makeBuildingList('/api/v1/building/get_all_buildings');
 }
 
@@ -176,13 +182,13 @@ $(document).ready(function() {
 
 
     // load room's schedule when clicked
-    $('#map-canvas').on('click', '#rooms a', function(e) {
+    $('#map-canvas').on('click', '.room-link', function(e) {
         // empty canvas to prep for schedule
         $('#map-canvas').fadeOut(300).empty();
 
         // get room id and generate url with query
         var roomId = $(this).data("id");
-        var url = '/api/v1/building/get_room_info?building_id=' + buildingId + '&room_id=1';
+        var url = '/api/v1/building/get_room_info?building_id=' + buildingId + '&room_id=' + roomId;
         getSchedule(url);
     });
 
@@ -209,6 +215,9 @@ $(document).ready(function() {
 
         // add building to user's favourites
         addFavourite();
+        $(this).html('<i class="fa fa-star"></i>Unfavourite');
+        $(this).removeClass("btn-info btn-fav");
+        $(this).addClass("btn-danger btn-unfav");
 
         // stop click event for parent div
         e.stopPropagation();
@@ -222,6 +231,9 @@ $(document).ready(function() {
 
         // remove building from user's favourites
         delFavourite();
+        $(this).html('<i class="fa fa-star"></i>Favourite');
+        $(this).removeClass("btn-danger btn-unfav");
+        $(this).addClass("btn-info btn-fav");
 
         // stop click event for parent div
         e.stopPropagation();
@@ -264,9 +276,10 @@ $(document).ready(function() {
             "message": message
         };
 
-        // add comment to database
-        addComment(reqBody);
+        var url = '/api/v1/building/get_building_comments?building_id=' + buildingId;
 
+        // add comment to database
+        addComment(reqBody, url);
     });
 
 
@@ -451,8 +464,8 @@ function getRooms(url) {
             txt = "";
             var soon = rooms.available_soon;
             for (i = 0; i < soon.length; i++) {
-                id = soon[i][0];
-                code = soon[i][1];
+                id = soon[i][1];
+                code = soon[i][0];
 
                 // create room panel
                 txt += '<a data-id="' + id
@@ -467,8 +480,8 @@ function getRooms(url) {
             txt = "";
             var unavailable = rooms.unavailable;
             for (i = 0; i < unavailable.length; i++) {
-                id = unavailable[i][0];
-                code = unavailable[i][1];
+                id = unavailable[i][1];
+                code = unavailable[i][0];
 
                 // create room panel
                 txt += '<a data-id="' + id
@@ -643,7 +656,7 @@ function getComments(url) {
 
 
 /* Ajax call to add a new comment */
-function addComment(body) {
+function addComment(body, reloadUrl) {
     $.ajax({
         url: '/api/v1/user/add_comment',
         type: "POST",
@@ -655,6 +668,7 @@ function addComment(body) {
         data: JSON.stringify(body),
         success: function(data) {
             console.log(data);
+            getComments(reloadUrl);
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log(textStatus);
@@ -697,6 +711,9 @@ function delFavourite() {
         data: JSON.stringify({"building_id": buildingId}),
         success: function(data) {
             console.log("User " + userId + " unfavourited building " + buildingId);
+            if (currentPage == "f") {
+                loadFavourites();
+            }
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log(textStatus);
