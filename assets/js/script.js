@@ -129,7 +129,7 @@ $(document).ready(function() {
     $('#search').fadeOut();
 
     // homepage defaults to nearby buildings
-    //loadFavourites();
+    loadFavourites();
 
     // nearby buildings clicked, reload building list and map
     $('#nearby').click(function() {
@@ -207,9 +207,8 @@ $(document).ready(function() {
         // get building id of card clicked
         buildingId = $(this).closest('.list-group-item').data("id");
 
-        console.log("User " + userId + " favourited building " + buildingId);
         // add building to user's favourites
-        //addFavourite();
+        addFavourite();
 
         // stop click event for parent div
         e.stopPropagation();
@@ -274,7 +273,11 @@ function getBuildings(url) {
     $.ajax({
         type: 'GET',
         url: url,
+        headers: {
+            'user_id': userId,
+        },
         success: function(data) {
+            console.log(JSON.stringify(data));
             // clear old building and marker data
             buildingList = [];
             markers = [];
@@ -335,6 +338,9 @@ function getFavourites() {
     $.ajax({
         type: 'GET',
         url: '/api/v1/user/get_favourite_buildings',
+        headers: {
+            'user_id': userId,
+        },
         success: function(data) {
             return data.response;
         },
@@ -632,6 +638,7 @@ function addComment(body) {
 
 /* Ajax call to add a building to user's favourites */
 function addFavourite() {
+    console.log("User " + userId + " favourited building " + buildingId);
     $.ajax({
         url: '/api/v1/user/add_favourite_building',
         type: "POST",
@@ -642,7 +649,7 @@ function addFavourite() {
         dataType: "json",
         data: JSON.stringify({"building_id": buildingId}),
         success: function(data) {
-            console.log(data);
+            console.log("Success: " + data.fav_id);
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log(textStatus);
