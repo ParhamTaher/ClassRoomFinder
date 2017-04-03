@@ -93,6 +93,26 @@ var queryService = (function() {
           return result;
         });
     },
+    /*
+      To use this function call insertOnConflict(table_name, 'string with column headers', [array of objects], return_col)
+      Eg. Insert('user_context', 'user_id, context_name, context_payload', [userId, context, {}], returning_value)
+    */
+    insertOnConflict: function(table, column, value, return_col){
+      var columnString = utilService.generateColumnStr(column);
+      var text = 'INSERT INTO ' + table + ' (' + column + ') VALUES (' + columnString[0] + ') ON CONFLICT DO NOTHING';
+      if (return_col){
+          text = text + ' RETURNING ' + return_col;
+      }
+      logger.log(text, value, return_col);
+      var values = value;
+      //logger.log('query:', text);
+      //logger.log(value)
+      return dbService.query(text, values)
+      .then(function(result) {
+          console.log(result);
+          return result;
+      });
+    },
 
     /* ================ DELETE ================ */
 
