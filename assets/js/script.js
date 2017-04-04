@@ -229,10 +229,10 @@ $(document).ready(function() {
         // get room id and generate url with query
         roomId = $(this).data("id");
         roomCode = $(this).data("code");
+
         // get building id and generate url with query
-        buildingId = $(this).closest('.list-group-item').data("id");
-        var url = '/api/v1/building/get_building_info?building_id=' + buildingId;
-        getRooms(url);
+        var url = '/api/v1/building/get_room_info?building_id=' + buildingId + '&room_id=' + roomId;
+        getSchedule(url);
     });
 
 
@@ -278,6 +278,17 @@ $(document).ready(function() {
             return;
         }
 
+        var body = {
+            "buildingId": buildingId,
+            "room_code": roomCode,
+            "date": new Date(),
+            "start_time": start,
+            "end_time": end,
+            "comment": activity
+        }
+
+        var url = '/api/v1/building/get_room_info?building_id=' + buildingId + '&room_id=' + roomId;
+        addBooking(body, url);
     });
 
 
@@ -749,6 +760,28 @@ function getComments(url) {
 }
 
 
+/* Ajax call to add a new room booking */
+function addBooking(body, reloadUrl) {
+    $.ajax({
+        url: '/api/v1/user/create_booking',
+        type: "POST",
+        headers: {
+            'user_id': userId,
+        },
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: JSON.stringify(body),
+        success: function(data) {
+            console.log("User " + userId + " booked room " + roomCode);
+            getSchedule(reloadUrl);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus);
+        }
+    });
+}
+
+
 /* Ajax call to add a new comment */
 function addComment(body, reloadUrl) {
     $.ajax({
@@ -761,7 +794,7 @@ function addComment(body, reloadUrl) {
         dataType: "json",
         data: JSON.stringify(body),
         success: function(data) {
-            console.log(data);
+            console.log("User " + userId + " commented about building " + buildingId);
             getComments(reloadUrl);
         },
         error: function(jqXHR, textStatus, errorThrown) {
