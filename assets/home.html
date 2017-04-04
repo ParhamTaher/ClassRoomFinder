@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-signin-client_id" content="761991704862-hmbo8ogm3k42llt4rihtsp9luiom419e.apps.googleusercontent.com">
   <title>DiscoverUofT</title>
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -22,7 +23,7 @@
     <div class="jumbotron text-center">
       <button id="signout" type="button" class="btn btn-warning top-right">Sign Out</button>
       <h1>DiscoverUofT</h1>
-      <p>Find free spaces on campus easier and faster than ever before.</p>
+      <p id="tagline">Find free spaces on campus easier and faster than ever before.</p>
     </div>
     <div id="nav" class="col-md-12">
       <div class="col-md-8 col-md-offset-2">
@@ -38,8 +39,7 @@
         <div id="search"></div>
         <div id="list-group"></div>
       </div>
-      <div id="map-canvas" class="col-md-7">
-      </div>
+      <div id="map-canvas" class="col-md-7"></div>
     </div>
   </div>
   <footer class="footer text-center">
@@ -47,6 +47,7 @@
       <p>2017 DiscoverUofT</p>
     </div>
   </footer>
+  <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
 
