@@ -136,7 +136,12 @@ function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
             showPosition(position);
-        });
+        },
+        function(error) {
+            console.log('Error retrieving current position.');
+            loadNearby(43.663475, -79.397431);
+        },
+        {timeout:10000});
     } else {
         alert("Geolocation is not supported by this browser.");
     }
