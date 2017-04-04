@@ -3,37 +3,18 @@
 ## [Deliverable 3 Video](https://www.youtube.com/watch?v=IeXBkIrlurg)
 ## [Deliverable 2 Video](https://www.youtube.com/watch?v=dCPwDSkWu0s)
 
-#### UPDATE: Where does information come from?
+## Individual Contributions
 
-The main building and room information used for out application is retrieved from the Cobalt API used the by the University of Toronto. This allows us to retrieve class and tutorial schedules as well as the buildings in which they are scheduled. Along with partial user input this is the data that populates the application and provides smooth and accurate responses to our target users.
+**Angela:** I used to be an English major, so writing is naturally my biggest strength. I took care of the documentation, and I took meeting minutes for each meeting. By doing this, I helped the group to organize their workflow. I also did some coding, creating some backend get requests.
 
-#### Q1: What are you planning to build?
+**Bence:** Front-end plan for both mobile and desktop versions of the webapp (only ended up implementing desktop version), as well as a mockup to use in the demo. I had little experience with node.js and html, so in the front-end design phase I took on other tasks while I learned what I could from our team’s implementation.
 
-Our team is creating an application that finds empty classrooms and fields on the University of Toronto campus and informs the user of their location, size, and capacity. Our application would assist students in finding empty classrooms and/or fields where they can play games, study individually or hold group study sessions without disturbing lecture times.
+**Ishwant:** Worked with Jaleel to build the entire backend server including initial set-up, building a lot of routes, and connecting to the Cobalt API to populate our database
 
-We are planning to build a website application. The user will input a time range and the application will return a list of rooms and fields on the University of Toronto campus that are free during that time range, along with their size, capacity and times that they are free. Once a student selects a room, that room will change to "taken" status in the application and it will be visible to other students.
+**Jaleel:** I worked on the backend along with Ishwant and Angela. We met occasionally and 
+organized extreme code sprints to ensure that the maximum amount of work was done 
+at every meeting. I worked on routes and designed the database and hosted it on Heroku.
 
+**Parham:** I mainly worked on front-end implementation, working on implementing HTML5's geolocation API and writing some ajax calls to hook up backend features to front-end.
 
-#### Q2: Who are your target users?
-
-Our target users are students and faculty at the University of Toronto who are looking for free spaces to work/study/socialize/etc.
-
-
-#### Q3: Why would your users choose your product? What are they using today to solve their problem/need?
-
-Courses that require group work present unique challenges. In addition to determining an optimal time to meet, groups also must find quiet and unoccupied places to conduct group meetings. This becomes increasingly difficult as the size of the group increases. Finding fields for recreational use is also diffult given the large number of intramural and professional teams on campus.
-
-From personal experience, groups often waste time wandering from classroom to classroom trying to find unoccupied classrooms to conduct group work. Also, once groups find an unoccupied classroom, there is no guarantee that the room in question will remain unoccupied as classes are ongoing throughout the day. Group study rooms do exist, but they are often occupied. Also, most group study rooms are located in libraries, which means that groups must remain quiet. This hinders group discussion. Lastly, sports teams cannot simply  wander from field to field to find an empty space given their large size.
-
-Our application will save users considerable amounts of time, as groups will no longer have to wander aimlessly from classroom to classroom or field to field in hopes of finding an unoccupied space. Users  will no longer have to sift through lecture or intramural sport timetables in order to find unoccupied rooms. Lastly, our application will also prevent groups from being disrupted by lectures, incoming students and other sports teams. Our application will provide a wealth of information (such as times available, location, and capacity) in a convenient, concise and easily readable format.
-
-
-----
-
-### Highlights
-
-During our meetings, there was much discussion regarding the type of application that should be  utilized to display our idea. We were conflicted between using an Android application or website  application to host our idea.
-
-Initially, we thought we should create an Android application simply because it would be more convenient for students, since students spend a large component of their time on campus travelling between classes. However, we decided on a web application, since a web application can be adapted to mobile phone use on both Android and iOS platforms.
-
-Other ideas we considered were a mobile banking application, a program for analyzing sheet music  and a mobile game. We decided against the mobile banking application because many versions of such  an application already exist. The music application was interesting, but there was a lack of interest in the idea and only one member of our group had experience with reading sheet music. Lastly,  we decided against the game due to lack of game development experience amongst our group members.
+**Shray:** I was involved in pretty much every aspect of the front-end from writing page HTML structure and styling to the frontend JS scripts and backend/frontend integration through AJAX requests.
