@@ -64,7 +64,6 @@ CREATE TABLE bookings
     classroom_id int NOT NULL REFERENCES classrooms (room_id),
     building_id int NOT NULL REFERENCES buildings (building_id),
     message VARCHAR(50) NOT NULL,
-    tags VARCHAR(50) NOT NULL,
     start_time TIME NOT NULL,
     end_time TIME NOT NULL,
     booking_date DATE NOT NULL
