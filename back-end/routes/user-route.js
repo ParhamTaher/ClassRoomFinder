@@ -110,9 +110,7 @@ router.post('/api/v1/user/create_booking', function(req, res) {
   	"date": req.body.date,
   	"start_time": req.body.start_time,
   	"end_time": req.body.end_time,
-  	"title": req.body.title,
-  	"comment": req.body.comment,
-  	"tag": req.body.tags
+  	"comment": req.body.comment
   }
   logger.log(payLoad);
 	return userService.createBooking(payLoad)
