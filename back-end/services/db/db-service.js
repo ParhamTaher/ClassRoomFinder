@@ -34,19 +34,24 @@ var dbService = (function() {
         process.exit(1);
       }
     },
-    query: function(text, values) {
-      return promisePG.connect(conString)
-      .then(function(client) {
-        return client.query(text, values)
-      })
-      .then(function(result) {
-        return result;
-      })
-      .then(undefined, function(err) {
-        logger.log(err);
-        throw err;
+   query: function(text, values) {
+    return new Promise(function(resolve, reject) {
+      pg.connect(conString, function(err, client, done) {
+        if(err) {
+          reject(err);
+        } else {
+          client.query(text, values, function(err, result) {
+            if(err) {
+              reject(err);
+            } else {
+              done();
+              resolve(result);
+            }
+          });
+        }
       });
-    },
+    });
+   },
     //sseries: array of object, every object has key text mapped to values
     transaction: function(series) {
       var queryStrArr = [];
