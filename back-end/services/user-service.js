@@ -75,7 +75,7 @@ var userService = (function() {
       return this.getRoomId(payLoad)
       .then(function(result){
         logger.log(result)
-        return queryService.insert('bookings', 'classroom_id,user_id,building_id,message,tags,start_time,end_time,booking_date', [result, payLoad.userId, payLoad.buildingId, payLoad.comment, payLoad.tag, payLoad.start_time, payLoad.end_time, payLoad.date], 'booking_id')
+        return queryService.insert('bookings', 'classroom_id,user_id,building_id,message,start_time,end_time,booking_date', [result, payLoad.userId, payLoad.buildingId, payLoad.comment, payLoad.start_time, payLoad.end_time, payLoad.date], 'booking_id')
       })
       .then(undefined, function(err){
         throw new MyError(err.message, __line, 'user-service.js');
