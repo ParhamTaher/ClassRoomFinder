@@ -17,4 +17,4 @@ at every meeting. I worked on routes and designed the database and hosted it on 
 
 **Parham:** I mainly worked on front-end implementation, working on implementing HTML5's geolocation API and writing some ajax calls to hook up backend features to front-end.
 
-**Shray:** I was involved in pretty much every aspect of the front-end from writing page HTML structure and styling to the frontend JS scripts and backend/frontend integration through AJAX requests.
+**Shray:** I was involved in pretty much every aspect of the front-end from writing page HTML structure and styling to the frontend JS scripts and backend/frontend integration through AJAX requests. I also wrote, recorded, and edited the demo videos for each deliverable.
