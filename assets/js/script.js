@@ -1,3 +1,7 @@
+/* SCRIPT FILE FOR DISCOVERUOFT WEBSITE */
+
+var map;
+
 // global list of buildings in format [name, lat, lon]
 var buildingList = [];
 
@@ -8,13 +12,20 @@ var markers = []
 var user_lat, user_lon;
 
 // current user, building, and room ids being viewed
-var userId, buildingId, roomId;
+var userId, buildingId, roomId, roomCode;
 
 // current page user is on {f, n, a}
 var currentPage;
 
+// load google auth API on page load
+function onLoad() {
+    gapi.load('auth2', function() {
+        gapi.auth2.init();
+    });
+}
+
+// initialize google map with building markers
 function initMap() {
-    var map;
     var bounds = new google.maps.LatLngBounds();
     var mapOptions = {
         mapTypeId: 'roadmap'
@@ -47,9 +58,19 @@ function initMap() {
 
     // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
     var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
-        this.setZoom(17);
+        this.setZoom(16);
         google.maps.event.removeListener(boundsListener);
     });
+}
+
+// resize map on show
+function resize() {
+    if (typeof(map) != "undefined") {
+        // okay, we've got a map and we need to resize it
+        var center = map.getCenter();
+        google.maps.event.trigger(map, 'resize');
+        map.setCenter(center);
+    }
 }
 
 
@@ -66,9 +87,17 @@ function addSearchBar() {
 
 // add comments input form
 function addCommentInput() {
-    var commentForm = '<textarea id="comment-title" class="form-control" rows="1" placeholder="Enter title here (max 20 chars)..."></textarea><textarea id="comment-txt" class="form-control" rows="2" placeholder="Enter comment here..."></textarea><button id="post-comment" type="button" class="btn btn-primary">Post Comment</button>';
+    var commentForm = '<textarea id="comment-title" class="form-control" rows="1" placeholder="Enter title here (max 20 chars)..."></textarea><textarea id="comment-txt" class="form-control" rows="2" placeholder="Enter comment here..."></textarea><button id="post-comment" type="button" class="btn btn-info">Post Comment</button>';
 
     $("#comments").append(commentForm);
+}
+
+
+// add button for booking rooms
+function addBookingButton() {
+    var button = '<button id="btn-book" type="button" class="btn btn-info">Book This Room</button>';
+
+    $('#schedule').append(button);
 }
 
 
@@ -113,6 +142,7 @@ function getLocation() {
     }
 }
 
+
 // callback function for getCurrentPosition
 function showPosition(position) {
     user_lat = position.coords.latitude;
@@ -123,19 +153,29 @@ function showPosition(position) {
 }
 
 
+// validate time input HHMM
+function validateTime(input) {
+    return /^([0-1][0-9]|2[0-3]):([0-5][0-9])$/.test(input.value);;
+}
+
+
 $(document).ready(function() {
     console.log("Document ready.");
 
     // get user id from href
-    userId = location.href.slice(location.href.indexOf("=") + 1);
+    var l = location.href;
+    userId = l.slice(l.indexOf("=") + 1, l.indexOf("&"));
+    name = l.slice(l.lastIndexOf("=") + 1, l.indexOf("%"));
+    $('#tagline').text('Welcome, ' + name + '! Browse buildings and find a room below.');
 
     // hide list and map before populating
-    $('#map-canvas').fadeOut();
+    //$('#map-canvas').fadeOut();
     $('#list-group').fadeOut();
     $('#search').fadeOut();
 
-    // homepage defaults to nearby buildings
+    // homepage defaults to favourite buildings
     loadFavourites();
+    currentPage = "f";
 
     // nearby buildings clicked, reload building list and map
     $('#nearby').click(function() {
@@ -182,14 +222,62 @@ $(document).ready(function() {
 
 
     // load room's schedule when clicked
-    $('#map-canvas').on('click', '.room-link', function(e) {
+    $('#map-canvas').on('click', '.room-link', function() {
         // empty canvas to prep for schedule
         $('#map-canvas').fadeOut(300).empty();
 
         // get room id and generate url with query
-        var roomId = $(this).data("id");
-        var url = '/api/v1/building/get_room_info?building_id=' + buildingId + '&room_id=' + roomId;
-        getSchedule(url);
+        roomId = $(this).data("id");
+        roomCode = $(this).data("code");
+        // get building id and generate url with query
+        buildingId = $(this).closest('.list-group-item').data("id");
+        var url = '/api/v1/building/get_building_info?building_id=' + buildingId;
+        getRooms(url);
+    });
+
+
+    // load forms when book room is clicked
+    $('#map-canvas').on('click', '#btn-book', function() {
+        // empty canvas to prep for booking form
+        $('#map-canvas').fadeOut(300).empty();
+        gotoBookingForm();
+    });
+
+
+    // create new booking
+    $('#map-canvas').on('click', '#btn-confirm-booking', function() {
+        // empty canvas to prep for booking form
+        $('#map-canvas').fadeOut(300).empty();
+
+        // extract user input
+        var activity = $('#activity').val().trim();
+        var start = $('#start').val().trim();
+        var end = $('#start').val().trim();
+
+        if (!activity.length || activity.length > 30) {
+            alert('Activity is required and must be less than 30 characters.');
+            console.log('Activity is empty or too long.');
+            return;
+        }
+
+        if (!start.length) {
+            alert('Start time is required.');
+            console.log('Start time is empty.');
+            return;
+        }
+
+        if (!end.length) {
+            alert('End time is required.');
+            console.log('End time is empty.');
+            return;
+        }
+
+        if (validateTime(start) || validateTime(end)) {
+            alert('Times must be given in HH:MM 24 hour format.');
+            console.log('Time is formatted incorrectly.');
+            return;
+        }
+
     });
 
 
@@ -214,10 +302,10 @@ $(document).ready(function() {
         buildingId = $(this).closest('.list-group-item').data("id");
 
         // add building to user's favourites
-        addFavourite();
-        $(this).html('<i class="fa fa-star"></i>Unfavourite');
+        $(this).html('<i class="fa fa-star"></i> Unfavourite');
         $(this).removeClass("btn-info btn-fav");
         $(this).addClass("btn-danger btn-unfav");
+        addFavourite();
 
         // stop click event for parent div
         e.stopPropagation();
@@ -230,10 +318,10 @@ $(document).ready(function() {
         buildingId = $(this).closest('.list-group-item').data("id");
 
         // remove building from user's favourites
-        delFavourite();
-        $(this).html('<i class="fa fa-star"></i>Favourite');
+        $(this).html('<i class="fa fa-star"></i> Favourite');
         $(this).removeClass("btn-danger btn-unfav");
         $(this).addClass("btn-info btn-fav");
+        delFavourite();
 
         // stop click event for parent div
         e.stopPropagation();
@@ -290,7 +378,7 @@ $(document).ready(function() {
 });
 
 
-/* -------------- AJAX CALLS -------------- */
+/* -------------- AJAX CALLS AND ONCLICK FUNCTIONS -------------- */
 
 
 function makeBuildingList(url) {
@@ -324,15 +412,19 @@ function getBuildings(url, favs) {
             var txt = "";
             var id, name, address, btnfav;
             for (var i = 0; i < buildings.length; i++) {
+                if (buildings[i].lat < 43.63) {
+                    continue;
+                }
+
                 // store name, slice address to keep only number and street name
                 id = buildings[i].building_id;
                 name = buildings[i].name.substring(0, buildings[i].name.lastIndexOf(" "));
                 address = buildings[i].address.slice(0, buildings[i].address.indexOf(','));
 
                 if (favs.indexOf(id) > -1) {
-                    btnfav = '<div class="btn-group"><button class="btn btn-danger btn-unfav"><i class="fa fa-star"></i>Unfavourite</button></div></div></div></a>';
+                    btnfav = '<div class="btn-group"><button class="btn btn-danger btn-unfav"><i class="fa fa-star"></i> Unfavourite</button></div></div></div></a>';
                 } else {
-                    btnfav = '<div class="btn-group"><button class="btn btn-info btn-fav"><i class="fa fa-star"></i>Favourite</button></div></div></div></a>';
+                    btnfav = '<div class="btn-group"><button class="btn btn-info btn-fav"><i class="fa fa-star"></i> Favourite</button></div></div></div></a>';
                 }
 
                 // create list-group-item with building info
@@ -356,7 +448,7 @@ function getBuildings(url, favs) {
             initMap();
             $('#search').fadeIn(300);
             $('#list-group').fadeIn(300);
-            $('#map-canvas').fadeIn(300);
+            $('#map-canvas').fadeIn(300, function() { resize(); });
             $(".panel-footer").hide();
         },
         error: function(jqXHR, textStatus, errorThrown) {
@@ -411,7 +503,7 @@ function getRooms(url) {
                 !rooms.unavailable.length) {
                 console.log('No rooms found.');
                 $('#rooms').html('<h2 class="header">No rooms found.</h2>');
-                $('#map-canvas').fadeIn(300);
+                $('#map-canvas').fadeIn(300, function() { resize(); });
                 return;
             }
 
@@ -424,21 +516,21 @@ function getRooms(url) {
             if (!rooms.available.length) {
                 console.log('No available rooms found.');
                 $('#available-list').html('<h3 class="header">No rooms found.</h3>');
-                $('#map-canvas').fadeIn(300);
+                $('#map-canvas').fadeIn(300, function() { resize(); });
             }
 
             // check each tab individually
             if (!rooms.available_soon.length) {
                 console.log('No available-soon rooms found.');
                 $('#soon-list').html('<h3 class="header">No rooms found.</h3>');
-                $('#map-canvas').fadeIn(300);
+                $('#map-canvas').fadeIn(300, function() { resize(); });
             }
 
             // check each tab individually
             if (!rooms.unavailable.length) {
                 console.log('No unavailable rooms found.');
                 $('#unavailable-list').html('<h3 class="header">No rooms found.</h3>');
-                $('#map-canvas').fadeIn(300);
+                $('#map-canvas').fadeIn(300, function() { resize(); });
             }
 
             // vars to hold room info and html
@@ -446,13 +538,12 @@ function getRooms(url) {
 
             // add available rooms
             var available = rooms.available;
-            console.log(available + "\n" + available.length);
             for (i = 0; i < available.length; i++) {
                 id = available[i][1];
                 code = available[i][0];
 
                 // create room panel
-                txt += '<a data-id="' + id
+                txt += '<a data-code="' + code + '" data-id="' + id
                     + '" class="list-group-item list-group-item-action col-md-3 room-link">'
                     + code + '<i class="fa fa-caret-right pull-right" aria-hidden="true"></i></a>';
             }
@@ -468,7 +559,7 @@ function getRooms(url) {
                 code = soon[i][0];
 
                 // create room panel
-                txt += '<a data-id="' + id
+                txt += '<a data-code="' + code + '" data-id="' + id
                     + '" class="list-group-item list-group-item-action col-md-3 room-link">'
                     + code + '<i class="fa fa-caret-right pull-right" aria-hidden="true"></i></a>';
             }
@@ -484,14 +575,14 @@ function getRooms(url) {
                 code = unavailable[i][0];
 
                 // create room panel
-                txt += '<a data-id="' + id
+                txt += '<a data-code="' + code + '" data-id="' + id
                     + '" class="list-group-item list-group-item-action col-md-3 room-link">'
                     + code + '<i class="fa fa-caret-right pull-right" aria-hidden="true"></i></a>';
             }
 
             // add unavailable room panels to list group
             $("#unavailable-list").prepend(txt);
-            $('#map-canvas').fadeIn(300);
+            $('#map-canvas').fadeIn(300, function() { resize(); });
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log(textStatus);
@@ -520,7 +611,8 @@ function getSchedule(url) {
                 !userBookings.length) {
                 console.log('No bookings found.');
                 $('#schedule').html('<h2 class="header">No bookings found.</h2>');
-                $('#map-canvas').fadeIn(300);
+                addBookingButton();
+                $('#map-canvas').fadeIn(300, function() { resize(); });
                 return;
             }
 
@@ -531,7 +623,7 @@ function getSchedule(url) {
             if (!officialBookings.length) {
                 console.log('No official bookings found.');
                 $('#official').html('<h3 class="header">No bookings found.</h3>');
-                $('#map-canvas').fadeIn(300);
+                $('#map-canvas').fadeIn(300, function() { resize(); });
             } else {
                 // add table structure to official tab
                 $('#official').html('<div class="table-responsive"><table class="table table-striped"><thead><tr><th>Start Time</th><th>End Time</th><th>Activity</th></tr></thead><tbody id="official-data"></tbody></table></div>');
@@ -541,7 +633,7 @@ function getSchedule(url) {
             if (!userBookings.length) {
                 console.log('No user bookings found.');
                 $('#user-bookings').html('<h3 class="header">No bookings found.</h3>');
-                $('#map-canvas').fadeIn(300);
+                $('#map-canvas').fadeIn(300, function() { resize(); });
             } else {
                 // add table structure to user tab
                 $('#user-bookings').html('<div class="table-responsive"><table class="table table-striped"><thead><tr><th>Start Time</th><th>End Time</th><th>Activity</th></tr></thead><tbody id="user-data"></tbody></table></div>');
@@ -566,6 +658,7 @@ function getSchedule(url) {
             $("#official-data").append(txt);
 
             // add user bookings to table
+            txt = ""
             for (i = 0; i < userBookings.length; i++) {
                 start = get12Hour(userBookings[i].start_time);
                 end = get12Hour(userBookings[i].end_time);
@@ -579,7 +672,8 @@ function getSchedule(url) {
 
             // add available room panels to list group
             $("#user-data").append(txt);
-            $('#map-canvas').fadeIn(300);
+            addBookingButton();
+            $('#map-canvas').fadeIn(300, function() { resize(); });
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log(textStatus);
@@ -588,9 +682,9 @@ function getSchedule(url) {
 }
 
 
+// Helper function that converts 24H time to 12H
 function get12Hour(time) {
     var timeArray = time.split(":");
-    console.log(timeArray);
 
     // determine whether time is in AM or PM
     var suffix = (parseInt(timeArray[0]) >= 12) ? " PM" : " AM";
@@ -620,7 +714,7 @@ function getComments(url) {
                 console.log('No comments found.');
                 $('#comments').html('<h2 class="header">No comments found.</h2>');
                 addCommentInput();
-                $('#map-canvas').fadeIn(300);
+                $('#map-canvas').fadeIn(300, function() { resize(); });
                 return;
             }
 
@@ -646,7 +740,7 @@ function getComments(url) {
 
             $("#comments-list").prepend(txt);
             addCommentInput();
-            $('#map-canvas').fadeIn(300);
+            $('#map-canvas').fadeIn(300, function() { resize(); });
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log(textStatus);
@@ -722,7 +816,15 @@ function delFavourite() {
 }
 
 
-// user sign out function
+/* Load room booking form */
+function gotoBookingForm() {
+    $('#map-canvas').html('<div id="booking-form"><h2 class="header">Create Booking</h2><form class="form-horizontal"><div class="form-group"><label class="col-sm-3 control-label">Room</label><div class="col-sm-7"><p id="room" class="form-control-static">' + roomCode + '</p></div></div><div class="form-group"><label for="activity" class="col-sm-3 control-label">Activity</label><div class="col-sm-7"><input type="text" class="form-control" id="activity" placeholder="What are you doing? (max 30 characters)"></div></div><div class="form-group"><label for="start" class="col-sm-3 control-label">Start Time</label><div class="col-sm-4"><input type="text" class="form-control" id="start" placeholder="HH:MM (24 hour)"></div></div><div class="form-group"><label for="end" class="col-sm-3 control-label">End Time</label><div class="col-sm-4"><input type="text" class="form-control" id="end" placeholder="HH:MM (24 hour)"></div></div><div class="form-group"><div class="col-sm-9 col-sm-offset-3"> <button id="btn-confirm-booking" type="button" class="btn btn-info">Save Booking</button></div></div></form></div>');
+
+    // show form
+    $('#map-canvas').fadeIn(300, function() { resize(); });
+}
+
+/* Sign user out of app, redirect to login page */
 function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function() {
