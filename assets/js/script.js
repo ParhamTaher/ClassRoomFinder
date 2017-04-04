@@ -134,8 +134,9 @@ $(document).ready(function() {
     $('#list-group').fadeOut();
     $('#search').fadeOut();
 
-    // homepage defaults to nearby buildings
+    // homepage defaults to favourite buildings
     loadFavourites();
+    currentPage = "f";
 
     // nearby buildings clicked, reload building list and map
     $('#nearby').click(function() {
@@ -330,9 +331,9 @@ function getBuildings(url, favs) {
                 address = buildings[i].address.slice(0, buildings[i].address.indexOf(','));
 
                 if (favs.indexOf(id) > -1) {
-                    btnfav = '<div class="btn-group"><button class="btn btn-danger btn-unfav"><i class="fa fa-star"></i>Unfavourite</button></div></div></div></a>';
+                    btnfav = '<div class="btn-group"><button class="btn btn-danger btn-unfav"><i class="fa fa-star"></i> Unfavourite</button></div></div></div></a>';
                 } else {
-                    btnfav = '<div class="btn-group"><button class="btn btn-info btn-fav"><i class="fa fa-star"></i>Favourite</button></div></div></div></a>';
+                    btnfav = '<div class="btn-group"><button class="btn btn-info btn-fav"><i class="fa fa-star"></i> Favourite</button></div></div></div></a>';
                 }
 
                 // create list-group-item with building info
