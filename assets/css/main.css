@@ -118,7 +118,7 @@ ul.nav-pills > li > a {
 }
 
 #list-group {
-    height: 500px;
+    max-height: 500px;
     overflow-y: auto;
     margin: 10px 0;
 }
@@ -195,7 +195,7 @@ ul.nav-pills > li > a {
 
 #comments-list {
     color: #002a5c;
-    height: 343px;
+    max-height: 343px;
     overflow-y: auto;
     margin-bottom: 18px;
 }
@@ -207,7 +207,9 @@ ul.nav-pills > li > a {
 }
 
 #comments .header,
-#rooms .header {
+#rooms .header,
+#schedule .header,
+#booking-form .header {
     padding: 5px 0 18px;
     margin: 0;
 }
@@ -233,14 +235,15 @@ ul.nav-pills > li > a {
 /* ROOMS */
 
 #rooms,
-#schedule {
+#schedule,
+#booking-form {
     color: #002a5c;
     height: 556px;
 }
 
 #rooms > .tab-content,
 #schedule > .tab-content {
-    height: 400px;
+    max-height: 400px;
     overflow-y: auto;
 }
 

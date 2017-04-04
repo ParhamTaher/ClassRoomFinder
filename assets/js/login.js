@@ -3,19 +3,11 @@ function onSuccess(googleUser) {
     var name = profile.getName();
     var email = profile.getEmail();
     console.log('Logged in as: ' + email);
-    addUser('/api/v1/user/get_user_id?cookie=' + email);
+    addUser('/api/v1/user/get_user_id?cookie=' + email, name);
 }
 
 function onFailure(error) {
     console.log(error);
-}
-
-function signOut() {
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function() {
-        console.log('User signed out.');
-        location.href = "index.html";
-    });
 }
 
 function renderButton() {
@@ -31,7 +23,7 @@ function renderButton() {
 }
 
 /* Ajax call to get comments */
-function addUser(url) {
+function addUser(url, name) {
     console.log(url);
     $.ajax({
         type: 'GET',
@@ -39,7 +31,7 @@ function addUser(url) {
         success: function(data) {
             var id = data.user_id;
             console.log('User\'s id is: ' + id);
-            location.href = "home.html?userid=" + id;
+            location.href = "home.html?userid=" + id + "&name=" + name;
         }
     });
 }
