@@ -155,7 +155,8 @@ function showPosition(position) {
 
 // validate time input HHMM
 function validateTime(input) {
-    return /^([0-1][0-9]|2[0-3]):([0-5][0-9])$/.test(input.value);;
+    var pattern = new RegExp("^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$");
+    return pattern.test(input);
 }
 
 
@@ -246,13 +247,13 @@ $(document).ready(function() {
 
     // create new booking
     $('#map-canvas').on('click', '#btn-confirm-booking', function() {
-        // empty canvas to prep for booking form
-        $('#map-canvas').fadeOut(300).empty();
-
         // extract user input
         var activity = $('#activity').val().trim();
         var start = $('#start').val().trim();
-        var end = $('#start').val().trim();
+        var end = $('#end').val().trim();
+
+        // empty canvas to prep for booking form
+        $('#map-canvas').fadeOut(300).empty();
 
         if (!activity.length || activity.length > 30) {
             alert('Activity is required and must be less than 30 characters.');
@@ -272,21 +273,24 @@ $(document).ready(function() {
             return;
         }
 
-        if (validateTime(start) || validateTime(end)) {
+        // validate start and end time formatting
+        if (!validateTime(start) || !validateTime(end)) {
             alert('Times must be given in HH:MM 24 hour format.');
             console.log('Time is formatted incorrectly.');
             return;
         }
 
+        // build request body
         var body = {
-            "buildingId": buildingId,
+            "building_id": buildingId,
             "room_code": roomCode,
-            "date": new Date(),
+            "date": new Date().toJSON().slice(0,10),
             "start_time": start,
             "end_time": end,
             "comment": activity
         }
 
+        console.log(JSON.stringify(body));
         var url = '/api/v1/building/get_room_info?building_id=' + buildingId + '&room_id=' + roomId;
         addBooking(body, url);
     });
