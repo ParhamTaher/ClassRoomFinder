@@ -169,7 +169,7 @@ $(document).ready(function() {
     $('#tagline').text('Welcome, ' + name + '! Browse buildings and find a room below.');
 
     // hide list and map before populating
-    //$('#map-canvas').fadeOut();
+    $('#map-canvas').fadeOut();
     $('#list-group').fadeOut();
     $('#search').fadeOut();
 
