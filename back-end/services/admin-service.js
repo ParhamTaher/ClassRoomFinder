@@ -32,8 +32,8 @@ var adminService = (function() {
         logger.log(payLoad);
         return queryService.insert('classrooms', 'building_id,code,occupancy,is_lab',[payLoad.buildingId, payLoad.code, payLoad.occupancy, payLoad.isLab], 'room_id')
         .then(undefined, function(err){
-            logger.log("Throwing an error");
-            throw new MyError(err.message, __line, 'error-service.js');
+          logger.log("Throwing an error");
+          throw new MyError(err.message, __line, 'error-service.js');
       })
     },
     createRoomSchedule: function(payLoad) {
@@ -44,11 +44,14 @@ var adminService = (function() {
         var promiseArray = [];
         //for (var timeSlot in payLoad.schedule){
         for (var i = 0; i < payLoad.schedule.length; i++){
-            logger.log(i);
-            logger.log(payLoad.schedule[i]);
-            promiseArray.push(queryService.insert('schedules', 'classroom_id,building_id,activity,start_time,end_time,weekday', [payLoad.room_id, payLoad.building_id, payLoad.schedule[i].activity, payLoad.schedule[i].start_time, payLoad.schedule[i].end_time, payLoad.schedule[i].day], 'schedule_id'));
+          logger.log(i);
+          logger.log(payLoad.schedule[i]);
+          promiseArray.push(queryService.insert('schedules', 'classroom_id,building_id,activity,start_time,end_time,weekday', [payLoad.room_id, payLoad.building_id, payLoad.schedule[i].activity, payLoad.schedule[i].start_time, payLoad.schedule[i].end_time, payLoad.schedule[i].day], 'schedule_id'));
         }
-        return Promise.all(promiseArray);
+        return Promise.all(promiseArray)
+        .then(undefined, function(err){
+          throw new MyError(err.message, __line, 'user-service.js');
+        })
     },
     addBuildingHours: function(payLoad) {
       /*
@@ -62,8 +65,10 @@ var adminService = (function() {
         logger.log(times)
         promiseArray.push(queryService.insert('building_hours', 'building_id,day,open_time,closing_time', [payLoad.building_id, day, times[0], times[1]], 'schedule_id'));
       }
-      return Promise.all(promiseArray);
-
+      return Promise.all(promiseArray)
+      .then(undefined, function(err){
+        throw new MyError(err.message, __line, 'user-service.js');
+      })
     }
   };
 })();
