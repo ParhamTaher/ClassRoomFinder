@@ -102,6 +102,9 @@ var userService = (function() {
         logger.log(result);
         return result[0].room_id
       })
+      .then(undefined, function(err){
+        throw new MyError(err.message, __line, 'user-service.js');
+      })
     },
     addComment: function(payLoad){
       /*
@@ -109,6 +112,9 @@ var userService = (function() {
       */
       logger.log(payLoad)
       return queryService.insert('comments', 'building_id,title,message,user_id,date_and_time', [payLoad.building_id, payLoad.title, payLoad.message, payLoad.user_id, 'now()'], 'comment_id')
+      .then(undefined, function(err){
+        throw new MyError(err.message, __line, 'user-service.js');
+      })
     }
 
   };

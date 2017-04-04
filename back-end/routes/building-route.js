@@ -22,8 +22,9 @@ router.get('/api/v1/building/get_nearby_buildings', function(req, res) {
 	.then(function(result){
     logger.log(result);
 		res.status(200).json({status: "Success", response: result});
+		res.end()
 	})
-  .catch(function(err){
+  	.then(undefined, function(err){
 		res.status(500).json({status: "Failure", response: err});
 	})
 });
@@ -188,7 +189,7 @@ router.get('/api/v1/building/get_building_info', function(req, res) {
     logger.log(result);
 		res.status(200).json({status: "Success", response: result});
 	})
-  .catch(function(err){
+  .then(undefined, function(err){
 		res.status(500).json({status: "Failure", response: err});
 	})
 });
@@ -211,12 +212,10 @@ router.get('/api/v1/building/get_room_info', function(req, res) {
   
 	return buildingService.getRoomInfo(payLoad)
 	.then(function(result){
-    //logger.log(result);
-    logger.log(result.bookings[0].booking_date)
-    logger.log(Date(result.bookings[0].booking_date))
+    logger.log(result);
 		res.status(200).json({status: "Success", result});
 	})
-  .catch(function(err){
+  .then(undefined, function(err){
 		res.status(500).json({status: "Failure", response: err});
 	})
 });
@@ -239,7 +238,7 @@ router.get('/api/v1/building/get_building_comments', function(req, res) {
     logger.log(comments);
 		res.status(200).json({status: "Success", comments});
 	})
-  .catch(function(err){
+  .then(undefined, function(err){
 		res.status(500).json({status: "Failure", response: err});
 	})
 });

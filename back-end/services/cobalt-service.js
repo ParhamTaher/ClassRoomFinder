@@ -42,8 +42,11 @@ var cobaltService = (function() {
             logger.log(entriesArray[i])
             promiseArray.push(queryService.insert('buildings', 'name,code,address,num_rooms,lat,lon', entriesArray[i], 'building_id'));
           }
-          Promise.all(promiseArray);
+          return Promise.all(promiseArray);
         })
+        .then(undefined, function(err){
+        throw new MyError(err.message, __line, 'user-service.js');
+      })
 
         res.on('error', function(e){
           console.log("Got error" + e.message)
@@ -99,6 +102,9 @@ var cobaltService = (function() {
             return Promise.all(promiseArray)
             .then(function(result){
               return result;
+            })
+            .then(undefined, function(err){
+              throw new MyError(err.message, __line, 'user-service.js');
             })
           })
         })
@@ -159,6 +165,9 @@ var cobaltService = (function() {
             return Promise.all(promiseArray)
             .then(function(result){
               return result;
+            })
+            .then(undefined, function(err){
+              throw new MyError(err.message, __line, 'user-service.js');
             })
           })
         })

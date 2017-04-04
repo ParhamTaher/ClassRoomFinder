@@ -20,7 +20,10 @@ var buildingService = (function() {
 
       logger.log(payLoad)
       logger.log(latUp, latDown, lonLeft, lonRight)
-      return queryService.selectNearby('buildings', '', [latDown, latUp, lonRight, lonLeft]);
+      return queryService.selectNearby('buildings', '', [latDown, latUp, lonRight, lonLeft])
+      .then(undefined, function(err){
+        throw new MyError(err.message, __line, 'building-service.js');
+      })
     },
     getAllBuildings: function(payLoad) {
       /*
@@ -114,6 +117,9 @@ var buildingService = (function() {
         logger.log(buildingInfo)
         return buildingInfo
       })
+      .then(undefined, function(err){
+        throw new MyError(err.message, __line, 'user-service.js');
+      })
     },
     getRoomInfo: function(payLoad) {
       /*
@@ -130,6 +136,7 @@ var buildingService = (function() {
       .then(function(bookings){
         logger.log(bookings)
         schedulesAndBookings["bookings"] = bookings;
+        logger.log(schedulesAndBookings)
         return schedulesAndBookings;
       })
       .then(undefined, function(err){
@@ -157,49 +164,55 @@ var buildingService = (function() {
       })
     },
     createRoom: function(payLoad) {
-        /*
-          Creates a room
-        */
-        logger.log(payLoad);
-        return queryService.insert('classrooms', 'building_id,code,occupancy,is_lab',[payLoad.buildingId, payLoad.code, payLoad.occupancy, payLoad.isLab], 'room_id')
-        .then(undefined, function(err){
-          logger.log("Throwing an error");
-          throw new MyError(err.message, __line, 'building-service.js');
+      /*
+        Creates a room
+      */
+      logger.log(payLoad);
+      return queryService.insert('classrooms', 'building_id,code,occupancy,is_lab',[payLoad.buildingId, payLoad.code, payLoad.occupancy, payLoad.isLab], 'room_id')
+      .then(undefined, function(err){
+        logger.log("Throwing an error");
+        throw new MyError(err.message, __line, 'building-service.js');
       })
     },
     getRoomSchedule: function(payLoad){
-        /*
-          Returns the schedule associated with this room on this date
-        */
-        logger.log(payLoad)
-        var day = moment().format('dddd')
-        logger.log(day)
+      /*
+        Returns the schedule associated with this room on this date
+      */
+      logger.log(payLoad)
+      var day = moment().format('dddd')
+      logger.log(day)
 
-        return queryService.selectTwoConds('schedules', ['weekday', 'classroom_id'], [day, payLoad.roomId], 'start_time')
+      return queryService.selectTwoConds('schedules', ['weekday', 'classroom_id'], [day, payLoad.roomId], 'start_time')
+      .then(undefined, function(err){
+        throw new MyError(err.message, __line, 'building-service.js');
+      })
     },
     getBuildingSchedule: function(payLoad){
-        /*
-          Returns the schedule associated with this building on this date
-        */
-        logger.log(payLoad)
-        var day = moment().format('dddd')
-        logger.log(day)
+      /*
+        Returns the schedule associated with this building on this date
+      */
+      logger.log(payLoad)
+      var day = moment().format('dddd')
+      logger.log(day)
 
-        return queryService.selectTwoConds('schedules', ['weekday', 'building_id'], [day, payLoad.buildingId], 'schedule_id')
+      return queryService.selectTwoConds('schedules', ['weekday', 'building_id'], [day, payLoad.buildingId], 'schedule_id')
+      .then(undefined, function(err){
+        throw new MyError(err.message, __line, 'user-service.js');
+      })
     },
     getBuildingHours: function(payLoad){
-        /*
-          Returns JSON of building hours for each day
-        */
-        logger.log(payLoad)
-        return queryService.select('building_hours', 'building_id', payLoad.building_id)
-        .then(function(result){
-          var schedule = {};
-          for (var i = 0; i < result.length; i++){
-            schedule[result[i].day] = [result[i].open_time, result[i].closing_time]
-          }
-          return schedule;
-        })
+      /*
+        Returns JSON of building hours for each day
+      */
+      logger.log(payLoad)
+      return queryService.select('building_hours', 'building_id', payLoad.building_id)
+      .then(function(result){
+        var schedule = {};
+        for (var i = 0; i < result.length; i++){
+          schedule[result[i].day] = [result[i].open_time, result[i].closing_time]
+        }
+        return schedule;
+      })
     },
     getBuildingComments: function(payLoad){
       /*
@@ -207,6 +220,9 @@ var buildingService = (function() {
       */
       logger.log(payLoad)
       return queryService.select('comments', 'building_id', payLoad.building_id)
+      .then(undefined, function(err){
+        throw new MyError(err.message, __line, 'user-service.js');
+      })
     }
   };
 })();
