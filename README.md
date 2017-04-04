@@ -5,7 +5,7 @@
 
 ## Individual Contributions
 
-**Angela:** I used to be an English major, so writing is naturally my biggest strength. I took care of the documentation, and I took meeting minutes for each meeting. By doing this, I helped the group to organize their workflow. I also did some coding, creating some backend get requests and the first iteration of the frontend of the login page.
+**Angela:** I used to be an English major, so writing is naturally my biggest strength. I took care of the documentation, and I took meeting minutes for each meeting. By doing this, I helped the group to organize their workflow. Although I had never used node.js, I did some coding, creating some backend get requests and the first iteration of the frontend of the login page.
 
 **Bence:** Front-end plan for both mobile and desktop versions of the webapp (only ended up implementing desktop version), as well as a mockup to use in the demo. I had little experience with node.js and html, so in the front-end design phase I took on other tasks while I learned what I could from our team’s implementation.
 
