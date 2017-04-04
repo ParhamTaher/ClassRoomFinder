@@ -10,6 +10,9 @@ var user_lat, user_lon;
 // current user, building, and room ids being viewed
 var userId, buildingId, roomId;
 
+// current page user is on {f, n, a}
+var currentPage;
+
 function initMap() {
     var map;
     var bounds = new google.maps.LatLngBounds();
@@ -74,7 +77,8 @@ function loadNearby(lat, lon) {
     $('#map-canvas').fadeOut(300).empty();
     $('#list-group').fadeOut(300);
     $('#search').fadeOut();
-    getBuildings('/api/v1/building/get_nearby_buildings?lat=' + lat + '&' + 'lon=' + lon);
+    currentPage = "n";
+    makeBuildingList('/api/v1/building/get_nearby_buildings?lat=' + lat + '&' + 'lon=' + lon);
 }
 
 
@@ -83,7 +87,8 @@ function loadFavourites() {
     $('#map-canvas').fadeOut(300).empty();
     $('#list-group').fadeOut(300);
     $('#search').fadeOut();
-    getBuildings('/api/v1/user/get_favourite_buildings');
+    currentPage = "f";
+    makeBuildingList('/api/v1/user/get_favourite_buildings');
 }
 
 
@@ -92,7 +97,8 @@ function loadAll() {
     $('#map-canvas').fadeOut(300).empty();
     $('#list-group').fadeOut(300);
     $('#search').fadeOut();
-    getBuildings('/api/v1/building/get_all_buildings');
+    currentPage = "a";
+    makeBuildingList('/api/v1/building/get_all_buildings');
 }
 
 
@@ -129,7 +135,7 @@ $(document).ready(function() {
     $('#search').fadeOut();
 
     // homepage defaults to nearby buildings
-    //loadFavourites();
+    loadFavourites();
 
     // nearby buildings clicked, reload building list and map
     $('#nearby').click(function() {
@@ -176,13 +182,13 @@ $(document).ready(function() {
 
 
     // load room's schedule when clicked
-    $('#map-canvas').on('click', '#rooms a', function(e) {
+    $('#map-canvas').on('click', '.room-link', function(e) {
         // empty canvas to prep for schedule
         $('#map-canvas').fadeOut(300).empty();
 
         // get room id and generate url with query
         var roomId = $(this).data("id");
-        var url = '/api/v1/building/get_room_info?building_id=' + buildingId + '&room_id=1';
+        var url = '/api/v1/building/get_room_info?building_id=' + buildingId + '&room_id=' + roomId;
         getSchedule(url);
     });
 
@@ -207,9 +213,27 @@ $(document).ready(function() {
         // get building id of card clicked
         buildingId = $(this).closest('.list-group-item').data("id");
 
-        console.log("User " + userId + " favourited building " + buildingId);
         // add building to user's favourites
-        //addFavourite();
+        addFavourite();
+        $(this).html('<i class="fa fa-star"></i>Unfavourite');
+        $(this).removeClass("btn-info btn-fav");
+        $(this).addClass("btn-danger btn-unfav");
+
+        // stop click event for parent div
+        e.stopPropagation();
+    });
+
+
+    // remove building from user favourites
+    $('#list-group').on('click', '.btn-unfav', function(e) {
+        // get building id of card clicked
+        buildingId = $(this).closest('.list-group-item').data("id");
+
+        // remove building from user's favourites
+        delFavourite();
+        $(this).html('<i class="fa fa-star"></i>Favourite');
+        $(this).removeClass("btn-danger btn-unfav");
+        $(this).addClass("btn-info btn-fav");
 
         // stop click event for parent div
         e.stopPropagation();
@@ -252,9 +276,10 @@ $(document).ready(function() {
             "message": message
         };
 
-        // add comment to database
-        addComment(reqBody);
+        var url = '/api/v1/building/get_building_comments?building_id=' + buildingId;
 
+        // add comment to database
+        addComment(reqBody, url);
     });
 
 
@@ -268,12 +293,19 @@ $(document).ready(function() {
 /* -------------- AJAX CALLS -------------- */
 
 
+function makeBuildingList(url) {
+    getFavourites(getBuildings, url);
+}
+
 /* Ajax call to get buildings */
-function getBuildings(url) {
+function getBuildings(url, favs) {
     console.log(url);
     $.ajax({
         type: 'GET',
         url: url,
+        headers: {
+            'user_id': userId,
+        },
         success: function(data) {
             // clear old building and marker data
             buildingList = [];
@@ -290,12 +322,18 @@ function getBuildings(url) {
             addSearchBar();
 
             var txt = "";
-            var id, name, address;
+            var id, name, address, btnfav;
             for (var i = 0; i < buildings.length; i++) {
                 // store name, slice address to keep only number and street name
                 id = buildings[i].building_id;
                 name = buildings[i].name.substring(0, buildings[i].name.lastIndexOf(" "));
                 address = buildings[i].address.slice(0, buildings[i].address.indexOf(','));
+
+                if (favs.indexOf(id) > -1) {
+                    btnfav = '<div class="btn-group"><button class="btn btn-danger btn-unfav"><i class="fa fa-star"></i>Unfavourite</button></div></div></div></a>';
+                } else {
+                    btnfav = '<div class="btn-group"><button class="btn btn-info btn-fav"><i class="fa fa-star"></i>Favourite</button></div></div></div></a>';
+                }
 
                 // create list-group-item with building info
                 txt += '<a class="list-group-item" data-name="' + name + '" data-id="' + id + '">'
@@ -308,8 +346,7 @@ function getBuildings(url) {
                     + '<div class="btn-group"><button class="btn btn-default btn-rooms">'
                     + '<i class="fa fa-building"></i> Rooms </button></div><div class="btn-group">'
                     + '<button class="btn btn-default btn-comments"><i class="fa fa-comments"></i> Comments</button></div>'
-                    + '<div class="btn-group"><button class="btn btn-info btn-fav">'
-                    + '<i class="fa fa-star"></i> Favourite</button></div></div></div></a>';
+                    + btnfav;
 
                 // push building to building list
                 buildingList.push([buildings[i].name, buildings[i].lat, buildings[i].lon]);
@@ -321,6 +358,31 @@ function getBuildings(url) {
             $('#list-group').fadeIn(300);
             $('#map-canvas').fadeIn(300);
             $(".panel-footer").hide();
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus);
+        }
+    });
+}
+
+/* Ajax call to get buildings */
+function getFavourites(callback, callback_url) {
+    $.ajax({
+        type: 'GET',
+        url: '/api/v1/user/get_favourite_buildings',
+        headers: {
+            'user_id': userId,
+        },
+        success: function(data) {
+            var buildings = data.response;
+
+            // put all favourite building ids into an array
+            var ids = [];
+            for (var i = 0; i < buildings.length; i++) {
+                ids.push(buildings[i].building_id);
+            }
+
+            callback(callback_url, ids);
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log(textStatus);
@@ -402,8 +464,8 @@ function getRooms(url) {
             txt = "";
             var soon = rooms.available_soon;
             for (i = 0; i < soon.length; i++) {
-                id = soon[i][0];
-                code = soon[i][1];
+                id = soon[i][1];
+                code = soon[i][0];
 
                 // create room panel
                 txt += '<a data-id="' + id
@@ -418,8 +480,8 @@ function getRooms(url) {
             txt = "";
             var unavailable = rooms.unavailable;
             for (i = 0; i < unavailable.length; i++) {
-                id = unavailable[i][0];
-                code = unavailable[i][1];
+                id = unavailable[i][1];
+                code = unavailable[i][0];
 
                 // create room panel
                 txt += '<a data-id="' + id
@@ -594,7 +656,7 @@ function getComments(url) {
 
 
 /* Ajax call to add a new comment */
-function addComment(body) {
+function addComment(body, reloadUrl) {
     $.ajax({
         url: '/api/v1/user/add_comment',
         type: "POST",
@@ -606,6 +668,7 @@ function addComment(body) {
         data: JSON.stringify(body),
         success: function(data) {
             console.log(data);
+            getComments(reloadUrl);
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log(textStatus);
@@ -626,7 +689,7 @@ function addFavourite() {
         dataType: "json",
         data: JSON.stringify({"building_id": buildingId}),
         success: function(data) {
-            console.log(data);
+            console.log("User " + userId + " favourited building " + buildingId);
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log(textStatus);
@@ -647,7 +710,10 @@ function delFavourite() {
         dataType: "json",
         data: JSON.stringify({"building_id": buildingId}),
         success: function(data) {
-            console.log(data);
+            console.log("User " + userId + " unfavourited building " + buildingId);
+            if (currentPage == "f") {
+                loadFavourites();
+            }
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log(textStatus);

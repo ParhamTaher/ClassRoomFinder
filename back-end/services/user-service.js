@@ -11,13 +11,13 @@ var userService = (function() {
     */
     getId: function(payload) {
     	logger.log(payload);
-      return queryService.insertOnConflict('users', 'cookie', [payload.cookie], 'user_id')  
+      return queryService.insertOnConflict('users', 'cookie', [payload.cookie], 'user_id')
       .then(function(result){
         logger.log(result);
         if (result.length > 0){
           return result;
         } else {
-          return queryService.select('users', 'cookie', payload.cookie)   
+          return queryService.select('users', 'cookie', payload.cookie)
         }
       })
     },
@@ -57,7 +57,7 @@ var userService = (function() {
       */
 
       logger.log(payLoad);
-      return queryService.delete('favourites', 'user_id', payLoad.userId, 'building_id', payLoad.building_id)
+      return queryService.delete('favourites', 'user_id', payLoad.userId, 'building_id', payLoad.buildingId)
       .then(function(result){
         logger.log(result);
         return result;
