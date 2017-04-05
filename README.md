@@ -9,11 +9,9 @@
 
 **Bence:** Front-end plan for both mobile and desktop versions of the webapp (only ended up implementing desktop version), as well as a mockup to use in the demo. I had little experience with node.js and html, so in the front-end design phase I took on other tasks while I learned what I could from our team’s implementation.
 
-**Ishwant:** Worked with Jaleel to build the entire backend server including initial set-up, building a lot of routes, and connecting to the Cobalt API to populate our database
+**Ishwant:** Worked with Jaleel to build the entire backend server including initial set-up, building of all route and service files, connecting to heroku database with additional transaction pooling functionality, and connecting to the Cobalt API to populate our database
 
-**Jaleel:** I worked on the backend along with Ishwant and Angela. We met occasionally and 
-organized extreme code sprints to ensure that the maximum amount of work was done 
-at every meeting. I worked on routes and designed the database and hosted it on Heroku.
+**Jaleel:** I worked on the backend along with Ishwant and Angela. We met occasionally and organized extreme code sprints to ensure that the maximum amount of work was done at every meeting. I worked on routes and designed the database and hosted it on Heroku.
 
 **Parham:** I mainly worked on front-end implementation, working on implementing HTML5's geolocation API and writing some ajax calls to hook up backend features to front-end.
 
